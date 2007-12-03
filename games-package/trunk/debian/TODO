@@ -1,0 +1,11 @@
+TODO:
+
+	* remove bashisms so we can use #!/bin/sh
+	* support {doom,tnt,plutonia}.wad
+	* ensure the doom2.wad is not +x (chmod)
+	* generalize for non-doom games
+		* a more suitable name?
+		* show a licence where necessary
+	
+					 Jon Dowland <jon@alcopop.org>
+				       Sun, 01 Oct 2006 17:01:02 +0100

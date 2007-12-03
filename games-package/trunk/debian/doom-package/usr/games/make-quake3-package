@@ -1,0 +1,73 @@
+#!/bin/sh
+set -u
+set -e
+
+if [ -f ./game-package-shared ]; then
+	. ./game-package-shared
+else
+	. /usr/lib/game-package/game-package-shared
+fi
+
+WORKDIR=`mktemp -dt make-quake3-package.XXXXXX`
+trap "rmdir \"$WORKDIR\"" INT QUIT KILL
+
+# first, obtain the pak0.pk3 file from the CD-ROM ############################
+echo "please mount the Quake3 CD-ROM and enter the mount-point here:"
+read CDROM
+verify_directory "$CDROM"
+
+# TODO: we could let the user enter a direct path, too
+PAKFILE=
+for i in Quake3/baseq3 baseq3 ""; do
+	if [ -f "$CDROM/$i/pak0.pk3" ]; then
+		PAKFILE=$CDROM/$i/pak0.pk3
+		break
+	fi
+done
+if [ -z "$PAKFILE" ]; then
+	echo "error: I couldn't find the pak0.pk3 file." >&2
+	echo "giving up." >&2
+	exit 1
+fi
+
+# next, we need to grab a point release for the other paks ###################
+POINTFILE=linuxq3apoint-1.32b-3.x86.run
+POINTMD5=c71fdddccb20e8fc393d846e9c61d685
+
+echo "I now need the point release ($POINTFILE)"
+echo "How should I obtain this?"
+
+echo "please enter the path to the directory containing $POINTFILE"
+read PFPATH
+verify_directory "$PFPATH"
+POINTFILENAME="$PFPATH/$POINTFILE"
+verify_file "$POINTFILENAME"
+verify_md5sum "$POINTFILENAME" "$POINTMD5"
+
+# Extract the tarball from the Loki Installer
+dd if="$POINTFILENAME" of=$WORKDIR/Q3TGZ \
+	ibs=1 obs=1024 skip=8251 \
+	>/dev/null 2>&1
+
+mkdir $WORKDIR/quake3
+tar -C $WORKDIR/quake3 -xzf $WORKDIR/Q3TGZ
+
+# ensure we've extracted all the necessary pak files
+for i in `seq 1 8`; do test -f $WORKDIR/quake3/baseq3/pak$i.pk3; done
+
+# finally, we assemble the .deb ##############################################
+
+xOLDPWD=`pwd`
+cd "$WORKDIR"
+
+cd quake3/baseq3
+ln -s "$PAKFILE"
+cd ../..
+
+cp -p /usr/share/games/game-package/quake3*deb .
+slipstream ./quake3*deb \
+	usr/share/games/quake3/baseq3 \
+	$WORKDIR/quake3/baseq3/pak*.pk3
+mv quake3*deb "$xOLDPWD"
+
+cd "$xOLDPWD"

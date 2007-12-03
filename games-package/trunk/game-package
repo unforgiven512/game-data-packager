@@ -1,0 +1,117 @@
+#!/bin/sh
+set -e
+set -u
+
+if [ -d ./supported ]; then
+	SUPPORTED=./supported
+else
+	SUPPORTED=/usr/share/lib/games/game-package/supported
+fi
+
+if [ -f ./game-package-shared ]; then
+	. ./game-package-shared
+else
+	. /usr/lib/game-package/game-package-shared
+fi
+
+supported() {
+	echo "the following games are supported:"
+	printf "\tname\tdescription\n"
+	printf "\t----\t-----------\n"
+
+	find $SUPPORTED -type f | grep -v 'swp$' | while read file; do
+		. $file
+		printf "\t%s\t%s\n" "$SHORTNAME" "$LONGNAME"
+	done
+}
+options() {
+	echo "game-package arguments:"
+	echo "        -n            not do not install the generated package"\
+		"(implies -p)"
+	echo "        -f outfile    write the generated .deb to OUTFILE and"\
+		"do not delete it"
+}
+
+usage() {
+	echo "usage: game-package [game-package-args] game [game-args]"
+	echo
+	supported
+	echo
+	options
+}
+
+DEBUG="TRUE"
+debug() {
+	if [ -n "$DEBUG" ]; then
+		echo "DEBUG: $*" >&2
+	fi
+}
+warn() {
+	echo "WARNING: $*" >&2
+}
+
+if [ $# -lt 1 ]; then
+	usage >&2
+	exit 1
+fi
+
+# package default settings
+if [ -f "./etc/game-package.conf" ]; then
+	source "./etc/game-package.conf"
+else
+	source "/etc/game-package.conf"
+fi
+OUTFILE=""
+
+# process command line arguments
+while [ $# -gt 1 ]; do
+	case "$1" in 
+		'-n')
+			INSTALL="no"
+			PRESERVE="yes"
+			;;
+		'-f')
+			PRESERVE="yes"
+			shift
+			if [ $# -lt 2 ]; then
+				echo "missing filename or game argument" >&2
+				usage >&2
+				exit 1
+			fi
+			OUTFILE="$1"
+			;;
+		'--')
+			break;
+			;;
+		*) # possibly the game name
+			break;
+			;;
+	esac
+	shift
+done
+
+debug "INSTALL=$INSTALL"
+debug "PRESERVE=$PRESERVE"
+
+GAME="$1"
+if [ ! -f "$SUPPORTED/$GAME" ]; then
+	echo "unknown game '$GAME'" >&2
+	supported >&2
+	exit 1
+fi
+source "$SUPPORTED/$GAME"
+
+debug "short: $SHORTNAME"
+debug "long: $LONGNAME"
+
+# now the game's handler needs to be executed
+shift
+go $*
+
+if [ "$INSTALL" = "yes" ]; then
+	install_deb "$OUTFILE"
+fi
+
+if [ "$PRESERVE" != "yes" ]; then
+	rm "$OUTFILE"
+fi

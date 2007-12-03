@@ -1,0 +1,10 @@
+54af19c2940fae70fd7d12a19a409d3c  usr/lib/game-package/game-package-shared
+42119b0535415b11aa407b74ae703fd5  usr/games/make-wad-package
+b32dc06aea70ffe758a98c418eeffd5b  usr/games/make-quake3-package
+cfcb954822bdfc34739facc12c594d6b  usr/share/man/man6/make-quake3-package.6.gz
+4204db6e038b124c7aa68cde1b052a5e  usr/share/man/man6/make-wad-package.6.gz
+513b4cf9f314a6b73a94be112ac44490  usr/share/menu/doom-package
+5d3ad86b2d58557620316088ca66455f  usr/share/doc/doom-package/copyright
+da8ccea4c51a3e5a99e15b93bbffce46  usr/share/doc/doom-package/changelog.gz
+a3eadf063abfe68e91d3edb55f5dd5a2  usr/share/games/game-package/quake3-data_1_all.deb
+953f3cc9f7ce369850ccd9e16f07907a  usr/share/games/game-package/doom2-wad_5_all.deb

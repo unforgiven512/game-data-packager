@@ -1,0 +1,96 @@
+verify_md5sum() {
+	FILE=$1
+	GOODSUM=$2
+	SUM=`md5sum $FILE|cut -d' ' -f1`
+	if [ "$SUM" != "$GOODSUM" ]; then
+		echo "error: $FILE's md5 checksum is unknown." >&2
+		echo "perhaps it is corrupted?" >&2
+		echo "quitting." >&2
+		exit 1
+	fi
+}
+
+verify_directory() {
+	DIR=$1
+	if [ ! -d "$DIR" ]; then
+		echo "error: $DIR is not a directory. Quitting." >&2
+		exit 1
+	fi
+}
+
+verify_file() {
+	FILE=$1
+	if [ ! -f "$FILE" ]; then
+		echo "error: $FILE is not a file. Quitting." >&2
+		exit 1
+	fi
+}
+
+die() { 
+	if [ -n "$2" ]; then RET=$2
+	else                 RET=1
+	fi
+	echo $0: $1 >&2
+	exit $RET
+}
+
+# TODO: this assumes every file is going to go in the same RELPATH. hmm.
+slipstream() {
+	DEB="$1"     # the .deb file we are going to mangle
+	RELPATH="$2" # relative path in the unpacked .deb
+	shift 2
+
+	slipstream_permcheck "$DEB"
+	slipstream_unpack "$DEB"
+
+	while [ -n "$1" ]; do
+		slipstream_file "$1" "$RELPATH"
+		shift
+	done
+
+	slipstream_instsize
+	slipstream_repack "$DEB"
+}
+slipstream_permcheck() {
+	DEB="$1"
+
+	# ensure we can write to $DEB
+	if [ ! -w "$DEB" ]; then
+		ls -l "$DEB"
+		die "wrong permissions on $DEB (I can't write to it)"
+	fi
+
+	# ensure we can write to the workdir
+	if [ ! -w . ]; then
+		die "cannot write to $PWD"
+	fi
+}
+slipstream_unpack() {
+	DEB="$1"
+	dpkg-deb -e "$DEB" "DEBIAN"
+	dpkg-deb -x "$DEB" "foo"
+}
+slipstream_file() {
+	FILE="$2"
+	RELPATH="$3"
+
+	cp -p "$FILE" "./foo/$RELPATH/$FILE"
+
+	# add a line to md5sums
+	cd "./foo"
+	md5sum "$RELPATH/$FILE" >> "../DEBIAN/md5sums"
+	cd ..
+}
+slipstream_instsize() {
+	# figure out the new installed-size
+	INSTSIZE=`du -sk foo | cut -f1`
+	sed -i  "s/^Installed-Size.*/Installed-Size: $INSTSIZE/" \
+		"DEBIAN/control"
+}
+slipstream_repack() {
+	DEB="$1"     # the .deb file we are going to mangle
+
+	# repack
+	mv DEBIAN foo
+	fakeroot dpkg-deb -b foo "$DEB"
+}

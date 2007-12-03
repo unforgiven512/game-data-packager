@@ -1,0 +1,5 @@
+?package(doom-package):needs="text"             \
+                 section="Games/Arcade"         \
+                 title="make-wad-package"       \
+                 hints="Doom"                   \
+                 command="/usr/games/make-wad-package"

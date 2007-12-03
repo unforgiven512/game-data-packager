@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Doom 2
+GenericName=Doom 2: Hell on Earth
+Comment=First Person Shooter Game
+Exec=doom -iwad /usr/share/games/doom-package/doom2.wad
+Icon=doom2.xpm
+Terminal=false
+Type=Application
+Categories=Game

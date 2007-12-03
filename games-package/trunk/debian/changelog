@@ -1,0 +1,142 @@
+games-package (16) unstable; urgency=low
+
+  * side-work to develop something for quake3
+  * renamed to games-package
+  * quake3-data support
+
+ -- Jon Dowland <jon@alcopop.org>  Sun, 18 Mar 2007 17:33:01 +0000
+
+doom-package (15) unstable; urgency=low
+
+  * Initial upload. Closes: #280045,  #326813.
+  * update comments in make-wad-package (thanks Ben Hutchings)
+  * remove dummy md5sum and doom2.wad file from package
+    (thanks Ben Hutchings)
+  * auto-generate md5sums in the doom2-wad .deb on build
+  * remove binutils dependency
+  * use Build-Depends, not -Indep (thanks Ben Hutchings)
+  * make-wad-package is a bash script (not sh, yet)
+  * clarify copyright (GPL-2)
+  * use fakeroot again (or doom2-wad will unpack with the wrong uid)
+  * manually adjust perms in doom2-wad (unpacked source might be mangled)
+
+ -- Jon Dowland <jon@alcopop.org>  Sun,  1 Oct 2006 21:07:31 +0100
+ 
+doom-package (14) unstable; urgency=low
+
+  * restructure internal package to use dpkg-deb
+    rather than dpkg-buildpackage (similar to the
+    internal work on make-wad-package)
+  * ensure doom2-wad .deb is in section non-free
+  * clarify copyright in doom2-wad
+
+ -- Jon Dowland <jon@alcopop.org>  Sun,  1 Oct 2006 17:20:35 +0100
+
+doom-package (13) unstable; urgency=low
+
+  * big restructuring: use dpkg-deb a lot
+  * calculate correct Installed-Size
+
+ -- Jon Dowland <jon@alcopop.org>  Sat, 30 Sep 2006 19:06:28 +0100
+
+doom-package (12) unstable; urgency=low
+
+  * do not invoke dpkg, save deb in CWD instead
+  * thus, do not check for or require root
+  * quote a few more variables
+  * change maintainer
+  * update version of internal package
+  * make BINDIR /usr/games
+
+ -- Jon Dowland <jon@alcopop.org>  Sat, 30 Sep 2006 18:30:48 +0100
+
+doom-package (11) unstable; urgency=low
+
+  * fix "doom-data" in doom2-wad postinst
+
+ -- Jon Dowland <jon@alcopop.org>  Thu, 29 Jun 2006 09:06:38 +0100
+
+doom-package (10) unstable; urgency=low
+
+  * do not use a zero-file to pad .deb for file-size reasons
+  * update doom2-wad version in Makefile
+  * a few further maintainer changes
+  * fix references to "doom-data" in make-wad-package
+  * put manpage in section 6 (in-line with other doom packages)
+  * menu-entry: Games/Arcade (in-line with other doom packages)
+  * parameterize (slightly) doom2-wad package version
+
+ -- Jon Dowland <jon@alcopop.org>  Tue, 16 May 2006 22:15:37 +0100
+
+doom-package (9) unstable; urgency=low
+
+  * package renamed from doom-data to doom-package
+  * updated maintainer field
+  * moved to contrib
+
+ -- Jon Dowland <jon@alcopop.org>  Tue,  3 Jan 2006 21:19:13 +0000
+
+doom-data (8) unstable; urgency=low
+
+  * reformat ./debian/copyright for line length. (thanks Stephen Quinney)
+  * DH_COMPAT -> ./debian/compat; synchronize level (4) with Depends:
+    (thanks Stephen Quinney)
+
+ -- Jon Dowland <jon@dowland.name>  Wed, 14 Dec 2005 16:18:32 +0000
+
+doom-data (7) unstable; urgency=low
+
+  * we now provide the source to the doom2-wad deb and build it during the
+    package's build stage
+  * add a menu-entry
+  * debhelper 4 compatible (in _both_ rules files!)
+    (thanks Moritz Muehlenhoff)
+  * reflects policy 3.6.2 (thanks Moritz Muehlenhoff)
+  * non package-specific changes to changelog rather than debian/changelog
+
+ -- Jon Dowland <jon@dowland.name>  Sat,  5 Nov 2005 16:48:16 +0000
+
+doom-data (6) unstable; urgency=low
+
+  * remove fakeroot dependency (not needed for now)
+  * manpage,control file: remove reference to floppy disks (we don't handle
+    them yet)
+  * control file: acknowledge that we generate a .deb for the IWAD
+  * make-wad-package: update usage instructions to reflect new name
+
+ -- Jon Dowland <jon@dowland.name>  Sun, 16 Oct 2005 22:00:22 +0100
+
+doom-data (5) unstable; urgency=low
+
+  * quote arguments, for filenames with spaces
+  * fix echo command to honour escape characters
+  * renamed `doom-data' binary to `make-wad-package'
+  * added a manpage for make-wad-package
+
+ -- Jon Dowland <jon@dowland.name>  Wed, 12 Oct 2005 20:42:36 +0100
+
+doom-data (4) unstable; urgency=low
+
+  * move away from using debconf and postinst stages for installing
+    the IWAD data
+
+ -- Jon Dowland <jon@dowland.name>  Thu,  6 Oct 2005 20:06:23 +0100
+
+doom-data (3) unstable; urgency=low
+
+  * Minor spelling correction in postinst
+
+ -- Jon Dowland <jon@dowland.name>  Tue,  4 Oct 2005 17:37:00 +0100
+
+doom-data (2) unstable; urgency=low
+
+  * Provides: doom-wad, so that it can be used to install a doom engine
+
+ -- Jon Dowland <jon@dowland.name>  Tue,  4 Oct 2005 17:20:53 +0100
+
+doom-data (1) unstable; urgency=low
+
+  * Initial package, heavily influenced by quake2-data
+
+ -- Jon Dowland <jon@dowland.name>  Thu, 29 Sep 2005 19:19:21 +0100
+
