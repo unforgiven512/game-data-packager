@@ -5,7 +5,7 @@ set -u
 if [ -d ./supported ]; then
 	SUPPORTED=./supported
 else
-	SUPPORTED=/usr/share/lib/games/game-package/supported
+	SUPPORTED=/usr/share/games/game-package/supported
 fi
 
 if [ -f ./game-package-shared ]; then

@@ -1,3 +1,9 @@
+game-package (17) unstable; urgency=low
+
+  * add a generic game-package binary
+
+ -- Jon Dowland <jon@alcopop.org>  Mon, 03 Dec 2007 22:35:52 +0000
+
 games-package (16) unstable; urgency=low
 
   * side-work to develop something for quake3

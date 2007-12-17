@@ -1,4 +1,4 @@
-Source: games-package
+Source: game-package
 Section: contrib/games
 Priority: optional
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
@@ -6,7 +6,7 @@ Uploaders: Jon Dowland <jon@alcopop.org>
 Build-Depends: debhelper (>> 4.0.0), fakeroot
 Standards-Version: 3.7.2
 
-Package: games-package
+Package: game-package
 Depends: fakeroot
 Conflicts: doom-package
 Replaces: doom-package

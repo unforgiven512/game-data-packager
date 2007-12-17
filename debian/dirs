@@ -1,4 +1,6 @@
 usr/games
 usr/share/man/man6
 usr/share/games/game-package
+usr/share/games/game-package/supported
 usr/lib/game-package
+etc

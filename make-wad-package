@@ -10,7 +10,7 @@ set -e
 	# saves the resulting .deb in the current directory
 
 DATADIR="usr/share/games/doom-package"
-DEB="/$DATADIR/doom2-wad_5_all.deb"
+DEB="/$DATADIR/doom2-wad_6_all.deb"
 
 if [ -f ./game-package-shared ]; then
 	. ./game-package-shared

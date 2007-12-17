@@ -3,6 +3,8 @@
 SHORTNAME=doom2
 LONGNAME="Doom 2"
 
+DEBBASE="doom2-wad_6_all.deb"
+
 doom2_usage() {
 	echo "doom2 game arguments:"  >&2
 	printf "\twadfile - path to a doom2.wad\n"
@@ -35,8 +37,7 @@ check_for_v19() {
 
 }
 
-DEBBASE="doom2-wad_5_all.deb"
-DATADIR="/usr/share/games/doom-package"
+DATADIR="/usr/share/games/game-package"
 
 # XXX: is PWD a bashism?
 if [ -f "$PWD/$DEBBASE" ]; then
