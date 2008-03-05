@@ -1,8 +1,12 @@
 game-package (17) unstable; urgency=low
 
+  [ Jon Dowland ]
   * add a generic game-package binary
 
- -- Jon Dowland <jon@alcopop.org>  Mon, 03 Dec 2007 22:35:52 +0000
+  [ Eddy Petrișor ]
+  * add missing Vcs-Svn headers
+
+ -- Eddy Petrișor <eddy.petrisor@gmail.com>  Wed, 05 Mar 2008 02:27:22 +0200
 
 games-package (16) unstable; urgency=low
 
