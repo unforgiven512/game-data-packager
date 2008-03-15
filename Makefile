@@ -2,8 +2,6 @@ BINDIR=$(DESTDIR)/usr/games
 DATADIR=$(DESTDIR)/usr/share/games/game-package
 MANDIR=$(DESTDIR)/usr/share/man
 
-QUAKE3VER=$(word 2, $(shell grep '^Version' quake3-data/DEBIAN/control))
-QUAKE3DEB=quake3-data_$(QUAKE3VER)_all.deb
 DOOM2VER=$(word 2, $(shell grep '^Version' doom2-wad/DEBIAN/control))
 DOOM2DEB=doom2-wad_$(DOOM2VER)_all.deb
 DOOMVER=$(word 2, $(shell grep '^Version' doom-wad/DEBIAN/control))
@@ -14,8 +12,8 @@ DOOMDEB=doom-wad_$(DOOMVER)_all.deb
 default: $(DOOM2DEB) $(QUAKE3DEB) $(DOOMDEB)
 
 # necessary as dpkg-source will honour the shell's umask
-fixperms: fixperms_doom2 fixperms_quake3 fixperms_doom
-clean:    clean_doom2 clean_quake3 clean_doom
+fixperms: fixperms_doom2 fixperms_doom
+clean:    clean_doom2 clean_doom
 
 .PHONY: clean doom2-wad/DEBIAN/md5sums fixperms
 
@@ -66,30 +64,3 @@ install_doom:
 
 clean_doom:
 	rm -f $(DOOMDEB) doom-wad/DEBIAN/md5sums
-
-
-# QUAKE3 stuff ###############################################################
-
-
-$(QUAKE3DEB): quake3-data/DEBIAN/md5sums fixperms
-	if [ `id -u` -eq 0 ]; then \
-		dpkg-deb -b quake3-data $@ ; \
-	else \
-		fakeroot dpkg-deb -b quake3-data $@ ; \
-	fi
-
-quake3-data/DEBIAN/md5sums:
-	cd quake3-data && find usr/ -type f  -print0 |\
-		xargs -0 md5sum >DEBIAN/md5sums
-
-fixperms_quake3:
-	find quake3-data -type f -print0 | xargs -0 chmod 644
-	find quake3-data -type d -print0 | xargs -0 chmod 755
-
-install_quake3:
-	install -p -m 0755 make-quake3-package   $(BINDIR)/
-	install -p -m 0644 make-quake3-package.6 $(MANDIR)/man6/
-	install -p -m 0644 $(QUAKE3DEB) $(DATADIR)/
-
-clean_quake3:
-	rm -f $(QUAKE3DEB) quake3-data/DEBIAN/md5sums
