@@ -2,6 +2,7 @@
 # GNU copyright 1997 to 1999 by Joey Hess.
 
 #export DH_VERBOSE=1
+VERSION := $(shell dpkg-parsechangelog | grep ^Version | cut -d' ' -f2-)
 
 configure: configure-stamp
 configure-stamp:
@@ -11,6 +12,10 @@ configure-stamp:
 build: configure-stamp build-stamp
 build-stamp:
 	dh_testdir
+	# we build .debs as that are shipped in the binary
+	# package. Insert our changelog into them
+	gzip -c9 debian/changelog > doom-wad/usr/share/doc/doom-wad/changelog.gz
+	gzip -c9 debian/changelog > doom2-wad/usr/share/doc/doom2-wad/changelog.gz
 	$(MAKE)
 	touch build-stamp
 
@@ -19,6 +24,8 @@ clean:
 	dh_testroot
 	rm -f build-stamp configure-stamp
 	$(MAKE) clean
+	rm -f doom-wad/usr/share/doc/doom-wad/changelog.gz
+	rm -f doom2-wad/usr/share/doc/doom2-wad/changelog.gz
 	dh_clean
 
 install: build
