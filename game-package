@@ -9,7 +9,7 @@ else
 fi
 
 if [ -f ./lib/game-package-shared ]; then
-	. ./game-package-shared
+	. ./lib/game-package-shared
 else
 	. /usr/lib/game-package/game-package-shared
 fi
