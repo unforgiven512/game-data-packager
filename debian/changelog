@@ -9,8 +9,15 @@ game-package (17) unstable; urgency=low
   [ Jon Dowland ]
   * add support for (ultimate) doom
   * remove make-wad-package and references to it
+  * remove (unfinished; not working) quake3 support
+  * Stop maintaining an "internal" .deb version for
+    the slipstream files, and instead install the
+    game-package changelog into the .debs that that
+    are built.
+  * Start moving functionality out of ./Makefile and
+    into debian/rules
 
- -- Jon Dowland <jon@alcopop.org>  Sat, 15 Mar 2008 14:28:28 +0000
+ -- Jon Dowland <jon@alcopop.org>  Sat, 15 Mar 2008 18:08:10 +0000
 
 games-package (16) unstable; urgency=low
 

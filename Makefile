@@ -1,15 +1,9 @@
-BINDIR=$(DESTDIR)/usr/games
-DATADIR=$(DESTDIR)/usr/share/games/game-package
-MANDIR=$(DESTDIR)/usr/share/man
-
-DOOM2VER=$(word 2, $(shell grep '^Version' doom2-wad/DEBIAN/control))
-DOOM2DEB=doom2-wad_$(DOOM2VER)_all.deb
-DOOMVER=$(word 2, $(shell grep '^Version' doom-wad/DEBIAN/control))
-DOOMDEB=doom-wad_$(DOOMVER)_all.deb
+DOOM2DEB=doom2-wad_$(VERSION)_all.deb
+DOOMDEB=doom-wad_$(VERSION)_all.deb
 
 # general targets ############################################################
 
-default: $(DOOM2DEB) $(QUAKE3DEB) $(DOOMDEB)
+default: $(DOOM2DEB) $(DOOMDEB)
 
 # necessary as dpkg-source will honour the shell's umask
 fixperms: fixperms_doom2 fixperms_doom

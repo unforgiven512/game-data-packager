@@ -3,5 +3,5 @@ game-package            usr/games
 supported/doom2         usr/share/games/game-package/supported
 supported/doom          usr/share/games/game-package/supported
 etc/game-package.conf   etc
-doom-wad_[0-9]_all.deb  usr/share/games/game-package
-doom2-wad_[0-9]_all.deb usr/share/games/game-package
+doom-wad_*_all.deb      usr/share/games/game-package
+doom2-wad_*_all.deb     usr/share/games/game-package

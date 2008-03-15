@@ -16,14 +16,14 @@ build-stamp:
 	# package. Insert our changelog into them
 	gzip -c9 debian/changelog > doom-wad/usr/share/doc/doom-wad/changelog.gz
 	gzip -c9 debian/changelog > doom2-wad/usr/share/doc/doom2-wad/changelog.gz
-	$(MAKE)
+	$(MAKE) VERSION=$(VERSION)
 	touch build-stamp
 
 clean:
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp configure-stamp
-	$(MAKE) clean
+	$(MAKE) clean VERSION=$(VERSION)
 	rm -f doom-wad/usr/share/doc/doom-wad/changelog.gz
 	rm -f doom2-wad/usr/share/doc/doom2-wad/changelog.gz
 	dh_clean
