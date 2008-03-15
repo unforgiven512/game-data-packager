@@ -56,6 +56,8 @@ go() {
 
 	if [ "" = "$OUTFILE" ]; then
 		OUTFILE=`mktemp -t game-package.doom2.XXXXXX`
+	else
+		OUTFILE=`unravel "$OUTFILE"`
 	fi
 	cp -p "$DEB" "$OUTFILE"
 	slipstream "$OUTFILE" "$DEST" "$WADFILE"
