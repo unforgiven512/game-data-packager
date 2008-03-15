@@ -8,7 +8,7 @@ else
 	SUPPORTED=/usr/share/games/game-package/supported
 fi
 
-if [ -f ./game-package-shared ]; then
+if [ -f ./lib/game-package-shared ]; then
 	. ./game-package-shared
 else
 	. /usr/lib/game-package/game-package-shared

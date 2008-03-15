@@ -16,7 +16,7 @@ default: $(DOOM2DEB) $(QUAKE3DEB) $(DOOMDEB)
 # necessary as dpkg-source will honour the shell's umask
 fixperms: fixperms_doom2 fixperms_quake3 fixperms_doom
 install:  install_doom2 install_quake3 install_doom
-	install -p -m 0755 game-package-shared \
+	install -p -m 0755 lib/game-package-shared \
 		$(DESTDIR)/usr/lib/game-package/game-package-shared
 	install -p -m 0755 game-package $(DESTDIR)/usr/games/game-package
 	install -p -m 0644 supported/doom2 \
