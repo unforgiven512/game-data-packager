@@ -1,11 +1,14 @@
 TODO:
 
-	* remove bashisms so we can use #!/bin/sh
-	* support {doom,tnt,plutonia}.wad
+	* support {tnt,plutonia}.wad
 	* ensure the doom2.wad is not +x (chmod)
 	* generalize for non-doom games
 		* a more suitable name?
 		* show a licence where necessary
-	
+	* move stuff which is very similar from doom2-wad/doom-wad into
+	* doom-common and make it specific at runtime
+	* do away with ./Makefile and build entirely from debian/rules
+	* re-add quake3 support (currently in a branch)
 					 Jon Dowland <jon@alcopop.org>
-				       Sun, 01 Oct 2006 17:01:02 +0100
+						  Sat Mar 15 18:19:12 GMT 2008
+	* -f option doesn't work
