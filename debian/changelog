@@ -8,8 +8,9 @@ game-package (17) unstable; urgency=low
 
   [ Jon Dowland ]
   * add support for (ultimate) doom
+  * remove make-wad-package and references to it
 
- -- Jon Dowland <jon@alcopop.org>  Sat, 15 Mar 2008 14:18:57 +0000
+ -- Jon Dowland <jon@alcopop.org>  Sat, 15 Mar 2008 14:28:28 +0000
 
 games-package (16) unstable; urgency=low
 

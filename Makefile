@@ -49,8 +49,6 @@ fixperms_doom2:
 	chmod 755 doom2-wad/DEBIAN/prerm
 
 install_doom2:
-	install -p -m 0755 make-wad-package $(BINDIR)/
-	install -p -m 0644 make-wad-package.6 $(MANDIR)/man6/
 	install -p -m 0644 $(DOOM2DEB) $(DATADIR)/
 
 clean_doom2:
@@ -76,8 +74,6 @@ fixperms_doom:
 	chmod 755 doom-wad/DEBIAN/prerm
 
 install_doom:
-	install -p -m 0755 make-wad-package $(BINDIR)/
-	install -p -m 0644 make-wad-package.6 $(MANDIR)/man6/
 	install -p -m 0644 $(DOOMDEB) $(DATADIR)/
 
 clean_doom:

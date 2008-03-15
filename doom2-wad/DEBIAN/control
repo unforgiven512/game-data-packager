@@ -10,5 +10,4 @@ Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
 Description: IWAD from ID Software's DOOM 2 computer game
  Doom requires both a doom-engine and a doom-wad to play. This package
  contains the IWAD from ID Software's game "DOOM 2", and was
- generated using the "make-wad-package" program from the "game-package"
- debian package.
+ generated using the "game-package" program.
