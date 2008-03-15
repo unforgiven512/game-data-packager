@@ -1,0 +1,62 @@
+# vim: set ft=sh:
+
+SHORTNAME=doom
+LONGNAME="Doom"
+
+DEBBASE="doom-wad_7_all.deb"
+
+doom2_usage() {
+	echo "doom game arguments:"  >&2
+	printf "\twadfile - path to a doom.wad\n"
+}
+
+verify_args() {
+	if [ $# -ne 1 ]; then
+		echo "error: no wadfile specified" >&2
+		usage >&2
+		doom2_usage >&2
+		exit 1
+	fi
+}
+checksum() {
+	CHECKSUM=`md5sum "$1" | cut -d' ' -f1`
+	debug "checksum = $CHECKSUM"
+	echo $CHECKSUM
+}
+
+check_for_v19() {
+	case "$MD5SUM" in
+		"c4fe9fd920207691a9f493668e0a2083")
+			debug "doom.wad is a v1.9 IWAD"
+			;;
+		*)
+			warn "the doom.wad file is not version 1.9"
+			warn "(or has been modified)"
+			warn "you may have some problems with PWADs and demos"
+			;;
+	esac
+
+}
+
+DATADIR="/usr/share/games/game-package"
+
+if [ -f "$PWD/$DEBBASE" ]; then
+	DEB="$PWD/$DEBBASE"
+else
+	DEB="$DATADIR/$DEBBASE"
+fi
+
+go() {
+	verify_args $*
+	WADFILE="$1"
+	MD5SUM=`checksum "$WADFILE"`
+	check_for_v19
+
+	DEST=`echo $DATADIR | sed 's,^/,,'`
+
+	if [ "" = "$OUTFILE" ]; then
+		OUTFILE=`mktemp -t game-package.doom.XXXXXX`
+	fi
+	cp -p "$DEB" "$OUTFILE"
+	slipstream "$OUTFILE" "$DEST" "$WADFILE"
+}

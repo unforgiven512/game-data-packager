@@ -1,4 +1,4 @@
-Package: doom2-wad
+Package: doom-wad
 Version: 7
 Section: non-free/games
 Priority: optional
@@ -7,8 +7,8 @@ Recommends: doom-engine
 Provides: doom-wad
 Installed-Size: 56
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
-Description: IWAD from ID Software's DOOM 2 computer game
+Description: IWAD from ID Software's DOOM computer game
  Doom requires both a doom-engine and a doom-wad to play. This package
- contains the IWAD from ID Software's game "DOOM 2", and was
- generated using the "make-wad-package" program from the "game-package"
- debian package.
+ contains the IWAD from ID Software's game "DOOM" (or "Ultimate DOOM"),
+ and was generated using the "make-wad-package" program from the
+ "game-package" debian package.

@@ -6,7 +6,10 @@ game-package (17) unstable; urgency=low
   [ Eddy Petrișor ]
   * add missing Vcs-Svn headers
 
- -- Eddy Petrișor <eddy.petrisor@gmail.com>  Wed, 05 Mar 2008 02:27:22 +0200
+  [ Jon Dowland ]
+  * add support for (ultimate) doom
+
+ -- Jon Dowland <jon@alcopop.org>  Sat, 15 Mar 2008 14:18:57 +0000
 
 games-package (16) unstable; urgency=low
 
