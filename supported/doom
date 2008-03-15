@@ -48,8 +48,9 @@ fi
 
 go() {
 	verify_args $*
-	WADFILE="$1"
+	WADFILE=`unravel "$1"`
 	MD5SUM=`checksum "$WADFILE"`
+	debug "WADFILE=$WADFILE"
 	check_for_v19
 
 	DEST=`echo $DATADIR | sed 's,^/,,'`

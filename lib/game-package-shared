@@ -123,4 +123,14 @@ install_deb() {
 	sudo dpkg -i "$DEB"
 }
 
-##############################################################################
+unravel() {
+	FILE="$1"
+	if echo "$FILE" | grep ^/ >/dev/null; then
+		:
+	else
+		# assume a relative path
+		FILE="$PWD/$FILE"
+	fi
+
+	echo $FILE
+}
