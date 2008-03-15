@@ -15,16 +15,6 @@ default: $(DOOM2DEB) $(QUAKE3DEB) $(DOOMDEB)
 
 # necessary as dpkg-source will honour the shell's umask
 fixperms: fixperms_doom2 fixperms_quake3 fixperms_doom
-install:  install_doom2 install_quake3 install_doom
-	install -p -m 0755 lib/game-package-shared \
-		$(DESTDIR)/usr/lib/game-package/game-package-shared
-	install -p -m 0755 game-package $(DESTDIR)/usr/games/game-package
-	install -p -m 0644 supported/doom2 \
-		$(DESTDIR)/usr/share/games/game-package/supported/doom2
-	install -p -m 0644 supported/doom \
-		$(DESTDIR)/usr/share/games/game-package/supported/doom
-	install -p -m 0644 etc/game-package.conf \
-		$(DESTDIR)/etc/game-package.conf
 clean:    clean_doom2 clean_quake3 clean_doom
 
 .PHONY: clean doom2-wad/DEBIAN/md5sums fixperms
@@ -49,7 +39,6 @@ fixperms_doom2:
 	chmod 755 doom2-wad/DEBIAN/prerm
 
 install_doom2:
-	install -p -m 0644 $(DOOM2DEB) $(DATADIR)/
 
 clean_doom2:
 	rm -f $(DOOM2DEB) doom2-wad/DEBIAN/md5sums
@@ -74,7 +63,6 @@ fixperms_doom:
 	chmod 755 doom-wad/DEBIAN/prerm
 
 install_doom:
-	install -p -m 0644 $(DOOMDEB) $(DATADIR)/
 
 clean_doom:
 	rm -f $(DOOMDEB) doom-wad/DEBIAN/md5sums
