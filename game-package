@@ -40,7 +40,9 @@ usage() {
 	options
 }
 
-DEBUG="TRUE"
+if set | grep -v ^DEBUG= >/dev/null; then
+	DEBUG=""
+fi
 debug() {
 	if [ -n "$DEBUG" ]; then
 		echo "DEBUG: $*" >&2
