@@ -2,7 +2,7 @@
 Name=Doom
 GenericName=Doom
 Comment=First Person Shooter Game
-Exec=doom -iwad /usr/share/games/doom-package/doom.wad
+Exec=doom -iwad /usr/share/games/game-package/doom.wad
 Icon=doom.xpm
 Terminal=false
 Type=Application
