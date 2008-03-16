@@ -120,7 +120,7 @@ slipstream_cleanup() {
 
 install_deb() {
 	DEB="$1"
-	sudo dpkg -i "$DEB"
+	sudo gdebi "$DEB"
 }
 
 unravel() {

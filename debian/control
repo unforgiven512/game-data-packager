@@ -9,7 +9,7 @@ Vcs-Svn: svn://svn.debian.org/svn/pkg-games/packages/trunk/game-package/
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-games/packages/trunk/game-package/?op=log
 
 Package: game-package
-Depends: fakeroot, sudo
+Depends: fakeroot, sudo, gdebi
 Conflicts: doom-package
 Replaces: doom-package
 Architecture: all
