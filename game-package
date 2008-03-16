@@ -28,8 +28,7 @@ options() {
 	echo "game-package arguments:"
 	echo "        -n            not do not install the generated package"\
 		"(implies -p)"
-	echo "        -f outfile    write the generated .deb to OUTFILE and"\
-		"do not delete it"
+	echo "        -d OUTDIR     write the generated .debs to OUTDIR"
 }
 
 usage() {
@@ -61,7 +60,7 @@ if [ -f "./etc/game-package.conf" ]; then
 else
 	source "/etc/game-package.conf"
 fi
-OUTFILE=""
+OUTDIR=""
 
 # process command line arguments
 while [ $# -gt 1 ]; do
@@ -70,15 +69,15 @@ while [ $# -gt 1 ]; do
 			INSTALL="no"
 			PRESERVE="yes"
 			;;
-		'-f')
+		'-d')
 			PRESERVE="yes"
 			shift
 			if [ $# -lt 2 ]; then
-				echo "missing filename or game argument" >&2
+				echo "missing directory or game argument" >&2
 				usage >&2
 				exit 1
 			fi
-			OUTFILE="$1"
+			OUTDIR="$1"
 			;;
 		'--')
 			break;
@@ -108,6 +107,8 @@ debug "long: $LONGNAME"
 shift
 go $*
 
+# TODO: OUTFILE not referenced before here in this file; we're
+# assuming "go" will have defined it.
 if [ "$INSTALL" = "yes" ]; then
 	install_deb "$OUTFILE"
 fi
