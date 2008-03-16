@@ -3,7 +3,8 @@
 SHORTNAME=doom2
 LONGNAME="Doom 2"
 
-DEBBASE="doom2-wad_7_all.deb"
+VERSION=` dpkg-query --showformat='${Version}\n' --show game-package `
+DEBBASE="doom2-wad_${VERSION}_all.deb"
 
 doom2_usage() {
 	echo "doom2 game arguments:"  >&2
@@ -48,10 +49,10 @@ fi
 
 go() {
 	verify_args $*
-	WADFILE="$1"
+	WADFILE=`unravel "$1"`
 	MD5SUM=`checksum "$WADFILE"`
 	check_for_v19
-
+	debug "WADFILE=$WADFILE"
 	DEST=`echo $DATADIR | sed 's,^/,,'`
 
 	if [ "" = "$OUTDIR" ]; then
