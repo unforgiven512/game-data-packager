@@ -94,7 +94,7 @@ debug "PRESERVE=$PRESERVE"
 
 GAME="$1"
 if [ ! -f "$SUPPORTED/$GAME" ]; then
-	echo "unknown game '$GAME'" >&2
+	echo "unknown option or game '$GAME'" >&2
 	supported >&2
 	exit 1
 fi
