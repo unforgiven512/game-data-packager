@@ -13,8 +13,12 @@ doom-wad/DEBIAN/control:
 	cp doom-wad/DEBIAN/control.in doom-wad/DEBIAN/control
 	echo Version: $(VERSION) >> doom-wad/DEBIAN/control
 
+doom2-wad/DEBIAN/control:
+	cp doom2-wad/DEBIAN/control.in doom2-wad/DEBIAN/control
+	echo Version: $(VERSION) >> doom2-wad/DEBIAN/control
+
 build: configure-stamp build-stamp
-build-stamp: doom-wad/DEBIAN/control
+build-stamp: doom-wad/DEBIAN/control doom2-wad/DEBIAN/control
 	dh_testdir
 	# we build .debs as that are shipped in the binary
 	# package. Insert our changelog into them
@@ -34,7 +38,8 @@ clean:
 		doom2-wad/usr/share/doc/doom2-wad/changelog.gz \
 		doom2-wad/usr/share/pixmaps/doom2.xpm \
 		doom-wad/usr/share/pixmaps/doom.xpm \
-		doom-wad/DEBIAN/control
+		doom-wad/DEBIAN/control \
+		doom2-wad/DEBIAN/control
 	dh_clean
 
 install: build
