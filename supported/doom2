@@ -3,7 +3,6 @@
 SHORTNAME=doom2
 LONGNAME="Doom 2"
 
-VERSION
 DEBBASE="doom2-wad_${GAME_PACKAGE_VERSION}_all.deb"
 
 doom2_usage() {
