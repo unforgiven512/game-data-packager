@@ -113,6 +113,8 @@ if [ "$INSTALL" = "yes" ]; then
 	install_deb "$OUTFILE"
 fi
 
+# cleanup
 if [ "$PRESERVE" != "yes" ]; then
 	rm "$OUTFILE"
 fi
+# TODO: we're leaving working directories lying around

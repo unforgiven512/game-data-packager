@@ -19,8 +19,9 @@ game-package (17) unstable; urgency=low
     into debian/rules
   * adjust priorities of official IWADs to conform to
     the doom packaging guidelines
+  * clean up the tempdir used by the slipstream functions
 
- -- Jon Dowland <jon@alcopop.org>  Tue, 25 Mar 2008 19:20:50 +0000
+ -- Jon Dowland <jon@alcopop.org>  Tue, 25 Mar 2008 19:57:39 +0000
 
 games-package (16) unstable; urgency=low
 

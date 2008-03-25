@@ -42,7 +42,7 @@ slipstream() {
 	shift 2
 
 	WORKDIR=`mktemp -td game-package-shared.slipstream.XXXXXX`
-	debug "WORKDIR=$WORKDIR"
+	debug "slipstream WORKDIR=$WORKDIR"
 	OLDWD=`pwd`
 	cd "$WORKDIR"
 
@@ -114,6 +114,7 @@ slipstream_repack() {
 
 slipstream_cleanup() {
 	rm -rf ./foo
+	rmdir $PWD
 }
 
 # stuff relating to installing the generated packages ########################
