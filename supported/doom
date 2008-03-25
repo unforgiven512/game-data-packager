@@ -1,7 +1,7 @@
 # vim: set ft=sh:
 
 SHORTNAME=doom
-LONGNAME="Doom"
+LONGNAME="Doom (including Ultimate Doom)"
 
 DEBBASE="doom-wad_${GAME_PACKAGE_VERSION}_all.deb"
 
