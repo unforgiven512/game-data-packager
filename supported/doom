@@ -3,8 +3,7 @@
 SHORTNAME=doom
 LONGNAME="Doom"
 
-VERSION=` dpkg-query --showformat='${Version}\n' --show game-package `
-DEBBASE="doom-wad_${VERSION}_all.deb"
+DEBBASE="doom-wad_${GAME_PACKAGE_VERSION}_all.deb"
 
 doom2_usage() {
 	echo "doom game arguments:"  >&2

@@ -137,3 +137,6 @@ unravel() {
 
 	echo $FILE
 }
+
+GAME_PACKAGE_VERSION=`dpkg-query --showformat='${Version}\n' \
+	--show game-package`
