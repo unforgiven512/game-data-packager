@@ -103,6 +103,10 @@ source "$SUPPORTED/$GAME"
 debug "short: $SHORTNAME"
 debug "long: $LONGNAME"
 
+# setup a working directory
+WORKDIR=`mktemp -t -d game-package.XXXXXX`
+debug "WORKDIR=$WORKDIR"
+
 # now the game's handler needs to be executed
 shift
 go $*
@@ -117,4 +121,4 @@ fi
 if [ "$PRESERVE" != "yes" ]; then
 	rm "$OUTFILE"
 fi
-# TODO: we're leaving working directories lying around
+rmdir "$WORKDIR"

@@ -41,8 +41,6 @@ slipstream() {
 	RELPATH="$2" # relative path in the unpacked .deb
 	shift 2
 
-	WORKDIR=`mktemp -td game-package-shared.slipstream.XXXXXX`
-	debug "slipstream WORKDIR=$WORKDIR"
 	OLDWD=`pwd`
 	cd "$WORKDIR"
 
@@ -59,7 +57,6 @@ slipstream() {
 	slipstream_cleanup
 
 	cd "$OLDWD"
-	# rmdir $WORKDIR
 }
 
 slipstream_permcheck() {
@@ -79,7 +76,7 @@ slipstream_permcheck() {
 slipstream_unpack() {
 	DEB="$1"
 	dpkg-deb -e "$DEB" "./DEBIAN"
-	dpkg-deb -x "$DEB" "./foo"
+	dpkg-deb -x "$DEB" "./slipstream.unpacked"
 }
 
 slipstream_file() {
@@ -87,18 +84,18 @@ slipstream_file() {
 	RELPATH="$2"
 	BN=`basename "$FILE"`
 
-	cp -p "$FILE" "./foo/$RELPATH/$BN"
-	chmod 644 "./foo/$RELPATH/$BN"
+	cp -p "$FILE" "./slipstream.unpacked/$RELPATH/$BN"
+	chmod 644 "./slipstream.unpacked/$RELPATH/$BN"
 
 	# add a line to md5sums
-	cd foo
+	cd slipstream.unpacked
 	md5sum "$RELPATH/$BN" >> "../DEBIAN/md5sums"
 	cd ..
 }
 
 slipstream_instsize() {
 	# figure out the new installed-size
-	INSTSIZE=`du -sk ./foo | cut -f1`
+	INSTSIZE=`du -sk ./slipstream.unpacked | cut -f1`
 	sed -i  "s/^Installed-Size.*/Installed-Size: $INSTSIZE/" \
 		"./DEBIAN/control"
 }
@@ -107,14 +104,13 @@ slipstream_repack() {
 	DEB="$1"     # the .deb file we are going to mangle
 
 	# repack
-	mv DEBIAN foo
+	mv DEBIAN slipstream.unpacked
 	# XXX: capture the output of dpkg-deb and hide it
-	fakeroot dpkg-deb -b foo "$DEB"
+	fakeroot dpkg-deb -b slipstream.unpacked "$DEB"
 }
 
 slipstream_cleanup() {
-	rm -rf ./foo
-	rmdir $PWD
+	rm -rf ./slipstream.unpacked
 }
 
 # stuff relating to installing the generated packages ########################
