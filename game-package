@@ -19,7 +19,8 @@ supported() {
 	printf "\tname\tdescription\n"
 	printf "\t----\t-----------\n"
 
-	find $SUPPORTED -type f | grep -v '\.svn' | grep -v 'swp$' | while read file; do
+	find $SUPPORTED -type f | grep -v '\.svn' | grep -v 'swp$' | sort |
+	while read file; do
 		. $file
 		printf "\t%s\t%s\n" "$SHORTNAME" "$LONGNAME"
 	done
