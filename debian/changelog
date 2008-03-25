@@ -17,8 +17,10 @@ game-package (17) unstable; urgency=low
     are built.
   * Start moving functionality out of ./Makefile and
     into debian/rules
+  * adjust priorities of official IWADs to conform to
+    the doom packaging guidelines
 
- -- Jon Dowland <jon@alcopop.org>  Sun, 16 Mar 2008 19:37:31 +0000
+ -- Jon Dowland <jon@alcopop.org>  Tue, 25 Mar 2008 19:20:50 +0000
 
 games-package (16) unstable; urgency=low
 

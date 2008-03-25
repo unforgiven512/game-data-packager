@@ -17,7 +17,7 @@ case "$1" in
 			/usr/share/games/doom/doom.wad      \
 			doom.wad                            \
 			/usr/share/games/game-package/doom.wad \
-			25
+			50
 	;;
 
 	abort-upgrade|abort-remove|abort-deconfigure)
