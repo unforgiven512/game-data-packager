@@ -56,7 +56,7 @@ go() {
 	DEST=`echo $DATADIR | sed 's,^/,,'`
 
 	if [ "" = "$OUTDIR" ]; then
-		OUTFILE=`mktemp -t game-package.doom2.XXXXXX`
+		OUTFILE="$WORKDIR/out.deb"
 	else
 		OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
 	fi
