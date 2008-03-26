@@ -4,6 +4,7 @@ Priority: optional
 Architecture: all
 Recommends: doom-engine
 Provides: doom-wad
+Depends: doom-engine
 Installed-Size: 56
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
 Description: IWAD from ID Software's DOOM 2 computer game
