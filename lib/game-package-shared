@@ -135,5 +135,7 @@ unravel() {
 	echo $FILE
 }
 
+# XXX: this won't work if the package is not installed (I.e. if we're
+# running it from the build dir)
 GAME_PACKAGE_VERSION=`dpkg-query --showformat='${Version}\n' \
 	--show game-package`
