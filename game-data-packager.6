@@ -1,4 +1,4 @@
-.\" game-package manpage; based on wtfm_example by branden robinson
+.\" game-data-packager manpage; based on wtfm_example by branden robinson
 .\" <http://people.debian.org/~branden/talks/wtfm/>
 .\" 
 .\" This program is free software; you can redistribute it and/or modify it
@@ -20,12 +20,12 @@
 \\$2 \(laURL: \\$1 \(ra\\$3
 ..
 .if \n[.g] .mso www.tmac
-.TH game-package 6 2008-07-14
+.TH game-data-packager 6 2008-07-14
 .SH NAME
-game\-package \- build a .deb of game data
+game\-data\-packager \- build a .deb of game data
 .
 .SH SYNOPSIS
-.B game\-package
+.B game\-data\-packager
 [
 .I -d
 out-directory [
@@ -38,10 +38,10 @@ out-directory [
 .SH DESCRIPTION
 Many open-source games require game data which is licensed
 incompatibly with the Debian Free Software Guidelines.
-.B game\-package
+.B game\-data\-packager
 is a tool designed to help you locally assemble Debian packages containing
 such game data from CD-ROMs, the Internet or elsewhere.
-.B game\-package
+.B game\-data\-packager
 uses 
 .B gdebi
 to install the generated Debian package(s) (unless you tell it not to).
@@ -57,9 +57,9 @@ used in conjunction with
 .TP
 .B game
 The game being packaged. Running
-.B game\-package
+.B game\-data\-packager
 without arguments will display a list of valid games. Running
-.B game\-package
+.B game\-data\-packager
 with just the game and no further arguments will display a list
 of valid options for that game.
 .SH SEE ALSO
