@@ -16,7 +16,7 @@ case "$1" in
 		update-alternatives --install                \
 			/usr/share/games/doom/doom.wad      \
 			doom.wad                            \
-			/usr/share/games/game-package/doom.wad \
+			/usr/share/games/game-data-packager/doom.wad \
 			50
 	;;
 

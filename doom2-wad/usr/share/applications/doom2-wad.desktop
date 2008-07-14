@@ -2,7 +2,7 @@
 Name=Doom 2
 GenericName=Doom 2: Hell on Earth
 Comment=First Person Shooter Game
-Exec=doom -iwad /usr/share/games/game-package/doom2.wad
+Exec=doom -iwad /usr/share/games/game-data-packager/doom2.wad
 Icon=doom2.xpm
 Terminal=false
 Type=Application

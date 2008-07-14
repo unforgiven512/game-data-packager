@@ -37,7 +37,7 @@ check_for_v19() {
 
 }
 
-DATADIR="/usr/share/games/game-package"
+DATADIR="/usr/share/games/game-data-packager"
 
 # XXX: is PWD a bashism?
 if [ -f "$PWD/$DEBBASE" ]; then
