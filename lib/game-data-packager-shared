@@ -140,5 +140,5 @@ if [ -f ./debian/changelog ]; then
         rfc822 | grep Version | cut -d' ' -f2`
 else
     GAME_PACKAGE_VERSION=`dpkg-query --showformat='${Version}\n' \
-        --show game-package`
+        --show game-data-packager`
 fi
