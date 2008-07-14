@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
 Uploaders: Jon Dowland <jon@alcopop.org>
 Build-Depends: debhelper (>> 4.0.0), fakeroot
-Standards-Version: 3.7.2
+Standards-Version: 3.8.0
 Vcs-Svn: svn://svn.debian.org/svn/pkg-games/packages/trunk/game-data-packager/
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-games/packages/trunk/game-data-packager/?op=log
 
