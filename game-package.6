@@ -41,6 +41,10 @@ incompatibly with the Debian Free Software Guidelines.
 .B game\-package
 is a tool designed to help you locally assemble Debian packages containing
 such game data from CD-ROMs, the Internet or elsewhere.
+.B game\-package
+uses 
+.B gdebi
+to install the generated Debian package(s) (unless you tell it not to).
 .SH OPTIONS
 .TP
 .B \-d out-directory
@@ -58,6 +62,8 @@ without arguments will display a list of valid games. Running
 .B game\-package
 with just the game and no further arguments will display a list
 of valid options for that game.
+.SH SEE ALSO
+\fIgdebi\fP(1)
 .SH AUTHOR
 Copyright \(co 2008 Jon Dowland \fI<jon@alcopop.org>\fP.
 .br
