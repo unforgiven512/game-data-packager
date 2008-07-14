@@ -1,14 +1,14 @@
-Source: game-data-package
+Source: game-data-packager
 Section: contrib/games
 Priority: optional
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
 Uploaders: Jon Dowland <jon@alcopop.org>
 Build-Depends: debhelper (>> 4.0.0), fakeroot
 Standards-Version: 3.7.2
-Vcs-Svn: svn://svn.debian.org/svn/pkg-games/packages/trunk/game-data-package/
-Vcs-Browser: http://svn.debian.org/wsvn/pkg-games/packages/trunk/game-data-package/?op=log
+Vcs-Svn: svn://svn.debian.org/svn/pkg-games/packages/trunk/game-data-packager/
+Vcs-Browser: http://svn.debian.org/wsvn/pkg-games/packages/trunk/game-data-packager/?op=log
 
-Package: game-data-package
+Package: game-data-packager
 Depends: fakeroot, sudo, gdebi
 Conflicts: doom-package
 Replaces: doom-package
@@ -19,9 +19,9 @@ Description: Installer for game data files
  different ways, such that only one half can be distributed
  in Debian.
  .
- game-data-package is a tool which builds .deb files for game
+ game-data-packager is a tool which builds .deb files for game
  data which cannot be distributed in Debian (such as
  commercial game data).
  .
- At the moment, game-data-package has support for building debs
+ At the moment, game-data-packager has support for building debs
  for Doom and Doom 2.
