@@ -47,7 +47,7 @@ else
 fi
 
 go() {
-	verify_args $*
+	verify_args "$@"
 	WADFILE=`unravel "$1"`
 	MD5SUM=`checksum "$WADFILE"`
 	check_for_v19

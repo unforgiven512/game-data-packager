@@ -64,11 +64,15 @@ fi
 OUTDIR=""
 
 # process command line arguments
+
+# defaults
+INSTALL="yes"
+PRESERVE="no"
+
 while [ $# -gt 1 ]; do
 	case "$1" in 
 		'-n')
 			INSTALL="no"
-			PRESERVE="yes"
 			;;
 		'-d')
 			PRESERVE="yes"
@@ -90,6 +94,11 @@ while [ $# -gt 1 ]; do
 	shift
 done
 
+if [ "$INSTALL" = "no" -a "$PRESERVE" = "no" ]; then
+	echo "if you specify -n, you must also specify -d." >&2
+	exit 1
+fi
+
 debug "INSTALL=$INSTALL"
 debug "PRESERVE=$PRESERVE"
 
@@ -110,11 +119,17 @@ debug "WORKDIR=$WORKDIR"
 
 # now the game's handler needs to be executed
 shift
-go $*
+go "$@"
 
 # TODO: OUTFILE not referenced before here in this file; we're
 # assuming "go" will have defined it.
+
+if [ "$PRESERVE" = "yes" ]; then
+	echo "generated $OUTFILE."
+fi
+
 if [ "$INSTALL" = "yes" ]; then
+	debug "invoking gdebi to install the package"
 	install_deb "$OUTFILE"
 fi
 
