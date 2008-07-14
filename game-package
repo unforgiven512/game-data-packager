@@ -16,6 +16,7 @@ fi
 
 supported() {
 	echo "the following games are supported:"
+	echo
 	printf "\tname\tdescription\n"
 	printf "\t----\t-----------\n"
 
@@ -27,17 +28,20 @@ supported() {
 }
 options() {
 	echo "game-package arguments:"
-	echo "        -n            not do not install the generated package"\
-		"(implies -p)"
-	echo "        -d OUTDIR     write the generated .debs to OUTDIR"
+	echo "        -n            not do not install the generated package (requires -d)"
+	echo "        -d OUTDIR     write the generated .deb(s) to OUTDIR"
 }
 
 usage() {
-	echo "usage: game-package [game-package-args] game [game-args]"
+	echo "usage:"
+	printf "\tgame-package [game-package-args] game [game-args]\n"
+	echo
+	options
 	echo
 	supported
 	echo
-	options
+	echo "run game-package [game] to see game-specific arguments."
+	echo
 }
 
 DEBUG=TRUE
