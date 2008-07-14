@@ -1,4 +1,4 @@
-?package(game-package):needs="text"             \
+?package(game-data-packager):needs="text"             \
                  section="Games"         \
-                 title="game-package"       \
-                 command="/usr/games/game-package"
+                 title="game-data-packager"       \
+                 command="/usr/games/game-data-packager"
