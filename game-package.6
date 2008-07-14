@@ -1,0 +1,66 @@
+.\" game-package manpage; based on wtfm_example by branden robinson
+.\" <http://people.debian.org/~branden/talks/wtfm/>
+.\" 
+.\" This program is free software; you can redistribute it and/or modify it
+.\" under the terms of the GNU General Public License as published by the
+.\" Free Software Foundation; version 2.
+.\" 
+.\" This program is distributed in the hope that it will be useful, but
+.\" WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+.\" Public License for more details.
+.\" 
+.\" You should have received a copy of the GNU General Public License along
+.\" with this library; if not, write to the Free Software Foundation, Inc.,
+.\" 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+.\"
+.\" See /usr/share/common-licenses/GPL-2
+.\" 
+.de URL
+\\$2 \(laURL: \\$1 \(ra\\$3
+..
+.if \n[.g] .mso www.tmac
+.TH game-package 6 2008-07-14
+.SH NAME
+game\-package \- build a .deb of game data
+.
+.SH SYNOPSIS
+.B game\-package
+[
+.I -d
+out-directory [
+.I -n
+] ]
+.I game
+[
+.I game\-options
+]
+.SH DESCRIPTION
+Many open-source games require game data which is licensed
+incompatibly with the Debian Free Software Guidelines.
+.B game\-package
+is a tool designed to help you locally assemble Debian packages containing
+such game data from CD-ROMs, the Internet or elsewhere.
+.SH OPTIONS
+.TP
+.B \-d out-directory
+writes the generated Debian package to the specified directory.
+.TP
+.B \-n
+Do not attempt to install the generated Debian package. This option must be
+used in conjunction with
+.B \-d.
+.TP
+.B game
+The game being packaged. Running
+.B game\-package
+without arguments will display a list of valid games. Running
+.B game\-package
+with just the game and no further arguments will display a list
+of valid options for that game.
+.SH AUTHOR
+Copyright \(co 2008 Jon Dowland \fI<jon@alcopop.org>\fP.
+.br
+Thanks to Branden Robinson for his
+.URL "http://people.debian.org/~branden/talks/wtfm/" "\(oqWrite the Fine Manual\(cq"
+presentation.
