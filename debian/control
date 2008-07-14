@@ -24,4 +24,4 @@ Description: Installer for game data files
  commercial game data).
  .
  At the moment, game-data-package has support for building debs
- for Doom and Quake 3.
+ for Doom and Doom 2.
