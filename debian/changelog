@@ -1,4 +1,4 @@
-game-package (17) unstable; urgency=low
+game-data-packager (17) unstable; urgency=low
 
   [ Jon Dowland ]
   * add a generic game-package binary
@@ -20,8 +20,9 @@ game-package (17) unstable; urgency=low
   * adjust priorities of official IWADs to conform to
     the doom packaging guidelines
   * clean up the tempdir used by the slipstream functions
+  * rename (again again) to game-data-packager
 
- -- Jon Dowland <jon@alcopop.org>  Tue, 25 Mar 2008 19:57:39 +0000
+ -- Jon Dowland <jon@alcopop.org>  Mon, 14 Jul 2008 21:42:07 +0100
 
 games-package (16) unstable; urgency=low
 
