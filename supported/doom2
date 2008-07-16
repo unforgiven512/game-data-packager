@@ -21,7 +21,6 @@ verify_args() {
 checksum() {
 	CHECKSUM=`md5sum "$1" | cut -d' ' -f1`
 	debug "checksum = $CHECKSUM"
-	echo $CHECKSUM
 }
 
 check_for_v19() {
@@ -49,8 +48,8 @@ fi
 go() {
 	verify_args "$@"
 	WADFILE=`unravel "$1"`
-    [ ! -f "$WADFILE" ] || die "ERROR: '$WADFILE' does not exist."
-	MD5SUM=`checksum "$WADFILE"`
+    [ -f "$WADFILE" ] || die "ERROR: '$WADFILE' does not exist."
+	checksum "$WADFILE"
 	debug "WADFILE=$WADFILE"
 	check_for_v19
 
