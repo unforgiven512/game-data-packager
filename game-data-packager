@@ -30,6 +30,7 @@ else
 	source "/etc/game-data-packager.conf"
 fi
 OUTDIR=""
+OUTFILE=""
 
 # process command line arguments
 while [ $# -gt 1 ]; do
@@ -92,9 +93,6 @@ trap cleanup EXIT
 # now the game's handler needs to be executed
 shift
 go "$@"
-
-# TODO: OUTFILE not referenced before here in this file; we're
-# assuming "go" will have defined it.
 
 if [ "$PRESERVE" = "yes" ]; then
 	echo "generated $OUTFILE."
