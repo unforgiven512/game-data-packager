@@ -44,12 +44,16 @@ usage() {
 	echo
 }
 
-DEBUG=TRUE
+set +u
+if [ -n "$DEBUG" ]; then
 debug() {
-	if [ -n "$DEBUG" ]; then
 		echo "DEBUG: $*" >&2
-	fi
 }
+else
+debug() { :; }
+fi
+set -u
+
 warn() {
 	echo "WARNING: $*" >&2
 }
