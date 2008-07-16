@@ -24,7 +24,7 @@ checksum() {
 }
 
 check_for_v19() {
-	case "$MD5SUM" in
+	case "$CHECKSUM" in
 		"c4fe9fd920207691a9f493668e0a2083")
 			debug "doom.wad is a v1.9 IWAD (ultimate doom)"
 			;;
