@@ -14,50 +14,6 @@ else
 	. /usr/lib/game-data-packager/game-data-packager-shared
 fi
 
-supported() {
-	echo "the following games are supported:"
-	echo
-	printf "\tname\tdescription\n"
-	printf "\t----\t-----------\n"
-
-	find $SUPPORTED -type f | grep -v '\.svn' | grep -v 'swp$' | sort |
-	while read file; do
-		. $file
-		printf "\t%s\t%s\n" "$SHORTNAME" "$LONGNAME"
-	done
-}
-options() {
-	echo "game-data-packager arguments:"
-	echo "        -n            not do not install the generated package (requires -d)"
-	echo "        -d OUTDIR     write the generated .deb(s) to OUTDIR"
-}
-
-usage() {
-	echo "usage:"
-	printf "\tgame-data-packager [game-data-packager-args] game [game-args]\n"
-	echo
-	options
-	echo
-	supported
-	echo
-	echo "run game-data-packager [game] to see game-specific arguments."
-	echo
-}
-
-set +u
-if [ -n "$DEBUG" ]; then
-debug() {
-		echo "DEBUG: $*" >&2
-}
-else
-debug() { :; }
-fi
-set -u
-
-warn() {
-	echo "WARNING: $*" >&2
-}
-
 if [ $# -lt 1 ]; then
 	usage >&2
 	exit 1
