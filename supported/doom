@@ -56,7 +56,7 @@ go() {
 	debug "WADFILE=$WADFILE"
 	check_for_v19
 
-	DEST=`echo $DATADIR | sed 's,^/,,'`
+	DEST=`echo $DATADIR | sed 's,^/,,'`/doom.wad
 
 	if [ "" = "$OUTDIR" ]; then
 		OUTFILE="$WORKDIR/out.deb"

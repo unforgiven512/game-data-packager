@@ -82,14 +82,13 @@ slipstream_unpack() {
 slipstream_file() {
 	FILE="$1"
 	RELPATH="$2"
-	BN=`basename "$FILE"`
 
-	cp -p "$FILE" "./slipstream.unpacked/$RELPATH/$BN"
-	chmod 644 "./slipstream.unpacked/$RELPATH/$BN"
+	cp -p "$FILE" "./slipstream.unpacked/$RELPATH"
+	chmod 644 "./slipstream.unpacked/$RELPATH"
 
 	# add a line to md5sums
 	cd slipstream.unpacked
-	md5sum "$RELPATH/$BN" >> "../DEBIAN/md5sums"
+	md5sum "$RELPATH" >> "../DEBIAN/md5sums"
 	cd ..
 }
 

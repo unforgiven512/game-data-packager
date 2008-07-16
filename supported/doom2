@@ -52,7 +52,7 @@ go() {
 	MD5SUM=`checksum "$WADFILE"`
 	check_for_v19
 	debug "WADFILE=$WADFILE"
-	DEST=`echo $DATADIR | sed 's,^/,,'`
+	DEST=`echo $DATADIR | sed 's,^/,,'`/doom2.wad
 
 	if [ "" = "$OUTDIR" ]; then
 		OUTFILE="$WORKDIR/out.deb"
