@@ -21,8 +21,9 @@ game-data-packager (17) unstable; urgency=low
     the doom packaging guidelines
   * clean up the tempdir used by the slipstream functions
   * rename (again again) to game-data-packager
+  * fix debug() method so it does nothing if DEBUG is undefined
 
- -- Jon Dowland <jon@alcopop.org>  Mon, 14 Jul 2008 21:42:07 +0100
+ -- Jon Dowland <jon@alcopop.org>  Wed, 16 Jul 2008 14:04:04 +0100
 
 games-package (16) unstable; urgency=low
 
