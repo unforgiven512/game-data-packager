@@ -52,10 +52,7 @@ fi
 go() {
 	verify_args "$@"
 	WADFILE=`unravel "$1"`
-    if [ ! -f "$WADFILE" ]; then
-        echo "ERROR: '$WADFILE' does not exist." >&2
-        exit
-    fi
+    [ ! -f "$WADFILE" ] || die "ERROR: '$WADFILE' does not exist."
 	MD5SUM=`checksum "$WADFILE"`
 	debug "WADFILE=$WADFILE"
 	check_for_v19
