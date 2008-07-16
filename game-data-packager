@@ -19,6 +19,10 @@ if [ $# -lt 1 ]; then
 	exit 1
 fi
 
+# defaults
+INSTALL="yes"
+PRESERVE="no"
+
 # package default settings
 if [ -f "./etc/game-data-packager.conf" ]; then
 	source "./etc/game-data-packager.conf"
@@ -28,11 +32,6 @@ fi
 OUTDIR=""
 
 # process command line arguments
-
-# defaults
-INSTALL="yes"
-PRESERVE="no"
-
 while [ $# -gt 1 ]; do
 	case "$1" in 
 		'-n')
