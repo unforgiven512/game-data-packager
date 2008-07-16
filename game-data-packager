@@ -124,6 +124,15 @@ debug "long: $LONGNAME"
 # setup a working directory
 WORKDIR=`mktemp -t -d game-data-packager.XXXXXX`
 debug "WORKDIR=$WORKDIR"
+cleanup() {
+    if [ "$PRESERVE" != "yes" ]; then
+        rm "$OUTFILE"
+    fi
+    if [ -d "$WORKDIR" ]; then
+        rmdir "$WORKDIR"
+    fi
+}
+trap cleanup EXIT
 
 # now the game's handler needs to be executed
 shift
@@ -141,8 +150,4 @@ if [ "$INSTALL" = "yes" ]; then
 	install_deb "$OUTFILE"
 fi
 
-# cleanup
-if [ "$PRESERVE" != "yes" ]; then
-	rm "$OUTFILE"
-fi
-rmdir "$WORKDIR"
+cleanup

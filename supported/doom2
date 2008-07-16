@@ -49,9 +49,14 @@ fi
 go() {
 	verify_args "$@"
 	WADFILE=`unravel "$1"`
+    if [ ! -f "$WADFILE" ]; then
+        echo "ERROR: '$WADFILE' does not exist." >&2
+        exit
+    fi
 	MD5SUM=`checksum "$WADFILE"`
-	check_for_v19
 	debug "WADFILE=$WADFILE"
+	check_for_v19
+
 	DEST=`echo $DATADIR | sed 's,^/,,'`/doom2.wad
 
 	if [ "" = "$OUTDIR" ]; then
