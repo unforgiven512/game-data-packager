@@ -70,11 +70,12 @@ verify_file() {
 	fi
 }
 
-# TODO: rewrite for no $1/$2 case (test $#)
 die() { 
-	if [ -n "$2" ]; then RET=$2
-	else                 RET=1
-	fi
+    if [ $# -lt 2 ]; then
+        RET=2
+    else
+        RET=$2
+    fi
 	echo $0: $1 >&2
 	exit $RET
 }
