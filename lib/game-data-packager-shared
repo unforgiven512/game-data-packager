@@ -151,7 +151,7 @@ slipstream_repack() {
 	mv DEBIAN slipstream.unpacked
 	# XXX: capture the output of dpkg-deb and hide it
 	fakeroot dpkg-deb -b slipstream.unpacked "$DEB" | ( \
-		grep -v "^dpkg-deb: building package \`doom-wad' in \`$DEB'."\
+		grep -v "^dpkg-deb: building package \`[a-z-]\+' in \`$DEB'."\
 		|| true)
 
 }

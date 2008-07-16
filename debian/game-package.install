@@ -1,0 +1,7 @@
+lib/game-package-shared usr/lib/game-package
+game-package            usr/games
+supported/doom2         usr/share/games/game-package/supported
+supported/doom          usr/share/games/game-package/supported
+etc/game-package.conf   etc
+doom-wad_*_all.deb      usr/share/games/game-package
+doom2-wad_*_all.deb     usr/share/games/game-package

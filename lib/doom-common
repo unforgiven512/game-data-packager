@@ -1,0 +1,65 @@
+#!/bin/sh
+
+DEBBASE="${SHORTNAME}-wad_${GAME_PACKAGE_VERSION}_all.deb"
+
+doom_usage() {
+	echo "${SHORTNAME} arguments:"  >&2
+	printf "\twadfile - path to a ${SHORTNAME}.wad\n"
+}
+
+verify_args() {
+	if [ $# -ne 1 ]; then
+		echo "error: no wadfile specified" >&2
+		usage >&2
+		doom_usage >&2
+		exit 1
+	fi
+}
+checksum() {
+	CHECKSUM=`md5sum "$1" | cut -d' ' -f1`
+	debug "checksum = $CHECKSUM"
+}
+
+check_for_v19() {
+	case "$CHECKSUM" in
+		"c4fe9fd920207691a9f493668e0a2083")
+			debug "doom.wad is a v1.9 IWAD (ultimate doom)"
+			;;
+		"1cd63c5ddff1bf8ce844237f580e9cf3")
+			debug "doom.wad is a v1.9 IWAD (registered)"
+			;;
+		*)
+			warn "the doom.wad file is not version 1.9"
+			warn "(or has been modified)"
+			warn "you may have some problems with PWADs and demos"
+			;;
+	esac
+
+}
+
+DATADIR="/usr/share/games/game-data-packager"
+
+if [ -f "$PWD/$DEBBASE" ]; then
+	DEB="$PWD/$DEBBASE"
+else
+	DEB="$DATADIR/$DEBBASE"
+fi
+
+go() {
+	verify_args "$@"
+	WADFILE=`unravel "$1"`
+    [ -f "$WADFILE" ] || die "ERROR: '$WADFILE' does not exist."
+	checksum "$WADFILE"
+	debug "WADFILE=$WADFILE"
+	check_for_v19
+
+	DEST=`echo $DATADIR | sed 's,^/,,'`/$SHORTNAME.wad
+
+	if [ "" = "$OUTDIR" ]; then
+		OUTFILE="$WORKDIR/out.deb"
+	else
+		OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
+	fi
+	cp -p "$DEB" "$OUTFILE"
+	slipstream "$OUTFILE" "$DEST" "$WADFILE"
+}

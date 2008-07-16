@@ -1,27 +1,7 @@
-# vim: set ft=sh:
+#!/bin/sh
 
 SHORTNAME=doom
 LONGNAME="Doom (including Ultimate Doom)"
-
-DEBBASE="doom-wad_${GAME_PACKAGE_VERSION}_all.deb"
-
-doom2_usage() {
-	echo "doom game arguments:"  >&2
-	printf "\twadfile - path to a doom.wad\n"
-}
-
-verify_args() {
-	if [ $# -ne 1 ]; then
-		echo "error: no wadfile specified" >&2
-		usage >&2
-		doom2_usage >&2
-		exit 1
-	fi
-}
-checksum() {
-	CHECKSUM=`md5sum "$1" | cut -d' ' -f1`
-	debug "checksum = $CHECKSUM"
-}
 
 check_for_v19() {
 	case "$CHECKSUM" in
@@ -40,29 +20,8 @@ check_for_v19() {
 
 }
 
-DATADIR="/usr/share/games/game-data-packager"
-
-if [ -f "$PWD/$DEBBASE" ]; then
-	DEB="$PWD/$DEBBASE"
+if [ -f ./lib/game-data-packager-shared ]; then
+	. ./lib/doom-common
 else
-	DEB="$DATADIR/$DEBBASE"
+	. /usr/lib/game-data-packager/doom-common
 fi
-
-go() {
-	verify_args "$@"
-	WADFILE=`unravel "$1"`
-    [ -f "$WADFILE" ] || die "ERROR: '$WADFILE' does not exist."
-	checksum "$WADFILE"
-	debug "WADFILE=$WADFILE"
-	check_for_v19
-
-	DEST=`echo $DATADIR | sed 's,^/,,'`/doom.wad
-
-	if [ "" = "$OUTDIR" ]; then
-		OUTFILE="$WORKDIR/out.deb"
-	else
-		OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
-	fi
-	cp -p "$DEB" "$OUTFILE"
-	slipstream "$OUTFILE" "$DEST" "$WADFILE"
-}

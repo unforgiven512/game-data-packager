@@ -67,6 +67,8 @@ debug "INSTALL=$INSTALL"
 debug "PRESERVE=$PRESERVE"
 
 GAME="$1"
+shift
+
 if [ ! -f "$SUPPORTED/$GAME" ]; then
 	echo "unknown option or game '$GAME'" >&2
 	supported >&2
@@ -81,7 +83,7 @@ debug "long: $LONGNAME"
 WORKDIR=`mktemp -t -d game-data-packager.XXXXXX`
 debug "WORKDIR=$WORKDIR"
 cleanup() {
-    if [ "$PRESERVE" != "yes" ]; then
+    if [ "$PRESERVE" != "yes" ] && [ -f "$OUTFILE" ]; then
         rm "$OUTFILE"
     fi
     if [ -d "$WORKDIR" ]; then
@@ -91,7 +93,6 @@ cleanup() {
 trap cleanup EXIT
 
 # now the game's handler needs to be executed
-shift
 go "$@"
 
 if [ "$PRESERVE" = "yes" ]; then
