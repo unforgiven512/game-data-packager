@@ -1,0 +1,23 @@
+#!/bin/sh
+# postinst script for IWAD
+set -e
+. /usr/share/debconf/confmodule
+
+case "$1" in
+	configure)
+		update-alternatives --install \
+			/usr/share/games/doom/IWAD \
+			IWAD /usr/share/games/game-package/IWAD \
+			50
+	;;
+
+	abort-upgrade|abort-remove|abort-deconfigure)
+	;;
+
+	*)
+		echo "unsupported method $1" >&2
+		exit 1
+		;;
+esac
+
+exit 0
