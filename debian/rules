@@ -9,23 +9,9 @@ configure-stamp:
 	dh_testdir
 	touch configure-stamp
 
-doom-wad/DEBIAN/control:
-	cp doom-wad/DEBIAN/control.in doom-wad/DEBIAN/control
-	echo Version: $(VERSION) >> doom-wad/DEBIAN/control
-
-doom2-wad/DEBIAN/control:
-	cp doom2-wad/DEBIAN/control.in doom2-wad/DEBIAN/control
-	echo Version: $(VERSION) >> doom2-wad/DEBIAN/control
-
 build: configure-stamp build-stamp
-build-stamp: doom-wad/DEBIAN/control doom2-wad/DEBIAN/control
+build-stamp:
 	dh_testdir
-	# we build .debs as that are shipped in the binary
-	# package. Insert our changelog into them
-	gzip -c9 debian/changelog > doom-wad/usr/share/doc/doom-wad/changelog.gz
-	gzip -c9 debian/changelog > doom2-wad/usr/share/doc/doom2-wad/changelog.gz
-	cp -p doom-common/doom2.xpm doom2-wad/usr/share/pixmaps
-	cp -p doom-common/doom2.xpm doom-wad/usr/share/pixmaps/doom.xpm
 	$(MAKE) VERSION=$(VERSION)
 	touch build-stamp
 
@@ -34,12 +20,6 @@ clean:
 	dh_testroot
 	rm -f build-stamp configure-stamp
 	$(MAKE) clean VERSION=$(VERSION)
-	rm -f doom-wad/usr/share/doc/doom-wad/changelog.gz \
-		doom2-wad/usr/share/doc/doom2-wad/changelog.gz \
-		doom2-wad/usr/share/pixmaps/doom2.xpm \
-		doom-wad/usr/share/pixmaps/doom.xpm \
-		doom-wad/DEBIAN/control \
-		doom2-wad/DEBIAN/control
 	dh_clean
 
 install: build
