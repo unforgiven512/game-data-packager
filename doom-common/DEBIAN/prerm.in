@@ -1,0 +1,19 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+	remove|deconfigure)
+		update-alternatives --remove IWAD \
+			/usr/share/games/game-data-packager/IWAD
+;;
+
+	upgrade|failed-upgrade)
+	;;
+
+	*)
+		echo "unsupported method $1" >&2
+		exit 1
+	;;
+esac
+
+exit 0

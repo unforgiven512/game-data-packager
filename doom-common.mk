@@ -3,7 +3,7 @@
 
 $(IWAD)DEB=$(IWAD)-wad_$(VERSION)_all.deb
 
-$(IWAD)TARGETS := $(IWAD)-wad/DEBIAN/md5sums $(IWAD)-wad/DEBIAN/control $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/changelog.gz $(IWAD)-wad/usr/share/pixmaps/$(IWAD).xpm
+$(IWAD)TARGETS := $(IWAD)-wad/DEBIAN/md5sums $(IWAD)-wad/DEBIAN/control $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/changelog.gz $(IWAD)-wad/usr/share/pixmaps/$(IWAD).xpm $(IWAD)-wad/DEBIAN/postinst $(IWAD)-wad/DEBIAN/prerm
 
 $($(IWAD)DEB): $($(IWAD)TARGETS) fixperms 
 	if [ `id -u` -eq 0 ]; then \
@@ -11,6 +11,14 @@ $($(IWAD)DEB): $($(IWAD)TARGETS) fixperms
 	else \
 		fakeroot dpkg-deb -b $(IWAD)-wad $@; \
 	fi
+
+$(IWAD)-wad/DEBIAN/prerm:
+	m4 -DIWAD=$(IWAD).wad \
+		doom-common/DEBIAN/prerm.in > $(IWAD)-wad/DEBIAN/prerm
+
+$(IWAD)-wad/DEBIAN/postinst:
+	m4 -DIWAD=$(IWAD).wad \
+		doom-common/DEBIAN/postinst.in > $(IWAD)-wad/DEBIAN/postinst
 
 $(IWAD)-wad/DEBIAN/control: doom-common/DEBIAN/control.in
 	m4 -DPACKAGE=$(IWAD)-wad -DGAME=$(IWAD) -DVERSION=$(VERSION) \
@@ -35,4 +43,4 @@ fixperms:
 clean:
 	rm -f $($(IWAD)DEB) $($(IWAD)TARGETS)
 
-.PHONY: fixperms clean
+PHONY: fixperms clean
