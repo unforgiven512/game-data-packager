@@ -12,9 +12,9 @@ $($(IWAD)DEB): $($(IWAD)TARGETS) fixperms
 		fakeroot dpkg-deb -b $(IWAD)-wad $@; \
 	fi
 
-$(IWAD)-wad/DEBIAN/control:
-	cp $(IWAD)-wad/DEBIAN/control.in $(IWAD)-wad/DEBIAN/control
-	echo Version: $(VERSION) >> $(IWAD)-wad/DEBIAN/control
+$(IWAD)-wad/DEBIAN/control: doom-common/DEBIAN/control.in
+	m4 -DPACKAGE=$(IWAD)-wad -DGAME=$(IWAD) -DVERSION=$(VERSION) \
+		doom-common/DEBIAN/control.in > $(IWAD)-wad/DEBIAN/control
 
 $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/changelog.gz:
 	gzip -c9 debian/changelog > $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/changelog.gz
