@@ -35,7 +35,7 @@ $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/copyright:
 
 $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/README.Debian:
 	m4 -DPACKAGE=$(IWAD)-wad -DGAME="$(LONG)" \
-		doom-common/usr/share/doc/doom-common/README.Debian \
+		doom-common/usr/share/doc/doom-common/README.Debian.in \
 		> $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/README.Debian
 
 $(IWAD)-wad/usr/share/applications/$(IWAD)-wad.desktop:
