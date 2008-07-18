@@ -30,17 +30,17 @@ $(IWAD)DIRS:
 
 $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/copyright:
 	m4 -DPACKAGE=$(IWAD)-wad -DIWAD=$(IWAD).wad \
-		doom-common/usr/share/doc/doom-wad/copyright.in \
+		doom-common/usr/share/doc/doom-common/copyright.in \
 		> $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/copyright
 
 $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/README.Debian:
 	m4 -DPACKAGE=$(IWAD)-wad -DGAME="$(LONG)" \
-		doom-common/usr/share/doc/doom-wad/README.Debian \
+		doom-common/usr/share/doc/doom-common/README.Debian \
 		> $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/README.Debian
 
 $(IWAD)-wad/usr/share/applications/$(IWAD)-wad.desktop:
 	m4 -DGAME=$(IWAD) -DLONG="$(LONG)" \
-		doom-common/usr/share/applications/doom-wad.desktop.in \
+		doom-common/usr/share/applications/doom-common.desktop.in \
 	> $(IWAD)-wad/usr/share/applications/$(IWAD)-wad.desktop
 
 $(IWAD)-wad/DEBIAN/prerm:
