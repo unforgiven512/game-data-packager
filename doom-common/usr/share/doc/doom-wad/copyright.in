@@ -1,10 +1,10 @@
-The doom2-wad package was generated using game-data-packager.
-Copyright (C) 2006 Jon Dowland <jon@alcopop.org>.
+The PACKAGE package was generated using game-data-packager.
+Copyright (C) 2008 Jon Dowland <jon@alcopop.org>.
 
-The file "/usr/share/games/game-data-packager/doom2.wad", if
+The file "/usr/share/games/doom-package/IWAD", if
 present, is a user-supplied file that is not covered by the
 copyright or licence of this package. For example, the
-original Doom 2 data is copyright (c) 1999 by id Software,
+original Doom data is copyright (c) 1999 by id Software,
 all rights reserved.
 
 The remainder of this package is covered by the following
