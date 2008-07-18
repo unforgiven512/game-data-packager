@@ -2,7 +2,8 @@ VERSION := $(shell dpkg-parsechangelog | grep ^Version | cut -d' ' -f2-)
 
 default:
 	make -f doom-common.mk IWAD=doom  LONG="Doom"   VERSION=$(VERSION)
-	make -f doom-common.mk IWAD=doom2 LONG="Doom 2" VERSION=$(VERSION)
+	make -f doom-common.mk IWAD=doom2 \
+		LONG="Doom 2: Hell on Earth" VERSION=$(VERSION)
 	make -f doom-common.mk IWAD=tnt   \
 		LONG="Final Doom: TNT: Evilution" VERSION=$(VERSION)
 	make -f doom-common.mk IWAD=plutonia \
@@ -10,7 +11,8 @@ default:
 
 clean:
 	make -f doom-common.mk IWAD=doom  LONG="Doom"   VERSION=$(VERSION) clean
-	make -f doom-common.mk IWAD=doom2 LONG="Doom 2" VERSION=$(VERSION) clean
+	make -f doom-common.mk IWAD=doom2 \
+		LONG="Doom 2: Hell on Earth" VERSION=$(VERSION) clean
 	make -f doom-common.mk IWAD=tnt   \
 		LONG="Final Doom: TNT: Evilution" VERSION=$(VERSION) clean
 	make -f doom-common.mk IWAD=plutonia \
