@@ -1,5 +1,3 @@
-#!/bin/sh
-
 SHORTNAME=plutonia
 LONGNAME="Final Doom: The Plutonia Experiment"
 

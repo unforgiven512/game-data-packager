@@ -1,5 +1,3 @@
-#!/bin/sh
-
 DEBBASE="${SHORTNAME}-wad_${GAME_PACKAGE_VERSION}_all.deb"
 
 doom_usage() {

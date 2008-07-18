@@ -1,4 +1,3 @@
-#!/bin/sh
 
 SHORTNAME=doom
 LONGNAME="Doom (including Ultimate Doom)"
