@@ -1,8 +1,12 @@
 lib/game-data-packager-shared usr/lib/game-data-packager
 lib/doom-common               usr/lib/game-data-packager
 game-data-packager            usr/games
-supported/doom2               usr/share/games/game-data-packager/supported
 supported/doom                usr/share/games/game-data-packager/supported
+supported/doom2               usr/share/games/game-data-packager/supported
+supported/tnt                 usr/share/games/game-data-packager/supported
+supported/plutonia            usr/share/games/game-data-packager/supported
 etc/game-data-packager.conf   etc
 doom-wad_*_all.deb            usr/share/games/game-data-packager
 doom2-wad_*_all.deb           usr/share/games/game-data-packager
+tnt-wad_*_all.deb             usr/share/games/game-data-packager
+plutonia-wad_*_all.deb        usr/share/games/game-data-packager
