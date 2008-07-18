@@ -15,15 +15,14 @@ game-data-packager (17) unstable; urgency=low
     the slipstream files, and instead install the
     game-package changelog into the .debs that that
     are built.
-  * Start moving functionality out of ./Makefile and
-    into debian/rules
   * adjust priorities of official IWADs to conform to
     the doom packaging guidelines
   * clean up the tempdir used by the slipstream functions
   * rename (again again) to game-data-packager
   * fix debug() method so it does nothing if DEBUG is undefined
+  * generalize entirely the *-wad directories to doom-common
 
- -- Jon Dowland <jon@alcopop.org>  Wed, 16 Jul 2008 14:04:04 +0100
+ -- Jon Dowland <jon@alcopop.org>  Fri, 18 Jul 2008 01:35:52 +0100
 
 games-package (16) unstable; urgency=low
 
