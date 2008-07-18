@@ -4,7 +4,6 @@ Priority: optional
 Architecture: all
 Recommends: doom-engine
 Provides: doom-wad
-Depends: doom-engine
 Installed-Size: 56
 Version: VERSION
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>

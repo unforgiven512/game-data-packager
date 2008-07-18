@@ -2,6 +2,7 @@
 Name=GAME
 GenericName=LONG
 Comment=First Person Shooter Game
+TryExec=doom
 Exec=doom -iwad /usr/share/games/game-data-packager/GAME.wad
 Icon=GAME.xpm
 Terminal=false

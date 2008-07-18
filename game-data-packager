@@ -100,7 +100,7 @@ if [ "$PRESERVE" = "yes" ]; then
 fi
 
 if [ "$INSTALL" = "yes" ]; then
-	debug "invoking gdebi to install the package"
+	debug "invoking dpkg to install the package"
 	install_deb "$OUTFILE"
 fi
 
