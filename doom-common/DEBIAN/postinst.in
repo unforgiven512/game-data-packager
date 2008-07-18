@@ -7,7 +7,7 @@ case "$1" in
 	configure)
 		update-alternatives --install \
 			/usr/share/games/doom/IWAD \
-			IWAD /usr/share/games/game-package/IWAD \
+			IWAD /usr/share/games/game-data-packager/IWAD \
 			50
 	;;
 
