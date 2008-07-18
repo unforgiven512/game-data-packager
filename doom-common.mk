@@ -3,7 +3,22 @@
 
 $(IWAD)DEB=$(IWAD)-wad_$(VERSION)_all.deb
 
-$(IWAD)TARGETS := $(IWAD)-wad/DEBIAN/md5sums $(IWAD)-wad/DEBIAN/control $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/changelog.gz $(IWAD)-wad/usr/share/pixmaps/$(IWAD).xpm $(IWAD)-wad/DEBIAN/postinst $(IWAD)-wad/DEBIAN/prerm $(IWAD)-wad/usr/share/applications/$(IWAD)-wad.desktop $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/README.Debian $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/copyright
+$(IWAD)TARGETS := $(IWAD)-wad/DEBIAN/md5sums $(IWAD)-wad/DEBIAN/control $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/changelog.gz $(IWAD)-wad/usr/share/pixmaps/$(IWAD).xpm $(IWAD)-wad/DEBIAN/postinst $(IWAD)-wad/DEBIAN/prerm $(IWAD)-wad/usr/share/applications/$(IWAD)-wad.desktop $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/README.Debian $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/copyright $(IWAD)DIRS
+
+DIRS := $(IWAD)-wad
+	$(IWAD)-wad/DEBIAN \
+	$(IWAD)-wad/usr \
+	$(IWAD)-wad/usr/share \
+	$(IWAD)-wad/usr/share/pixmaps \
+	$(IWAD)-wad/usr/share/applications \
+	$(IWAD)-wad/usr/share/doc \
+	$(IWAD)-wad/usr/share/doc/$(IWAD)-wad \
+	$(IWAD)-wad/usr/share/games \
+	$(IWAD)-wad/usr/share/games/doom
+	$(IWAD)-wad/usr/share/games/game-data-packager
+
+$(IWAD)DIRS:
+	mkdir -p $(DIRS)
 
 $($(IWAD)DEB): $($(IWAD)TARGETS) fixperms 
 	if [ `id -u` -eq 0 ]; then \
@@ -57,5 +72,6 @@ fixperms:
 
 clean:
 	rm -f $($(IWAD)DEB) $($(IWAD)TARGETS)
+	rmdir $(DIRS)
 
 PHONY: fixperms clean
