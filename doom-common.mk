@@ -3,7 +3,7 @@
 
 $(IWAD)DEB=$(IWAD)-wad_$(VERSION)_all.deb
 
-$(IWAD)TARGETS := $(IWAD)-wad/DEBIAN/md5sums $(IWAD)-wad/DEBIAN/control $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/changelog.gz $(IWAD)-wad/usr/share/pixmaps/$(IWAD).xpm $(IWAD)-wad/DEBIAN/postinst $(IWAD)-wad/DEBIAN/prerm
+$(IWAD)TARGETS := $(IWAD)-wad/DEBIAN/md5sums $(IWAD)-wad/DEBIAN/control $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/changelog.gz $(IWAD)-wad/usr/share/pixmaps/$(IWAD).xpm $(IWAD)-wad/DEBIAN/postinst $(IWAD)-wad/DEBIAN/prerm $(IWAD)-wad/usr/share/applications/$(IWAD)-wad.desktop
 
 $($(IWAD)DEB): $($(IWAD)TARGETS) fixperms 
 	if [ `id -u` -eq 0 ]; then \
@@ -11,6 +11,11 @@ $($(IWAD)DEB): $($(IWAD)TARGETS) fixperms
 	else \
 		fakeroot dpkg-deb -b $(IWAD)-wad $@; \
 	fi
+
+$(IWAD)-wad/usr/share/applications/$(IWAD)-wad.desktop:
+	m4 -DGAME=$(IWAD) -DLONG="$(LONG)" \
+		doom-common/usr/share/applications/doom-wad.desktop.in \
+	> $(IWAD)-wad/usr/share/applications/$(IWAD)-wad.desktop
 
 $(IWAD)-wad/DEBIAN/prerm:
 	m4 -DIWAD=$(IWAD).wad \
