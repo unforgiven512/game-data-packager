@@ -13,6 +13,7 @@ Package: game-data-packager
 Depends: fakeroot, sudo
 Conflicts: doom-package
 Replaces: doom-package
+Provides: doom-package
 Architecture: all
 Description: Installer for game data files
  Various games are divided into two logical parts: engine
