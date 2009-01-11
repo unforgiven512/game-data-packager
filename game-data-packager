@@ -25,9 +25,9 @@ PRESERVE="no"
 
 # package default settings
 if [ -f "./etc/game-data-packager.conf" ]; then
-	source "./etc/game-data-packager.conf"
+	. "./etc/game-data-packager.conf"
 else
-	source "/etc/game-data-packager.conf"
+	. "/etc/game-data-packager.conf"
 fi
 OUTDIR=""
 OUTFILE=""
@@ -74,7 +74,7 @@ if [ ! -f "$SUPPORTED/$GAME" ]; then
 	supported >&2
 	exit 1
 fi
-source "$SUPPORTED/$GAME"
+. "$SUPPORTED/$GAME"
 
 debug "short: $SHORTNAME"
 debug "long: $LONGNAME"
