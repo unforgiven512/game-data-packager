@@ -1,7 +1,8 @@
-game-data-packager (19) unstable; urgency=low
+game-data-packager (19) unstable; urgency=medium
 
   [ Gonéri Le Bouder ]
   * fix bashism, thanks Andres Mejia (Closes: #501173)  
+  * urgency to medium since it's a release goal
 
  -- Jon Dowland <jon@alcopop.org>  Sun, 11 Jan 2009 17:17:42 +0100
 
