@@ -1,8 +1,15 @@
-game-data-packager (19) unstable; urgency=medium
+game-data-packager (20) UNRELEASED; urgency=low
+
+  * Remove debconf remnant. Closes: #500951. Thanks Frédéric Brière.
+  * Remove useless menu. Closes: #500948. Thanks Frédéric Brière.
+  * Update debhelper Build-Depends:. Closes: #500947. Thanks Frédéric Brière.
+
+ -- Jon Dowland <jon@alcopop.org>  Sun, 11 Jan 2009 18:03:59 +0000
+
+game-data-packager (19) unstable; urgency=low
 
   [ Gonéri Le Bouder ]
   * fix bashism, thanks Andres Mejia (Closes: #501173)  
-  * urgency to medium since it's a release goal
 
  -- Jon Dowland <jon@alcopop.org>  Sun, 11 Jan 2009 17:17:42 +0100
 
