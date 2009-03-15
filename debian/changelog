@@ -1,10 +1,16 @@
-game-data-packager (20) UNRELEASED; urgency=low
+game-data-packager (21) unstable; urgency=low
+
+  * Upload to unstable.
+
+ -- Jon Dowland <jon@alcopop.org>  Sun, 15 Mar 2009 19:25:38 +0000
+
+game-data-packager (20) experimental; urgency=low
 
   * Remove debconf remnant. Closes: #500951. Thanks Frédéric Brière.
   * Remove useless menu. Closes: #500948. Thanks Frédéric Brière.
   * Update debhelper Build-Depends:. Closes: #500947. Thanks Frédéric Brière.
 
- -- Jon Dowland <jon@alcopop.org>  Sun, 11 Jan 2009 18:03:59 +0000
+ -- Jon Dowland <jon@alcopop.org>  Sun, 18 Jan 2009 17:30:20 +0000
 
 game-data-packager (19) unstable; urgency=low
 
