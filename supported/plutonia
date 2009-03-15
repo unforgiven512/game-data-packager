@@ -7,7 +7,7 @@ check_for_v19() {
             debug "plutonia.wad has a known checksum"
 			;;
 		*)
-			warn "plutonia.wad has an unknwon checksum"
+			warn "plutonia.wad has an unknown checksum"
 			;;
 	esac
 
