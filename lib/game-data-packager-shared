@@ -149,10 +149,10 @@ slipstream_repack() {
 
 	# repack
 	mv DEBIAN slipstream.unpacked
-	# XXX: capture the output of dpkg-deb and hide it
-	fakeroot dpkg-deb -b slipstream.unpacked "$DEB" | ( \
-		grep -v "^dpkg-deb: building package \`[a-z-]\+' in \`$DEB'."\
-		|| true)
+	# XXX: store output in a temporary file, then cat the file if
+	# dpkg-deb fails for some reason. (this is all to hide a non-
+	# suppressable "building package foo in ..." message)
+	fakeroot dpkg-deb -b slipstream.unpacked "$DEB" >/dev/null
 
 }
 
