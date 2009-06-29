@@ -49,6 +49,7 @@ while [ $# -gt 1 ]; do
 			OUTDIR="$1"
 			;;
 		'--')
+			shift
 			break;
 			;;
 		*) # possibly the game name
