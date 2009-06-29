@@ -1,10 +1,11 @@
 game-data-packager (22) UNRELEASED; urgency=low
 
   * don't mask non-zero exit status of dpkg-deb.
+    Thanks Frédéric Brière. Closes: #532817.
   * shift '--' off the argument stack when encountered.
-    Thanks Frédéric Brière. Closes: #532812
+    Thanks Frédéric Brière. Closes: #532812.
 
- -- Jon Dowland <jon@alcopop.org>  Mon, 29 Jun 2009 21:53:24 +0100
+ -- Jon Dowland <jon@alcopop.org>  Mon, 29 Jun 2009 21:54:47 +0100
 
 game-data-packager (21) unstable; urgency=low
 
