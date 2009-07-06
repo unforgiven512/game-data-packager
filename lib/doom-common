@@ -19,6 +19,7 @@ checksum() {
 }
 
 DATADIR="/usr/share/games/game-data-packager"
+WADDIR="/usr/share/games/doom"
 
 if [ -f "$PWD/$DEBBASE" ]; then
 	DEB="$PWD/$DEBBASE"
@@ -34,7 +35,7 @@ go() {
 	debug "WADFILE=$WADFILE"
 	check_for_v19
 
-	DEST=`echo $DATADIR | sed 's,^/,,'`/$SHORTNAME.wad
+	DEST=`echo $WADDIR | sed 's,^/,,'`/$SHORTNAME.wad
 
 	if [ "" = "$OUTDIR" ]; then
 		OUTFILE="$WORKDIR/out.deb"

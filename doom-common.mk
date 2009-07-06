@@ -1,9 +1,12 @@
-# "IWAD" and "IWAD" are passed in by the parent make; e.g.
-# $(IWAD) and $(IWAD); or $(IWAD)2 and $(IWAD)2.
+# "IWAD", "VERSION" and "LONG" are passed in by the parent make;
+# e.g.
+#   IWAD=doom2, VERSION=22, LONG="Doom 2: Hell on Earth"
+# or
+#   IWAD=doom, VERSION=22, LONG="Ultimate Doom"
 
 $(IWAD)DEB=$(IWAD)-wad_$(VERSION)_all.deb
 
-$(IWAD)TARGETS := $(IWAD)DIRS $(IWAD)-wad/DEBIAN/control $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/changelog.gz $(IWAD)-wad/usr/share/pixmaps/$(IWAD).xpm $(IWAD)-wad/DEBIAN/postinst $(IWAD)-wad/DEBIAN/prerm $(IWAD)-wad/usr/share/applications/$(IWAD)-wad.desktop $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/README.Debian $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/copyright $(IWAD)-wad/DEBIAN/md5sums 
+$(IWAD)TARGETS := $(IWAD)DIRS $(IWAD)-wad/DEBIAN/control $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/changelog.gz $(IWAD)-wad/usr/share/pixmaps/$(IWAD).xpm $(IWAD)-wad/DEBIAN/preinst $(IWAD)-wad/usr/share/applications/$(IWAD)-wad.desktop $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/README.Debian $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/copyright $(IWAD)-wad/DEBIAN/md5sums
 
 DIRS := \
 	$(IWAD)-wad/DEBIAN \
@@ -43,13 +46,9 @@ $(IWAD)-wad/usr/share/applications/$(IWAD)-wad.desktop:
 		doom-common/usr/share/applications/doom-common.desktop.in \
 	> $(IWAD)-wad/usr/share/applications/$(IWAD)-wad.desktop
 
-$(IWAD)-wad/DEBIAN/prerm:
+$(IWAD)-wad/DEBIAN/preinst:
 	m4 -DIWAD=$(IWAD).wad \
-		doom-common/DEBIAN/prerm.in > $(IWAD)-wad/DEBIAN/prerm
-
-$(IWAD)-wad/DEBIAN/postinst:
-	m4 -DIWAD=$(IWAD).wad \
-		doom-common/DEBIAN/postinst.in > $(IWAD)-wad/DEBIAN/postinst
+		doom-common/DEBIAN/preinst.in > $(IWAD)-wad/DEBIAN/preinst
 
 $(IWAD)-wad/DEBIAN/control: doom-common/DEBIAN/control.in
 	m4 -DPACKAGE=$(IWAD)-wad -DGAME=$(IWAD) -DVERSION=$(VERSION) \
@@ -68,8 +67,7 @@ $(IWAD)-wad/DEBIAN/md5sums:
 fixperms:
 	find $(IWAD)-wad -type f -print0 | xargs -r0 chmod 644
 	find $(IWAD)-wad -type d -print0 | xargs -r0 chmod 755
-	chmod 755 $(IWAD)-wad/DEBIAN/postinst
-	chmod 755 $(IWAD)-wad/DEBIAN/prerm
+	chmod 755 $(IWAD)-wad/DEBIAN/preinst
 
 clean:
 	rm -f $($(IWAD)DEB) $($(IWAD)TARGETS)
