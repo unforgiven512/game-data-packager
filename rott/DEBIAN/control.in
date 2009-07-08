@@ -1,14 +1,12 @@
-Package: PACKAGE
+Package: rott-data
 Section: non-free/games
 Priority: optional
 Architecture: all
-Recommends: doom-engine
-Provides: doom-wad
+Recommends: rott
 Installed-Size: 56
-Conflicts: freedoom (<< 0.6.4-5)
 Version: VERSION
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
-Description: IWAD from ID Software's GAME computer game
- Doom requires both a doom-engine and a doom-wad to play. This package
- contains the IWAD from ID Software's game "GAME"
- and was generated using the "game-data-packager" program.
+Description: Game data for Rise of the Triad
+ Rise of the Triad requires game data to play. This package contains
+ the game data from the shareware episode of Rise of the Triad and
+ was generated using the "game-data-packager" program.
