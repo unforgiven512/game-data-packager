@@ -1,3 +1,21 @@
 SHORTNAME=rott
 LONGNAME="Rise of the Triad"
 
+rott_usage() {
+	echo "${SHORTNAME} arguments:"  >&2
+	printf "\tzipfile - path to 1rott13.zip\n" >&2
+}
+
+verify_args() {
+	if [ $# -ne 1 ]; then
+		echo "error: no zipfile specified" >&2
+		usage >&2
+		rott_usage >&2
+		exit 1
+	fi
+}
+
+go() {
+	verify_args "$@"
+	exit 1
+}
