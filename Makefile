@@ -21,7 +21,7 @@ rott/DEBIAN/control: rott/DEBIAN/control.in
 		rott/DEBIAN/control.in > rott/DEBIAN/control
 
 rottclean:
-	rm -f rott/DEBIAN/control
+	rm -f rott/DEBIAN/control rott-data_$(VERSION)_all.deb
 
 clean: rottclean
 	make -f doom-common.mk IWAD=doom  LONG="Doom"   VERSION=$(VERSION) clean
