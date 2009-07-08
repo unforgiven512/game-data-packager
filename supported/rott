@@ -1,6 +1,8 @@
 SHORTNAME=rott
 LONGNAME="Rise of the Triad"
 
+ZIPSUM=0fafd6b629eab80278fc726e31f9cf41
+
 rott_usage() {
 	echo "${SHORTNAME} arguments:"  >&2
 	printf "\tzipfile - path to 1rott13.zip\n" >&2
@@ -15,7 +17,18 @@ verify_args() {
 	fi
 }
 
+checksum() {
+	CHECKSUM=`md5sum "$1" | cut -d' ' -f1`
+	debug "checksum = $CHECKSUM"
+}
+
 go() {
 	verify_args "$@"
+	ZIPFILE=`unravel "$1"`
+    [ -f "$ZIPFILE" ] || die "ERROR: '$ZIPFILE' does not exist."
+	checksum "$ZIPFILE"
+	if [ "$CHECKSUM" != "$ZIPSUM" ]; then
+		echo "warning: checksum is not what we expected" >&2
+	fi
 	exit 1
 }
