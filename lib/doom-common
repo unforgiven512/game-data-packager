@@ -2,7 +2,7 @@ DEBBASE="${SHORTNAME}-wad_${GAME_PACKAGE_VERSION}_all.deb"
 
 doom_usage() {
 	echo "${SHORTNAME} arguments:"  >&2
-	printf "\twadfile - path to a ${SHORTNAME}.wad\n"
+	printf "\twadfile - path to a ${SHORTNAME}.wad\n" >&2
 }
 
 verify_args() {
