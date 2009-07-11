@@ -4,13 +4,15 @@ game-data-packager (22) UNRELEASED; urgency=low
     Thanks Frédéric Brière. Closes: #532817.
   * shift '--' off the argument stack when encountered.
     Thanks Frédéric Brière. Closes: #532812.
-  * don't bother registering alternatives anymore, install
-    IWADs direct to /usr/share/games/doom
-  * remove older alternatives in preinst upgrade
-  * conflict with freedoom < 0.6.4-5 which registers
-    alternatives for /usr/share/games/doom/doom2.wad
+  * removing doom2.wad alternatives transition:
+    + don't bother registering alternatives anymore, install
+      IWADs direct to /usr/share/games/doom
+    + remove older alternatives in preinst upgrade
+    + doom packages built with g-d-p now conflict with
+      freedoom/freedm < 0.6.4-4 (the version where freedoom
+      transitioned away from alternatives)
 
- -- Jon Dowland <jmtd@debian.org>  Mon, 06 Jul 2009 17:34:32 +0100
+ -- Jon Dowland <jmtd@debian.org>  Sat, 11 Jul 2009 12:56:35 +0100
 
 game-data-packager (21) unstable; urgency=low
 

@@ -5,7 +5,7 @@ Architecture: all
 Recommends: doom-engine
 Provides: doom-wad
 Installed-Size: 56
-Conflicts: freedoom (<< 0.6.4-5)
+Conflicts: freedoom (<< 0.6.4-4), freedm (<< 0.6.4-4)
 Version: VERSION
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
 Description: IWAD from ID Software's GAME computer game
