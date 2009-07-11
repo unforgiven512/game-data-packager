@@ -1,4 +1,4 @@
-game-data-packager (22) UNRELEASED; urgency=low
+game-data-packager (22) unstable; urgency=low
 
   * don't mask non-zero exit status of dpkg-deb.
     Thanks Frédéric Brière. Closes: #532817.
@@ -15,7 +15,7 @@ game-data-packager (22) UNRELEASED; urgency=low
       freedoom/freedm < 0.6.4-4 (the version where freedoom
       transitioned away from alternatives)
 
- -- Jon Dowland <jmtd@debian.org>  Sat, 11 Jul 2009 13:01:49 +0100
+ -- Jon Dowland <jmtd@debian.org>  Sat, 11 Jul 2009 13:06:18 +0100
 
 game-data-packager (21) unstable; urgency=low
 
