@@ -4,6 +4,8 @@ game-data-packager (22) UNRELEASED; urgency=low
     Thanks Frédéric Brière. Closes: #532817.
   * shift '--' off the argument stack when encountered.
     Thanks Frédéric Brière. Closes: #532812.
+  * Update my e-mail address in control.
+  * dh_prep -> dh_clean (debhelper 7 changes)
   * removing doom2.wad alternatives transition:
     + don't bother registering alternatives anymore, install
       IWADs direct to /usr/share/games/doom
@@ -11,8 +13,9 @@ game-data-packager (22) UNRELEASED; urgency=low
     + doom packages built with g-d-p now conflict with
       freedoom/freedm < 0.6.4-4 (the version where freedoom
       transitioned away from alternatives)
+  * 
 
- -- Jon Dowland <jmtd@debian.org>  Sat, 11 Jul 2009 12:56:35 +0100
+ -- Jon Dowland <jmtd@debian.org>  Sat, 11 Jul 2009 13:00:05 +0100
 
 game-data-packager (21) unstable; urgency=low
 
