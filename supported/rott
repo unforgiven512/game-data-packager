@@ -47,8 +47,8 @@ go() {
 	oldpwd=`pwd`
 	cd "$WORKDIR"
 
-	unzip -o "$ZIPFILE" ROTTSW13.SHR
-	unzip -o "ROTTSW13.SHR"
+	unzip -qqo "$ZIPFILE" ROTTSW13.SHR
+	unzip -qqo "ROTTSW13.SHR"
 	rm ROTTSW13.SHR
 
 	# XXX: files within the ROTTSW13.SHR file. We install the lot into the
