@@ -22,6 +22,20 @@ checksum() {
 	debug "checksum = $CHECKSUM"
 }
 
+DEBBASE="rott-data_${GAME_PACKAGE_VERSION}_all.deb"
+
+# XXX: should be in lib/game-data-package-shared
+DATADIR="/usr/share/games/game-data-packager"
+
+SHAREDIR="usr/share/games/rott"
+
+if [ -f "$PWD/$DEBBASE" ]; then
+	DEB="$PWD/$DEBBASE"
+else
+	DEB="$DATADIR/$DEBBASE"
+fi
+
+
 go() {
 	verify_args "$@"
 	ZIPFILE=`unravel "$1"`
@@ -30,5 +44,36 @@ go() {
 	if [ "$CHECKSUM" != "$ZIPSUM" ]; then
 		echo "warning: checksum is not what we expected" >&2
 	fi
-	exit 1
+	oldpwd=`pwd`
+	cd "$WORKDIR"
+
+	unzip -o "$ZIPFILE" ROTTSW13.SHR
+	unzip -o "ROTTSW13.SHR"
+	rm ROTTSW13.SHR
+
+	# XXX: files within the ROTTSW13.SHR file. We install the lot into the
+	# .deb, but not all will be needed. pick out the ones we need in future.
+	files="VENDOR.DOC              DEMO1_3.DMO             DEMO2_3.DMO             
+           DEMO3_3.DMO             DEMO4_3.DMO             HUNTBGIN.RTC            
+           HUNTBGIN.WAD            HUNTBGIN.RTL            MODEM.PCK               
+           ORDER.FRM               README.EXE              REMOTE1.RTS             
+           ROTT.EXE                ROTTHELP.EXE            ROTTIPX.EXE             
+           ROTTSER.EXE             SETUP.EXE               SNDSETUP.EXE"
+
+	# XXX: this para copied from lib/doom-common. Should be generalised.
+	if [ "" = "$OUTDIR" ]; then
+		OUTFILE="$WORKDIR/out.deb"
+	else
+		OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
+	fi
+	cp -p "$DEB" "$OUTFILE"
+
+	# XXX: files are treated as being relative to $WORKDIR, hence
+	# unpacking straight into it. Might be nicer to tidy away the
+	# unpack into a subdir (no risk of stamping over another part
+	# of g-d-p's operation) and specify full paths
+	slipstream "$OUTFILE" "$SHAREDIR" $files
+	rm $files
+
+	cd "$oldpwd"
 }
