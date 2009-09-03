@@ -72,6 +72,7 @@ shift
 
 if [ ! -f "$SUPPORTED/$GAME" ]; then
 	echo "unknown option or game '$GAME'" >&2
+	usage >&2
 	supported >&2
 	exit 1
 fi
