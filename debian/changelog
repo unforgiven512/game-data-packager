@@ -1,3 +1,9 @@
+game-data-packager (23) UNRELEASED; urgency=low
+
+  * Update VCS control fields to reflect moving the packaging to git.
+
+ -- Jon Dowland <jmtd@debian.org>  Fri, 18 Sep 2009 19:16:27 +0100
+
 game-data-packager (22) unstable; urgency=low
 
   * don't mask non-zero exit status of dpkg-deb.

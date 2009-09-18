@@ -6,8 +6,8 @@ Uploaders: Jon Dowland <jmtd@debian.org>
 Build-Depends: debhelper (>> 7.0.0), fakeroot, m4
 DM-Upload-Allowed: yes
 Standards-Version: 3.8.2
-Vcs-Svn: svn://svn.debian.org/svn/pkg-games/packages/trunk/game-data-packager/
-Vcs-Browser: http://svn.debian.org/wsvn/pkg-games/packages/trunk/game-data-packager/?op=log
+Vcs-Git: git://git.debian.org/git/pkg-games/game-data-packager
+Vcs-Browser: http://git.debian.org/?p=pkg-games/game-data-packager.git
 
 Package: game-data-packager
 Depends: fakeroot, sudo
