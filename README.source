@@ -7,3 +7,7 @@ The following branches are used for the following purposes:
   quake3 - implementing quake3 support
   rott   - implementing rise of the triad (rott) support
   gui    - exploring the possibility of a GUI frontend
+    yaml - assuming we need supported games to have a declarative
+           description, rather than run shell scripts (so we can
+           abstract the UI); transcribe the existing shell scripts
+           into a YAML file
