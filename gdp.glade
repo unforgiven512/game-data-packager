@@ -2,6 +2,12 @@
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
+  <object class="GtkListStore" id="liststore1">
+    <columns>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkWindow" id="window1">
     <child>
       <object class="GtkVBox" id="vbox1">
@@ -13,6 +19,7 @@
             <property name="label" translatable="yes">Please choose the game you wish to install data for from the list below:</property>
           </object>
           <packing>
+            <property name="expand">False</property>
             <property name="position">0</property>
           </packing>
         </child>
@@ -63,11 +70,11 @@
             </child>
           </object>
           <packing>
+            <property name="expand">False</property>
             <property name="position">2</property>
           </packing>
         </child>
       </object>
     </child>
   </object>
-  <object class="GtkListStore" id="liststore1"/>
 </interface>
