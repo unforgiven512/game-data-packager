@@ -1,16 +1,27 @@
-game-data-packager (22) UNRELEASED; urgency=low
+game-data-packager (23) UNRELEASED; urgency=low
+
+  * Update VCS control fields to reflect moving the packaging to git.
+
+ -- Jon Dowland <jmtd@debian.org>  Fri, 18 Sep 2009 19:16:27 +0100
+
+game-data-packager (22) unstable; urgency=low
 
   * don't mask non-zero exit status of dpkg-deb.
     Thanks Frédéric Brière. Closes: #532817.
   * shift '--' off the argument stack when encountered.
     Thanks Frédéric Brière. Closes: #532812.
-  * don't bother registering alternatives anymore, install
-    IWADs direct to /usr/share/games/doom
-  * remove older alternatives in preinst upgrade
-  * conflict with freedoom < 0.6.4-5 which registers
-    alternatives for /usr/share/games/doom/doom2.wad
+  * Update my e-mail address in control.
+  * dh_prep -> dh_clean (debhelper 7 changes)
+  * bump standards version.
+  * removing doom2.wad alternatives transition:
+    + don't bother registering alternatives anymore, install
+      IWADs direct to /usr/share/games/doom
+    + remove older alternatives in preinst upgrade
+    + doom packages built with g-d-p now conflict with
+      freedoom/freedm < 0.6.4-4 (the version where freedoom
+      transitioned away from alternatives)
 
- -- Jon Dowland <jmtd@debian.org>  Mon, 06 Jul 2009 17:34:32 +0100
+ -- Jon Dowland <jmtd@debian.org>  Sat, 11 Jul 2009 13:06:18 +0100
 
 game-data-packager (21) unstable; urgency=low
 
