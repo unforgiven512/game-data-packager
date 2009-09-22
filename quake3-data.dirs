@@ -1,0 +1,8 @@
+quake3-data/
+quake3-data/DEBIAN
+quake3-data/DEBIAN/control
+quake3-data/usr
+quake3-data/usr/share
+quake3-data/usr/share/games
+quake3-data/usr/share/games/quake3
+quake3-data/usr/share/games/quake3/baseq3

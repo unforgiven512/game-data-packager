@@ -1,0 +1,99 @@
+SHORTNAME=quake3
+LONGNAME="Quake 3: Arena"
+
+quake3_usage() {
+echo "quake3 game arguments:"
+printf "\tmountpoint - quake 3 CD-ROM mount-point\n"
+printf "\t[ point release ] - quake3 point release file (optional)\n"
+}
+
+parse_args() {
+    if   [ $# -eq 1 ]; then
+        CDROM="$1"
+        NOPOINT="true"
+    elif [ $# -eq 2 ]; then
+        CDROM="$1"
+        POINT="$2"
+        NOPOINT="false"
+    else
+		usage >&2
+        quake3_usage >&2
+        exit 1
+    fi
+}
+
+MIRRORFILE=/etc/quake3-mirrors
+POINTFILE=linuxq3apoint-1.32b-3.x86.run
+
+fetch_point_release() {
+    if [ -f ./etc/quake3-mirrors ]; then
+        MIRRORFILE=./etc/quake3-mirrors
+    fi
+    # XXX: take the bottom mirror. In future, have some generic
+    # mirror-handling code in game-package, and pick a random one
+    # (or offer up a choice)
+    mirror=`tail -n1 "$MIRRORFILE"`
+
+    wget -O $WORKDIR/$POINTFILE $mirror/$POINTFILE
+}
+
+find_pak0() {
+    # identify where pak0.pk3 is (underneath the CD-ROM mount-point)
+    # and set the relevant variable
+
+    if   [ -f "$CDROM/Quake3/baseq3/pak0.pk3" ]; then
+        PAKFILE="$CDROM/Quake3/baseq3/pak0.pk3"
+    elif [ -f "$CDROM/baseq3/pak0.pk3" ]; then
+        PAKFILE="$CDROM/baseq3/pak0.pk3"
+    else
+        PAKFILE=`find "$CDROM" -type f -name "pak0.pk3" | head -1`
+    fi
+    if [ "" = "$PAKFILE" ]; then
+        echo "couldn't find pak0.pk3 under $CDROM." >&2
+        exit 1
+    fi
+    cp -p "$PAKFILE" "$WORKDIR/pak0.pk3"
+}
+
+# TODO: roll a more advanced check_sums into the game-package-shared
+check_sums() {
+    POINTMD5=c71fdddccb20e8fc393d846e9c61d685
+    SUM=`md5sum "$WORKDIR/$POINTFILE" | cut -d' ' -f1`
+    if [ "$SUM" != "$POINTMD5" ]; then
+        echo "error: $POINTFILE sum ($SUM) does not match expected sum" >&2
+        echo "($POINTMD5)" >&2
+        exit 1
+    fi
+
+    PAK0MD5=1197ca3df1e65f3c380f8abc10ca43bf
+    SUM=`md5sum $WORKDIR/pak0.pk3 | cut -d' ' -f1`
+    if [ "$SUM" != "$PAK0MD5" ]; then
+        echo "error: $POINTFILE sum ($SUM) does not match expected sum" >&2
+        echo "($PAK0MD5)" >&2
+        exit 1
+    fi
+}
+
+unpack_point() {
+    mkdir "$WORKDIR/unpacked"
+    (
+        cd "$WORKDIR/unpacked"
+        dd if=$WORKDIR/$POINTFILE ibs=1 obs=1024 skip=8251 |
+            tar zx
+    )
+    # now interested in $WORKDIR/unpacked/baseq3/pak[1-8].pk3
+}
+
+go() {
+	parse_args $*
+    if [ "$NOPOINT" = "true" ] ; then
+        fetch_point_release
+    fi
+    find_pak0
+    check_sums
+    exit 1
+}
+
+# stuff imported from quake3-data postinst, to be integrated
+BASEQ3=/usr/share/games/quake3/baseq3
+
