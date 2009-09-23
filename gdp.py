@@ -1,16 +1,20 @@
 import os
+import yaml
 
 class Controller:
 	def __init__(self):
 		pass
 	def add_view(self,v):
 		self.view = v
-	def find_supported_games(self):
+	def get_model(self):
+		m = []
 		for game in [ x for x in os.listdir("supported") \
 			if len(x) >= 5 and x[-5:] == ".yaml"]:
-				self.view.supported_game_added(game)
+				y = yaml.load(open("supported/%s"%game,"r").read())
+				m.append(y)
+				self.view.supported_game_added(y)
+		return m
 	def go(self):
-			self.find_supported_games()
 			self.view.go()
 
 import sys
@@ -43,7 +47,7 @@ class View:
 	def supported_game_added(self,game):
 		treeview = self.builder.get_object("treeview1")
 		liststor = self.builder.get_object("liststore1")
-		liststor.append([game])
+		liststor.append([game['longname']])
 	def go(self):
 		self.window.show()
 		gtk.main()
@@ -52,4 +56,5 @@ if __name__ == "__main__":
 	c = Controller()
 	v = View(c)
 	c.add_view(v)
+	m = c.get_model()
 	c.go()
