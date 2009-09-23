@@ -6,8 +6,9 @@ class Controller:
 	def add_view(self,v):
 		self.view = v
 	def find_supported_games(self):
-		for game in os.listdir("supported"):
-			self.view.supported_game_added(game)
+		for game in [ x for x in os.listdir("supported") \
+			if len(x) >= 5 and x[-5:] == ".yaml"]:
+				self.view.supported_game_added(game)
 	def go(self):
 			self.find_supported_games()
 			self.view.go()
