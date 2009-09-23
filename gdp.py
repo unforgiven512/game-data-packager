@@ -42,6 +42,10 @@ class View:
 		treeview.append_column(column)
 		column.pack_start(cell, False)
 		column.add_attribute(cell, "text", 0)
+		treeview.connect("cursor-changed", self.game_row_selected)
+
+	def game_row_selected(self, treeview):
+		print "game_row_selected"
 
 	def supported_game_added(self,game):
 		liststor = self.builder.get_object("liststore1")
