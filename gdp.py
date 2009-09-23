@@ -43,12 +43,24 @@ class View:
 		column.pack_start(cell, False)
 		column.add_attribute(cell, "text", 0)
 		treeview.connect("cursor-changed", self.game_row_selected)
+		self.setup_second_page()
 
 	def game_row_selected(self, treeview):
 		c = treeview.get_cursor()
 		if c:
 			widget = self.window.get_nth_page(self.window.get_current_page())
 			self.window.set_page_complete(widget, True)
+
+	def setup_second_page(self):
+		"""setup the assistant's second page. Assume that the first
+		action for whatever game is selected, is a "install file"
+		type one."""
+		w = self.builder.get_object("filechooserdialog1")
+		children = w.get_children()
+		print "there are %d children" % len(children)
+		w.remove(children[0])
+		self.window.append_page(children[0])
+		print "zomg"
 
 	def supported_game_added(self,game):
 		liststor = self.builder.get_object("liststore1")
