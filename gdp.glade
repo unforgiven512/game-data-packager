@@ -57,7 +57,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="button2">
+              <object class="GtkButton" id="nextbutton">
                 <property name="label">gtk-media-next</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -75,6 +75,33 @@
           </packing>
         </child>
       </object>
+    </child>
+  </object>
+  <object class="GtkAssistant" id="assistant1">
+    <property name="border_width">12</property>
+    <child>
+      <object class="GtkLabel" id="label2">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Introduction page</property>
+      </object>
+      <packing>
+        <property name="page_type">intro</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label3">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Content page</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label4">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Confirmation page</property>
+      </object>
+      <packing>
+        <property name="page_type">confirm</property>
+      </packing>
     </child>
   </object>
 </interface>
