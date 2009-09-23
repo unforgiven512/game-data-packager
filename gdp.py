@@ -45,7 +45,10 @@ class View:
 		treeview.connect("cursor-changed", self.game_row_selected)
 
 	def game_row_selected(self, treeview):
-		print "game_row_selected"
+		c = treeview.get_cursor()
+		if c:
+			widget = self.window.get_nth_page(self.window.get_current_page())
+			self.window.set_page_complete(widget, True)
 
 	def supported_game_added(self,game):
 		liststor = self.builder.get_object("liststore1")
