@@ -26,8 +26,8 @@ class View:
 		gtk.gdk.threads_init()
 		self.builder = gtk.Builder()
 		self.builder.add_from_file("gdp.glade")
-		self.builder.connect_signals({ "on_window_destroy" : gtk.main_quit })
 		self.window = self.builder.get_object("window1")
+		self.window.connect("destroy", gtk.main_quit)
 
 		treeview = self.builder.get_object("treeview1")
 		cell = gtk.CellRendererText()
