@@ -33,11 +33,8 @@ class View:
 			sys.exit('E: %s. Exiting.' % e)
 		self.builder = gtk.Builder()
 		self.builder.add_from_file("gdp.glade")
-		self.window = self.builder.get_object("window1")
+		self.window = self.builder.get_object("assistant1")
 		self.window.connect("destroy", gtk.main_quit)
-		self.builder.get_object("quitbutton").connect("clicked", gtk.main_quit)
-		self.builder.get_object("nextbutton").connect("clicked", \
-			self.continue_clicked)
 
 		treeview = self.builder.get_object("treeview1")
 		cell = gtk.CellRendererText()
@@ -49,12 +46,6 @@ class View:
 	def supported_game_added(self,game):
 		liststor = self.builder.get_object("liststore1")
 		liststor.append([game['longname']])
-
-	def continue_clicked(self,button):
-		asst = self.builder.get_object("assistant1")
-		asst.connect("destroy", gtk.main_quit)
-		asst.show()
-		self.window.hide()
 
 	def go(self):
 		self.window.show()

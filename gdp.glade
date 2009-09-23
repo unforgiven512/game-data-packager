@@ -8,7 +8,8 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkWindow" id="window1">
+  <object class="GtkAssistant" id="assistant1">
+    <property name="border_width">12</property>
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
@@ -34,6 +35,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="model">liststore1</property>
+                <property name="search_column">0</property>
               </object>
             </child>
           </object>
@@ -41,52 +43,13 @@
             <property name="position">1</property>
           </packing>
         </child>
-        <child>
-          <object class="GtkHBox" id="hbox1">
-            <property name="visible">True</property>
-            <child>
-              <object class="GtkButton" id="quitbutton">
-                <property name="label">gtk-quit</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-              </object>
-              <packing>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="nextbutton">
-                <property name="label">gtk-media-next</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-              </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkAssistant" id="assistant1">
-    <property name="border_width">12</property>
-    <child>
-      <object class="GtkLabel" id="label2">
-        <property name="visible">True</property>
-        <property name="label" translatable="yes">Introduction page</property>
       </object>
       <packing>
         <property name="page_type">intro</property>
       </packing>
+    </child>
+    <child>
+      <placeholder/>
     </child>
     <child>
       <placeholder/>
