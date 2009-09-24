@@ -73,7 +73,6 @@ class View:
 					True))
 		treeview.connect("row-activated", lambda treeview,path,col:
 			self.window.set_current_page(self.window.get_current_page()+1))
-		self.setup_filechooser_page()
 		self.window.set_forward_page_func(self.forward_page_func, None)
 
 	def forward_page_func(self, current_page, data):
@@ -86,6 +85,7 @@ class View:
 		if na.has_key('type') and "copy" == na['type']:
 			# TODO: setup the next page, a file copy page.
 			print na
+			self.setup_filechooser_page()
 		else: # XXX: validation should live elsewhere
 			print "not a recognised action type :("
 		return current_page + 1
