@@ -26,6 +26,15 @@ class Controller:
 	def set_game(self, game):
 		self.m.set_active_item(game)
 
+	def get_next_action(self):
+		"""return the next action required for the selected game.
+		   currently we do not handle dependencies: the actions will
+		   need to be specified in the precise order they are required
+		   to be satisfied."""
+		actions = self.m[self.m.active_item]['actions']
+		actions = filter(lambda x: not x.has_key('complete'), actions)
+		return actions[0]
+
 	def go(self):
 			self.view.go()
 
@@ -69,9 +78,16 @@ class View:
 
 	def forward_page_func(self, current_page, data):
 		if 0 == current_page:
+			# XXX: bug. active row not reported properly if keyboard nav used
 			treeview = self.builder.get_object("treeview1")
 			path,col = treeview.get_cursor()
 			self.controller.set_game(path[0])
+		na = self.controller.get_next_action()
+		if na.has_key('type') and "copy" == na['type']:
+			# TODO: setup the next page, a file copy page.
+			print na
+		else: # XXX: validation should live elsewhere
+			print "not a recognised action type :("
 		return current_page + 1
 
 	def setup_filechooser_page(self):
