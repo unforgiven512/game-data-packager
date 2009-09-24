@@ -76,6 +76,8 @@ class View:
 		self.window.set_forward_page_func(self.forward_page_func, None)
 		self.window.set_page_title(self.window.get_nth_page(0),"Game Data Packager")
 
+	# XXX: strangely, this appears to be called for 0 -> 1 transition at
+	# click-time, but then immediately after that for transition 1+...
 	def forward_page_func(self, current_page, data):
 		if 0 == current_page:
 			# XXX: bug. active row not reported properly if keyboard nav used
