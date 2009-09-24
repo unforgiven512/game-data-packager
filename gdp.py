@@ -56,6 +56,14 @@ class View:
 		treeview.connect("row-activated", lambda treeview,path,col:
 			self.window.set_current_page(self.window.get_current_page()+1))
 		self.setup_filechooser_page()
+		self.window.set_forward_page_func(self.forward_page_func, None)
+
+	def forward_page_func(self, current_page, data):
+		if 0 == current_page:
+			treeview = self.builder.get_object("treeview1")
+			path,col = treeview.get_cursor()
+			print "selected game is %d" % path[0]
+		return current_page + 1
 
 	def setup_filechooser_page(self):
 		"""setup the assistant's second page. Assume that the first
