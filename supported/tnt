@@ -2,6 +2,7 @@ shortname: tnt
 longname: "Final Doom: TNT: Evilution"
 actions:
   - 
+    type: copy
     name: tnt.wad
     destination: /usr/share/games/doom/tnt.wad
     md5: [ 4e158d9953c79ccf97bd0663244cc6b6 ]

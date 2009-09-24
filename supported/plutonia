@@ -2,6 +2,7 @@ shortname: Plutonia
 longname: "Final Doom: The Plutonia Experiment"
 actions:
   - 
+    type: copy
     name: plutonia.wad
     destination: /usr/share/games/doom/plutonia.wad
     md5: [ 75c8cf89566741fa9d22447604053bd7 ]

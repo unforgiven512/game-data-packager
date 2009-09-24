@@ -2,6 +2,7 @@ shortname: doom
 longname: "Doom"
 actions:
   - 
+    type: copy
     name: doom.wad
     destination: /usr/share/games/doom/doom.wad
     md5:
