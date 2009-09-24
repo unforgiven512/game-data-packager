@@ -31,44 +31,43 @@ class View:
 			gtk.init_check()
 		except RuntimeError, e:
 			sys.exit('E: %s. Exiting.' % e)
+		self.setup_gtkbuilder()
+		self.setup_gamechooser_page()
+
+	def setup_gtkbuilder(self):
 		self.builder = gtk.Builder()
 		self.builder.add_from_file("gdp.glade")
 		self.window = self.builder.get_object("assistant1")
 		self.window.connect("destroy", gtk.main_quit)
 		self.window.connect("cancel", gtk.main_quit)
 
+	def setup_gamechooser_page(self):
 		treeview = self.builder.get_object("treeview1")
 		cell = gtk.CellRendererText()
 		column = gtk.TreeViewColumn('game')
 		treeview.append_column(column)
 		column.pack_start(cell, False)
 		column.add_attribute(cell, "text", 0)
-		treeview.connect("cursor-changed", self.game_row_selected)
-		self.setup_second_page()
+		treeview.connect("cursor-changed", lambda treeview:
+			treeview.get_cursor() and \
+				self.window.set_page_complete(
+					self.window.get_nth_page(self.window.get_current_page()),
+					True))
+		self.setup_filechooser_page()
 
-	def game_row_selected(self, treeview):
-		c = treeview.get_cursor()
-		if c:
-			widget = self.window.get_nth_page(self.window.get_current_page())
-			self.window.set_page_complete(widget, True)
-
-	def setup_second_page(self):
+	def setup_filechooser_page(self):
 		"""setup the assistant's second page. Assume that the first
 		action for whatever game is selected, is a "install file"
 		type one."""
 		w = self.builder.get_object("placeholder_filechooser_window")
 		children = w.get_children()
 		w.remove(children[0])
-		self.window.append_page(children[0])
+		w = self.window
+		w.append_page(children[0])
 		self.builder.get_object("choose_file_button").connect("clicked", 
 			self.handle_file_button)
 		self.builder.get_object("choose_file_entry").connect("changed",
-			self.file_entry_text_changed)
-
-	def file_entry_text_changed(self,entry):
-		text = entry.get_text()
-		widget = self.window.get_nth_page(self.window.get_current_page())
-		self.window.set_page_complete(widget, True)
+			lambda e: w.set_page_complete( w.get_nth_page(w.get_current_page()), True))
 
 	def handle_file_button(self,button):
 		chooser = gtk.FileChooserDialog(title="Select doom2.wad", 
@@ -76,10 +75,8 @@ class View:
 			buttons=(gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_OPEN,
 				gtk.RESPONSE_OK))
 		chooser.run()
-		filename = chooser.get_filename()
+		self.builder.get_object("choose_file_entry").set_text(chooser.get_filename())
 		chooser.destroy()
-		label = self.builder.get_object("choose_file_entry")
-		label.set_text(filename)
 
 	def supported_game_added(self,game):
 		liststor = self.builder.get_object("liststore1")
