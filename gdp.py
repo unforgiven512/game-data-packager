@@ -70,6 +70,8 @@ class View:
 		chooser.run()
 		filename = chooser.get_filename()
 		chooser.destroy()
+		label = self.builder.get_object("choose_file_entry")
+		label.set_text(filename)
 
 	def supported_game_added(self,game):
 		liststor = self.builder.get_object("liststore1")
