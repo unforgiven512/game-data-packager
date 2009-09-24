@@ -17,11 +17,10 @@ class Controller:
 
 	def get_model(self):
 		self.m = m = Model()
-		for game in [ x for x in os.listdir("supported") \
-			if len(x) >= 5 and x[-5:] == ".yaml"]:
-				y = yaml.load(open("supported/%s"%game,"r").read())
-				m.append(y)
-				self.view.supported_game_added(y)
+		for game in [ x for x in os.listdir("supported")]:
+			y = yaml.load(open("supported/%s"%game,"r").read())
+			m.append(y)
+			self.view.supported_game_added(y)
 		return m
 
 	def set_game(self, game):
