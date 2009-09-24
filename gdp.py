@@ -60,7 +60,17 @@ class View:
 		print "there are %d children" % len(children)
 		w.remove(children[0])
 		self.window.append_page(children[0])
-		print "zomg"
+		self.builder.get_object("choose_file_button").connect("clicked", 
+			self.handle_file_button)
+
+	def handle_file_button(self,button):
+		chooser = gtk.FileChooserDialog(title="Select doom2.wad", 
+			action=gtk.FILE_CHOOSER_ACTION_OPEN,
+			buttons=(gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_OPEN,
+				gtk.RESPONSE_OK))
+		chooser.run()
+		filename = chooser.get_filename()
+		chooser.destroy()
 
 	def supported_game_added(self,game):
 		liststor = self.builder.get_object("liststore1")
