@@ -53,6 +53,8 @@ class View:
 				self.window.set_page_complete(
 					self.window.get_nth_page(self.window.get_current_page()),
 					True))
+		treeview.connect("row-activated", lambda treeview,path,col:
+			self.window.set_current_page(self.window.get_current_page()+1))
 		self.setup_filechooser_page()
 
 	def setup_filechooser_page(self):
