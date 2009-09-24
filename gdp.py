@@ -43,9 +43,9 @@ import gtk
 import gtk.glade
 
 class FilePicker(gtk.VBox):
-	def __init__(self):
+	def __init__(self,name):
 		gtk.VBox.__init__(self)
-		label = gtk.Label("Please locate your doom2.wad file.")
+		label = gtk.Label("Please locate the file '%s'." % name)
 		self.pack_start(label)
 		hbox = gtk.HBox()
 		self.entry = entry = gtk.Entry()
@@ -116,7 +116,7 @@ class View:
 		if na.has_key('type') and "copy" == na['type']:
 			# TODO: setup the next page, a file copy page.
 			print na
-			fp = FilePicker()
+			fp = FilePicker(na['name'])
 			fp.show_all()
 			self.window.insert_page(fp, self.window.get_n_pages() - 1)
 		else: # XXX: validation should live elsewhere
