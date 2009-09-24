@@ -51,11 +51,12 @@ class FilePicker(gtk.VBox):
 		self.entry = entry = gtk.Entry()
 		entry.connect("changed", lambda e: \
 			w.set_page_complete( w.get_nth_page(w.get_current_page()), True))
+		hbox.pack_start(gtk.Label("Filename: "), expand=False)
 		hbox.pack_start(entry)
 		button = gtk.Button("Select File...")
 		button.connect("clicked", self.handle_file_button)
-		hbox.pack_start(button)
-		self.pack_start(hbox)
+		hbox.pack_start(button, expand=False)
+		self.pack_start(hbox, expand=False)
 
 	def handle_file_button(self,button):
 		chooser = gtk.FileChooserDialog(title="Select doom2.wad", 
