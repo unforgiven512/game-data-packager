@@ -75,9 +75,13 @@ class View:
 			self.window.set_current_page(self.window.get_current_page()+1))
 		self.window.set_forward_page_func(self.forward_page_func, None)
 		self.window.set_page_title(self.window.get_nth_page(0),"Game Data Packager")
+		def setup_dummy_page():
+			"""unfortunately necessary due to the way we abuse forward_page_func"""
+			self.b = gtk.Button("YOU SHOULD NOT SEE THIS")
+			self.window.append_page(self.b)
+		setup_dummy_page()
 
-	# XXX: strangely, this appears to be called for 0 -> 1 transition at
-	# click-time, but then immediately after that for transition 1+...
+	# XXX: this gets called as soon as a page is marked as completed.
 	def forward_page_func(self, current_page, data):
 		if 0 == current_page:
 			# XXX: bug. active row not reported properly if keyboard nav used
@@ -97,15 +101,22 @@ class View:
 		"""setup the assistant's second page. Assume that the first
 		action for whatever game is selected, is a "install file"
 		type one."""
-		w = self.builder.get_object("placeholder_filechooser_window")
-		children = w.get_children()
-		w.remove(children[0])
+		vbox = gtk.VBox()
+		label = gtk.Label("Please locate your doom2.wad file.")
+		vbox.pack_start(label)
+		hbox = gtk.HBox()
+		entry = gtk.Entry()
+		entry.connect("changed", lambda e: \
+			w.set_page_complete( w.get_nth_page(w.get_current_page()), True))
+		hbox.pack_start(entry)
+		button = gtk.Button("Select File...")
+		button.connect("clicked", self.handle_file_button)
+
+		hbox.pack_start(button)
+		vbox.pack_start(hbox)
 		w = self.window
-		w.append_page(children[0])
-		self.builder.get_object("choose_file_button").connect("clicked", 
-			self.handle_file_button)
-		self.builder.get_object("choose_file_entry").connect("changed",
-			lambda e: w.set_page_complete( w.get_nth_page(w.get_current_page()), True))
+		vbox.show_all()
+		w.insert_page(vbox, w.get_n_pages() - 1)
 
 	def handle_file_button(self,button):
 		chooser = gtk.FileChooserDialog(title="Select doom2.wad", 
