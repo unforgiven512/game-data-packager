@@ -120,6 +120,9 @@ class View:
 			fp = FilePicker(na['name'])
 			fp.show_all()
 			self.window.insert_page(fp, self.window.get_n_pages() - 1)
+			self.window.set_page_title(
+				self.window.get_nth_page(self.window.get_n_pages() - 2),
+				"File '%s'" % na['name'])
 		else: # XXX: validation should live elsewhere
 			print "not a recognised action type :("
 		return current_page + 1
