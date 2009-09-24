@@ -55,7 +55,7 @@ class View:
 		"""setup the assistant's second page. Assume that the first
 		action for whatever game is selected, is a "install file"
 		type one."""
-		w = self.builder.get_object("filechooserdialog1")
+		w = self.builder.get_object("placeholder_filechooser_window")
 		children = w.get_children()
 		print "there are %d children" % len(children)
 		w.remove(children[0])
