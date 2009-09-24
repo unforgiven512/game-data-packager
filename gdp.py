@@ -1,6 +1,13 @@
 import os
 import yaml
 
+class Model(list):
+	def __init__(self):
+		self.active_item = -1
+
+	def set_active_item(self,item):
+		self.active_item = item
+
 class Controller:
 	def __init__(self):
 		pass
@@ -9,13 +16,16 @@ class Controller:
 		self.view = v
 
 	def get_model(self):
-		m = []
+		self.m = m = Model()
 		for game in [ x for x in os.listdir("supported") \
 			if len(x) >= 5 and x[-5:] == ".yaml"]:
 				y = yaml.load(open("supported/%s"%game,"r").read())
 				m.append(y)
 				self.view.supported_game_added(y)
 		return m
+
+	def set_game(self, game):
+		self.m.set_active_item(game)
 
 	def go(self):
 			self.view.go()
@@ -62,7 +72,7 @@ class View:
 		if 0 == current_page:
 			treeview = self.builder.get_object("treeview1")
 			path,col = treeview.get_cursor()
-			print "selected game is %d" % path[0]
+			self.controller.set_game(path[0])
 		return current_page + 1
 
 	def setup_filechooser_page(self):
