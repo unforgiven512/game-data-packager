@@ -61,6 +61,13 @@ class View:
 		self.window.append_page(children[0])
 		self.builder.get_object("choose_file_button").connect("clicked", 
 			self.handle_file_button)
+		self.builder.get_object("choose_file_entry").connect("changed",
+			self.file_entry_text_changed)
+
+	def file_entry_text_changed(self,entry):
+		text = entry.get_text()
+		widget = self.window.get_nth_page(self.window.get_current_page())
+		self.window.set_page_complete(widget, True)
 
 	def handle_file_button(self,button):
 		chooser = gtk.FileChooserDialog(title="Select doom2.wad", 
