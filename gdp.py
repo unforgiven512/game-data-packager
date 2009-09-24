@@ -42,6 +42,30 @@ import sys
 import gtk
 import gtk.glade
 
+class FilePicker(gtk.VBox):
+	def __init__(self):
+		gtk.VBox.__init__(self)
+		label = gtk.Label("Please locate your doom2.wad file.")
+		self.pack_start(label)
+		hbox = gtk.HBox()
+		self.entry = entry = gtk.Entry()
+		entry.connect("changed", lambda e: \
+			w.set_page_complete( w.get_nth_page(w.get_current_page()), True))
+		hbox.pack_start(entry)
+		button = gtk.Button("Select File...")
+		button.connect("clicked", self.handle_file_button)
+		hbox.pack_start(button)
+		self.pack_start(hbox)
+
+	def handle_file_button(self,button):
+		chooser = gtk.FileChooserDialog(title="Select doom2.wad", 
+			action=gtk.FILE_CHOOSER_ACTION_OPEN,
+			buttons=(gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_OPEN,
+				gtk.RESPONSE_OK))
+		chooser.run()
+		self.entry.set_text(chooser.get_filename())
+		chooser.destroy()
+
 class View:
 	def __init__(self,c):
 		self.controller = c
@@ -92,40 +116,12 @@ class View:
 		if na.has_key('type') and "copy" == na['type']:
 			# TODO: setup the next page, a file copy page.
 			print na
-			self.setup_filechooser_page()
+			fp = FilePicker()
+			fp.show_all()
+			self.window.insert_page(fp, self.window.get_n_pages() - 1)
 		else: # XXX: validation should live elsewhere
 			print "not a recognised action type :("
 		return current_page + 1
-
-	def setup_filechooser_page(self):
-		"""setup the assistant's second page. Assume that the first
-		action for whatever game is selected, is a "install file"
-		type one."""
-		vbox = gtk.VBox()
-		label = gtk.Label("Please locate your doom2.wad file.")
-		vbox.pack_start(label)
-		hbox = gtk.HBox()
-		entry = gtk.Entry()
-		entry.connect("changed", lambda e: \
-			w.set_page_complete( w.get_nth_page(w.get_current_page()), True))
-		hbox.pack_start(entry)
-		button = gtk.Button("Select File...")
-		button.connect("clicked", self.handle_file_button)
-
-		hbox.pack_start(button)
-		vbox.pack_start(hbox)
-		w = self.window
-		vbox.show_all()
-		w.insert_page(vbox, w.get_n_pages() - 1)
-
-	def handle_file_button(self,button):
-		chooser = gtk.FileChooserDialog(title="Select doom2.wad", 
-			action=gtk.FILE_CHOOSER_ACTION_OPEN,
-			buttons=(gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_OPEN,
-				gtk.RESPONSE_OK))
-		chooser.run()
-		self.builder.get_object("choose_file_entry").set_text(chooser.get_filename())
-		chooser.destroy()
 
 	def supported_game_added(self,game):
 		liststor = self.builder.get_object("liststore1")
