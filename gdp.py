@@ -74,6 +74,7 @@ class View:
 		treeview.connect("row-activated", lambda treeview,path,col:
 			self.window.set_current_page(self.window.get_current_page()+1))
 		self.window.set_forward_page_func(self.forward_page_func, None)
+		self.window.set_page_title(self.window.get_nth_page(0),"Game Data Packager")
 
 	def forward_page_func(self, current_page, data):
 		if 0 == current_page:
