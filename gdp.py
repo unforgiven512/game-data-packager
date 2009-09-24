@@ -57,7 +57,6 @@ class View:
 		type one."""
 		w = self.builder.get_object("placeholder_filechooser_window")
 		children = w.get_children()
-		print "there are %d children" % len(children)
 		w.remove(children[0])
 		self.window.append_page(children[0])
 		self.builder.get_object("choose_file_button").connect("clicked", 
