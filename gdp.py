@@ -35,6 +35,7 @@ class View:
 		self.builder.add_from_file("gdp.glade")
 		self.window = self.builder.get_object("assistant1")
 		self.window.connect("destroy", gtk.main_quit)
+		self.window.connect("cancel", gtk.main_quit)
 
 		treeview = self.builder.get_object("treeview1")
 		cell = gtk.CellRendererText()
