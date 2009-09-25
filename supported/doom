@@ -1,26 +1,10 @@
-
-SHORTNAME=doom
-LONGNAME="Doom (including Ultimate Doom)"
-
-check_for_v19() {
-	case "$CHECKSUM" in
-		"c4fe9fd920207691a9f493668e0a2083")
-			debug "doom.wad is a v1.9 IWAD (ultimate doom)"
-			;;
-		"1cd63c5ddff1bf8ce844237f580e9cf3")
-			debug "doom.wad is a v1.9 IWAD (registered)"
-			;;
-		*)
-			warn "the doom.wad file is not version 1.9"
-			warn "(or has been modified)"
-			warn "you may have some problems with PWADs and demos"
-			;;
-	esac
-
-}
-
-if [ -f ./lib/game-data-packager-shared ]; then
-	. ./lib/doom-common
-else
-	. /usr/lib/game-data-packager/doom-common
-fi
+shortname: doom
+longname: "Doom"
+actions:
+  - 
+    type: copy
+    name: doom.wad
+    destination: /usr/share/games/doom/doom.wad
+    md5:
+      - c4fe9fd920207691a9f493668e0a2083
+      - 1cd63c5ddff1bf8ce844237f580e9cf3

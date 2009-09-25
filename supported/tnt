@@ -1,21 +1,8 @@
-
-SHORTNAME=tnt
-LONGNAME="Final Doom: TNT: Evilution"
-
-check_for_v19() {
-	case "$CHECKSUM" in
-		"4e158d9953c79ccf97bd0663244cc6b6")
-			debug "tnt.wad checksum is correct"
-			;;
-		*)
-			warn "the tnt.wad file has an unknown checksum"
-			;;
-	esac
-
-}
-
-if [ -f ./lib/game-data-packager-shared ]; then
-	. ./lib/doom-common
-else
-	. /usr/lib/game-data-packager/doom-common
-fi
+shortname: tnt
+longname: "Final Doom: TNT: Evilution"
+actions:
+  - 
+    type: copy
+    name: tnt.wad
+    destination: /usr/share/games/doom/tnt.wad
+    md5: [ 4e158d9953c79ccf97bd0663244cc6b6 ]

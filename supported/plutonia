@@ -1,20 +1,9 @@
-SHORTNAME=plutonia
-LONGNAME="Final Doom: The Plutonia Experiment"
+shortname: Plutonia
+longname: "Final Doom: The Plutonia Experiment"
+actions:
+  - 
+    type: copy
+    name: plutonia.wad
+    destination: /usr/share/games/doom/plutonia.wad
+    md5: [ 75c8cf89566741fa9d22447604053bd7 ]
 
-check_for_v19() {
-	case "$CHECKSUM" in
-		"75c8cf89566741fa9d22447604053bd7")
-            debug "plutonia.wad has a known checksum"
-			;;
-		*)
-			warn "plutonia.wad has an unknown checksum"
-			;;
-	esac
-
-}
-
-if [ -f ./lib/game-data-packager-shared ]; then
-	. ./lib/doom-common
-else
-	. /usr/lib/game-data-packager/doom-common
-fi

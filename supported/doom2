@@ -1,22 +1,14 @@
-
-SHORTNAME=doom2
-LONGNAME="Doom 2"
-
-check_for_v19() {
-	case "$CHECKSUM" in
-		"25e1459ca71d321525f84628f45ca8cd")
-			debug "doom2.wad is a v1.9 IWAD"
-			;;
-		*)
-			warn "the doom2.wad file is not version 1.9"
-			warn "you may have some problems with PWADs and demos"
-			;;
-	esac
-
-}
-
-if [ -f ./lib/game-data-packager-shared ]; then
-	. ./lib/doom-common
-else
-	. /usr/lib/game-data-packager/doom-common
-fi
+shortname: doom2
+longname: "Doom 2: Hell on Earth"
+actions:
+  - 
+    type: copy
+    name: doom2.wad
+    destination: /usr/share/games/doom/doom2.wad
+    md5: [ 25e1459ca71d321525f84628f45ca8cd ]
+    depends: [ zomg ]
+  -
+    type: copy
+    name: zomg
+    destination: /tmp/zomg
+    md5: 6f5902ac237024bdd0c176cb93063dc4
