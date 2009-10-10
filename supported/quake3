@@ -3,7 +3,7 @@ LONGNAME="Quake 3: Arena"
 
 quake3_usage() {
 echo "quake3 game arguments:"
-printf "\tmountpoint - quake 3 CD-ROM mount-point\n"
+printf "\tmountpoint - quake 3 CD-ROM mount-point or pak0.pk3 filename\n"
 printf "\t[ point release ] - quake3 point release file (optional)\n"
 }
 
@@ -41,7 +41,9 @@ find_pak0() {
     # identify where pak0.pk3 is (underneath the CD-ROM mount-point)
     # and set the relevant variable
 
-    if   [ -f "$CDROM/Quake3/baseq3/pak0.pk3" ]; then
+    if [ -f "$CDROM" ] && [ "${CDROM%pak0.pk3}" != "$CDROM" ]; then
+        PAKFILE="$CDROM"
+    elif   [ -f "$CDROM/Quake3/baseq3/pak0.pk3" ]; then
         PAKFILE="$CDROM/Quake3/baseq3/pak0.pk3"
     elif [ -f "$CDROM/baseq3/pak0.pk3" ]; then
         PAKFILE="$CDROM/baseq3/pak0.pk3"
