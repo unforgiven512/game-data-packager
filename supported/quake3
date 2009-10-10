@@ -81,7 +81,7 @@ unpack_point() {
     (
         cd "$WORKDIR/unpacked"
         dd if=$WORKDIR/$POINTFILE ibs=1 obs=1024 skip=8251 |
-            tar zx
+            tar zxf -
     )
     # now interested in $WORKDIR/unpacked/baseq3/pak[1-8].pk3
 }
