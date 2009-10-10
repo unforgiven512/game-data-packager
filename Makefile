@@ -8,6 +8,7 @@ default:
 		LONG="Final Doom: TNT: Evilution" VERSION=$(VERSION)
 	make -f doom-common.mk IWAD=plutonia \
 		LONG="Final Doom: The Plutonia Experiment" VERSION=$(VERSION)
+	make -f quake3.mk LONG="Quake 3: Arena" VERSION=$(VERSION)
 
 clean:
 	make -f doom-common.mk IWAD=doom  LONG="Doom"   VERSION=$(VERSION) clean
@@ -17,5 +18,6 @@ clean:
 		LONG="Final Doom: TNT: Evilution" VERSION=$(VERSION) clean
 	make -f doom-common.mk IWAD=plutonia \
 		LONG="Final Doom: The Plutonia Experiment" VERSION=$(VERSION) clean
+	make -f quake3.mk LONG="Quake 3: Arena" VERSION=$(VERSION) clean
 
 .PHONY: default clean
