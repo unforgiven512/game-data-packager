@@ -10,7 +10,7 @@ printf "\t[ point release ] - quake3 point release file (optional)\n"
 parse_args() {
     if   [ $# -eq 1 ]; then
         CDROM="$1"
-        NOPOINT="true"
+        POINT="false"
     elif [ $# -eq 2 ]; then
         CDROM="$1"
         POINT="$2"
@@ -22,10 +22,16 @@ parse_args() {
     fi
 }
 
-MIRRORFILE=/etc/quake3-mirrors
+MIRRORFILE=/etc/game-data-packager/quake3-mirrors
 POINTFILE=linuxq3apoint-1.32b-3.x86.run
 
 fetch_point_release() {
+
+    if [ "x$POINT" != xfalse ]; then
+        cp -p "$POINT" "$WORKDIR/$POINTFILE"
+	return
+    fi
+
     if [ -f ./etc/quake3-mirrors ]; then
         MIRRORFILE=./etc/quake3-mirrors
     fi
@@ -86,16 +92,52 @@ unpack_point() {
     # now interested in $WORKDIR/unpacked/baseq3/pak[1-8].pk3
 }
 
+DEBBASE="${SHORTNAME}-data_${GAME_PACKAGE_VERSION}_all.deb"
+BASEQ3=/usr/share/games/quake3/baseq3
+
+# smcv FIXME: copied from lib/doom-common
+DATADIR="/usr/share/games/game-data-packager"
+
+if [ -f "$(pwd)/build/$DEBBASE" ]; then
+    echo "using local $DEBBASE" >&2
+    DEB="$(pwd)/build/$DEBBASE"
+else
+    echo "$(pwd)/$DEBBASE not found" >&2
+    DEB="$DATADIR/$DEBBASE"
+fi
+# smcv FIXME: end
+
 go() {
 	parse_args $*
-    if [ "$NOPOINT" = "true" ] ; then
-        fetch_point_release
-    fi
+    fetch_point_release
     find_pak0
     check_sums
-    exit 1
+    unpack_point
+
+    # the trailing / tells slipstream to treat it as a directory
+    DEST="${BASEQ3#/}"/
+
+    # smcv FIXME: copied from lib/doom-common
+    if [ "" = "$OUTDIR" ]; then
+        OUTFILE="$WORKDIR/out.deb"
+    else
+        OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
+    fi
+    # smcv FIXME: end
+
+    cp -p "$DEB" "$OUTFILE"
+    slipstream "$OUTFILE" "$DEST" pak0.pk3 \
+    	unpacked/baseq3/pak1.pk3 \
+    	unpacked/baseq3/pak2.pk3 \
+    	unpacked/baseq3/pak3.pk3 \
+    	unpacked/baseq3/pak4.pk3 \
+    	unpacked/baseq3/pak5.pk3 \
+    	unpacked/baseq3/pak6.pk3 \
+    	unpacked/baseq3/pak7.pk3 \
+    	unpacked/baseq3/pak8.pk3
+
+    rm -fr $WORKDIR/unpacked
+    rm -f $WORKDIR/pak0.pk3 $WORKDIR/linuxq3apoint-1.32b-3.x86.run
 }
 
-# stuff imported from quake3-data postinst, to be integrated
-BASEQ3=/usr/share/games/quake3/baseq3
 
