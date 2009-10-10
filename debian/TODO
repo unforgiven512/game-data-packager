@@ -1,13 +1,7 @@
 TODO:
 
-	* support {tnt,plutonia}.wad
-	* ensure the doom2.wad is not +x (chmod)
-	* generalize for non-doom games
-		* a more suitable name?
-		* show a licence where necessary
-	* move stuff which is very similar from doom2-wad/doom-wad into
-	* doom-common and make it specific at runtime
 	* do away with ./Makefile and build entirely from debian/rules
+		* reconsider: why do this?
 	* re-add quake3 support (currently in a branch)
-					 Jon Dowland <jon@alcopop.org>
-						  Sat Mar 15 18:19:12 GMT 2008
+	* default to su -c (sudo might not be configured)
+		* provide configurable methods for elevating privs
