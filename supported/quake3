@@ -70,7 +70,7 @@ check_sums() {
     PAK0MD5=1197ca3df1e65f3c380f8abc10ca43bf
     SUM=`md5sum $WORKDIR/pak0.pk3 | cut -d' ' -f1`
     if [ "$SUM" != "$PAK0MD5" ]; then
-        echo "error: $POINTFILE sum ($SUM) does not match expected sum" >&2
+        echo "error: pak0.pk3 sum ($SUM) does not match expected sum" >&2
         echo "($PAK0MD5)" >&2
         exit 1
     fi
