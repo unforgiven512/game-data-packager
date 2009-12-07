@@ -9,12 +9,15 @@ default: rott-data_$(VERSION)_all.deb
 	make -f doom-common.mk IWAD=plutonia \
 		LONG="Final Doom: The Plutonia Experiment" VERSION=$(VERSION)
 
-rott-data_$(VERSION)_all.deb: rott-data/DEBIAN/control
+rott-data_$(VERSION)_all.deb: rott-data/DEBIAN/control rott-dirs
 	if [ `id -u` -eq 0 ]; then \
 		dpkg-deb -b rott-data $@ ; \
 	else \
 		fakeroot dpkg-deb -b rott-data $@; \
 	fi
+
+rott-dirs:
+	mkdir -p rott-data/usr/share/games/rott
 
 rott-data/DEBIAN/control: rott-data/DEBIAN/control.in
 	m4 -DPACKAGE=rott-data -DVERSION=$(VERSION) \
@@ -32,4 +35,4 @@ clean: rottclean
 	make -f doom-common.mk IWAD=plutonia \
 		LONG="Final Doom: The Plutonia Experiment" VERSION=$(VERSION) clean
 
-.PHONY: default clean rottclean
+.PHONY: default clean rottclean rott-dirs
