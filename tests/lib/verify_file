@@ -1,0 +1,14 @@
+#!/bin/sh
+set -u
+set -e
+
+[ $# -eq 1 ] || {
+    echo "usage: $0 file" >&2
+    exit 1
+}
+file="$1"
+
+. ./lib/game-data-packager-shared
+
+verify_file "$file" >/dev/null 2>&1
+exit 0
