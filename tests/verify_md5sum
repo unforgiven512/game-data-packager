@@ -1,0 +1,23 @@
+#!/bin/sh
+set -u
+set -e
+
+correct="6f5902ac237024bdd0c176cb93063dc4"
+incorrect="wrong"
+
+workdir=$(mktemp -td game-data-packager.tests.XXXXXX)
+echo hello world > "$workdir/testfile"
+
+if ./tests/lib/verify_md5sum "$workdir/testfile" "$correct"; then
+    echo pass
+else
+    echo fail
+fi
+if ! ./tests/lib/verify_md5sum "$workdir/testfile" "$incorrect"; then
+    echo pass
+else
+    echo fail
+fi
+
+rm "$workdir/testfile"
+rmdir "$workdir"

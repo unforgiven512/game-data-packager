@@ -1,0 +1,15 @@
+#!/bin/sh
+set -u
+set -e
+
+[ $# -eq 2 ] || {
+    echo "usage: $0 testfile md5sum" >&2
+    exit 1
+}
+file="$1"
+sum="$2"
+
+. ./lib/game-data-packager-shared
+
+verify_md5sum "$file" "$sum" >/dev/null 2>&1
+exit 0
