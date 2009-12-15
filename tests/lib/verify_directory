@@ -1,0 +1,14 @@
+#!/bin/sh
+set -u
+set -e
+
+[ $# -eq 1 ] || {
+    echo "usage: $0 dir" >&2
+    exit 1
+}
+dir="$1"
+
+. ./lib/game-data-packager-shared
+
+verify_directory "$dir" >/dev/null 2>&1
+exit 0

@@ -1,0 +1,17 @@
+#!/bin/sh
+set -u
+set -e
+
+workdir=$(mktemp -td game-data-packager.tests.XXXXXX)
+mkdir "$workdir/yes"
+
+printf "verify_directory: "
+if   ./tests/lib/verify_directory "$workdir/yes" &&
+   ! ./tests/lib/verify_directory "$workdir/no "; then
+    echo pass
+else
+    echo fail
+fi
+
+rmdir "$workdir/yes"
+rmdir "$workdir"
