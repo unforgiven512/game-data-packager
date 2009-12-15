@@ -8,12 +8,9 @@ incorrect="wrong"
 workdir=$(mktemp -td game-data-packager.tests.XXXXXX)
 echo hello world > "$workdir/testfile"
 
-if ./tests/lib/verify_md5sum "$workdir/testfile" "$correct"; then
-    echo pass
-else
-    echo fail
-fi
-if ! ./tests/lib/verify_md5sum "$workdir/testfile" "$incorrect"; then
+printf "verify_md5sum: "
+if   ./tests/lib/verify_md5sum "$workdir/testfile" "$correct" &&
+   ! ./tests/lib/verify_md5sum "$workdir/testfile" "$incorrect"; then
     echo pass
 else
     echo fail
