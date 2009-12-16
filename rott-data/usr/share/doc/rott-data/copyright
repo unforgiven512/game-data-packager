@@ -2,7 +2,7 @@ The rott-data package was generated using game-data-packager.
 Copyright (C) 2008,2009 Jon Dowland <jmtd@debian.org>
 
 The files within "/usr/share/games/rott" are subject to the copyright
-in /usr/share/doc/rott-data/copyright.gz.
+described in /usr/share/doc/rott-data/VENDOR.DOC.
 
 The remainder of this package is covered by the following
 Licence:
