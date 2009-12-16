@@ -44,6 +44,15 @@ go() {
 	if [ "$CHECKSUM" != "$ZIPSUM" ]; then
 		echo "warning: checksum is not what we expected" >&2
 	fi
+
+	# XXX: this para copied from lib/doom-common. Should be generalised.
+	if [ "" = "$OUTDIR" ]; then
+		OUTFILE="$WORKDIR/out.deb"
+	else
+		OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
+	fi
+	cp -p "$DEB" "$OUTFILE"
+
 	oldpwd=`pwd`
 	cd "$WORKDIR"
 
@@ -59,14 +68,6 @@ go() {
            ORDER.FRM               README.EXE              REMOTE1.RTS             
            ROTT.EXE                ROTTHELP.EXE            ROTTIPX.EXE             
            ROTTSER.EXE             SETUP.EXE               SNDSETUP.EXE"
-
-	# XXX: this para copied from lib/doom-common. Should be generalised.
-	if [ "" = "$OUTDIR" ]; then
-		OUTFILE="$WORKDIR/out.deb"
-	else
-		OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
-	fi
-	cp -p "$DEB" "$OUTFILE"
 
     # XXX: we have to re-implement most of slipstream() here, due
     # to the way we use it
