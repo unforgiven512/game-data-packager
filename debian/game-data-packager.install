@@ -5,8 +5,10 @@ supported/doom                usr/share/games/game-data-packager/supported
 supported/doom2               usr/share/games/game-data-packager/supported
 supported/tnt                 usr/share/games/game-data-packager/supported
 supported/plutonia            usr/share/games/game-data-packager/supported
+supported/rott                usr/share/games/game-data-packager/supported
 etc/game-data-packager.conf   etc
 doom-wad_*_all.deb            usr/share/games/game-data-packager
 doom2-wad_*_all.deb           usr/share/games/game-data-packager
 tnt-wad_*_all.deb             usr/share/games/game-data-packager
 plutonia-wad_*_all.deb        usr/share/games/game-data-packager
+rott-data_*_all.deb           usr/share/games/game-data-packager
