@@ -62,6 +62,10 @@ go() {
 
     # list of files from within the ZIP-inside-ZIP required for play
     files="HUNTBGIN.RTC HUNTBGIN.RTL HUNTBGIN.WAD REMOTE1.RTS"
+	otherfiles="VENDOR.DOC    DEMO1_3.DMO  DEMO2_3.DMO   DEMO3_3.DMO
+                DEMO4_3.DMO   MODEM.PCK    ORDER.FRM     README.EXE
+                ROTT.EXE      ROTTHELP.EXE ROTTIPX.EXE   ROTTSER.EXE
+                SETUP.EXE     SNDSETUP.EXE"
 
     # XXX: we have to re-implement most of slipstream() here, due
     # to the way we use it
@@ -79,7 +83,7 @@ go() {
     slipstream_repack "$OUTFILE"
     slipstream_cleanup
 
-	rm $files
+	rm $files $otherfiles
 
 	cd "$oldpwd"
 }
