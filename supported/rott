@@ -68,11 +68,21 @@ go() {
 	fi
 	cp -p "$DEB" "$OUTFILE"
 
-	# XXX: files are treated as being relative to $WORKDIR, hence
-	# unpacking straight into it. Might be nicer to tidy away the
-	# unpack into a subdir (no risk of stamping over another part
-	# of g-d-p's operation) and specify full paths
-	slipstream "$OUTFILE" "$SHAREDIR" $files
+    # XXX: we have to re-implement most of slipstream() here, due
+    # to the way we use it
+    slipstream_permcheck "$DEB"
+    slipstream_unpack "$DEB"
+    for file in $files; do
+        # XXX: files are treated as being relative to $WORKDIR, hence
+        # unpacking straight into it. Might be nicer to tidy away the
+        # unpack into a subdir (no risk of stamping over another part
+        # of g-d-p's operation) and specify full paths
+        slipstream_file "$file" "$SHAREDIR/$file"
+    done
+    slipstream_instsize
+    slipstream_repack "$DEB"
+    slipstream_cleanup
+
 	rm $files
 
 	cd "$oldpwd"
