@@ -1,0 +1,76 @@
+game-data-packager hacking
+Jon Dowland <jmtd@debian.org>
+Thu Jul  9 18:50:54 BST 2009
+
+introduction
+------------
+
+game-data-packager is a program which helps users install data on their Debian
+system, in a way which integrates with the package management system.
+
+Adding support for a new game to game-data-packager
+---------------------------------------------------
+
+game-data-packager essentially outputs .deb packages. The broad steps
+involved in adding another game to g-d-p are
+
+1) add a file to ./supported
+2) add a template .deb file
+
+add a file to ./supported
+-------------------------
+
+Add a shellscript to ./supported with the shortname for your new addition
+(e.g. doom, rott) as the filename. Within this, as a minimum, you must
+provide
+
+	a definition of SHORTNAME (e.g. rott)
+	a definition of LONGNAME (e.g. Rise Of the Triad)
+	a definition of go()
+
+A simple example:
+
+	SHORTNAME=rott
+	LONGNAME="Rise of the Triad"
+	go() {
+		echo "not implemented yet" >&2
+		exit 1
+	}
+
+TODO: what does g-d-p expect to have happened after go has completed
+
+the go() method
+---------------
+
+When the go() method is invoked, g-d-p has created a working directory
+and stored the name of it in $WORKDIR.
+
+At a bare minimum the go method should inspect it's arguments. It is
+expected that if there are no arguments, the module's usage text should
+be printed out.
+
+	FIXME: I think perhaps this should be changed so that instead
+	if there is an argument and it is --help print out the usage.
+	therefore you could run "g-d-p rott" and have it default to
+	downloading the required files, or "g-d-p rott --help" to find
+	out alternatives (such as supplying your own input data).
+
+g-d-p expects that once go() has completed, if the script has not been
+terminated, there should be a .deb in $OUTFILE. It will then install or save
+this to a user-specified location as they have requested.
+
+add a template .deb file
+------------------------
+
+The way that g-d-p generally works is
+
+	1) a template deb is copied from /usr/share/games/game-data-packager
+	2) some processing happens which results in a set of files that
+	   belong in the .deb (e.g., fetch stuff from the web; unzip things;
+	   etc.)
+	3) the slipstream() method(s) are used to wedge the files into the
+	   template deb
+
+Depending on how g-d-p was invoked, an attempt might be made to install
+the resulting .deb, or it might be saved to a file location of the user's
+choice.

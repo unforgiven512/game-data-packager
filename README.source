@@ -3,6 +3,11 @@ game-data-packager is maintained in git. The git repository can be obtained at
 
 The following branches are used for the following purposes:
 
-  origin/master - current package in sid
-  origin/quake3 - implementing quake3 support
-  origin/rott   - implementing rise of the triad (rott) support
+  master - current package in sid
+  quake3 - implementing quake3 support
+  rott   - implementing rise of the triad (rott) support
+  gui    - exploring the possibility of a GUI frontend
+    yaml - assuming we need supported games to have a declarative
+           description, rather than run shell scripts (so we can
+           abstract the UI); transcribe the existing shell scripts
+           into a YAML file

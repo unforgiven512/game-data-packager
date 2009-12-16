@@ -1,14 +1,16 @@
 Package: quake3-data
-Version: 1
+Version: VERSION
 Section: non-free/games
 Priority: optional
 Architecture: all
-Recommends: ioquake3
-Provides: quake3-data
-Installed-Size: 56
+Recommends: quake3 | quake3-server
+Installed-Size: 500000
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
-Description: Quake3 commercial data files
- Quake3 requires an engine and game data to play. This package contains
- the commercial data from ID Software's game "Quake 3", and was generated
- using the "make-quake3-package" program from the "games-package" Debian
- package.
+Description: Quake 3: Arena commercial data files
+ Quake 3: Arena requires an engine and game data to play. This package contains
+ the commercial data from ID Software's game "Quake 3: Arena", and was
+ generated using the "game-data-packager" program from the Debian package of
+ the same name.
+ .
+ To play Quake 3: Arena using this data, install the quake3 package, or to
+ run a dedicated server, install the quake3-server package.
