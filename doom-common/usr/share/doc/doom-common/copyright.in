@@ -1,7 +1,7 @@
 The PACKAGE package was generated using game-data-packager.
-Copyright (C) 2008 Jon Dowland <jon@alcopop.org>.
+Copyright (C) 2008, 2009 Jon Dowland <jmtd@debian.org>.
 
-The file "/usr/share/games/doom-package/IWAD", if
+The file "/usr/share/games/doom/IWAD", if
 present, is a user-supplied file that is not covered by the
 copyright or licence of this package. For example, the
 original Doom data is copyright (c) 1999 by id Software,
