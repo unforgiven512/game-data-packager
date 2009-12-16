@@ -20,8 +20,7 @@ rott-dirs:
 	mkdir -p rott-data/usr/share/games/rott
 
 rott-data/DEBIAN/control: rott-data/DEBIAN/control.in
-	m4 -DPACKAGE=rott-data -DVERSION=$(VERSION) \
-		rott-data/DEBIAN/control.in > rott-data/DEBIAN/control
+	m4 -DPACKAGE=rott-data -DVERSION=$(VERSION) $< > $@ 
 
 rottclean:
 	rm -f rott-data/DEBIAN/control rott-data_$(VERSION)_all.deb
