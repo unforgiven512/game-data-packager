@@ -2,6 +2,9 @@
 
 . ./lib/game-data-packager-shared
 
+## verify_file(file)
+##      ensures file is a file, or complains on stderr
+##      and causes the program to exit.
 test_verify_file_yes() {
   ./tests/lib/verify_file "tests/runtests"
   assertEquals $? 0
@@ -10,6 +13,10 @@ test_verify_file_no() {
   ./tests/lib/verify_file "tests/does_not_exist"
   assertNotEquals $? 0
 }
+
+## verify_directory(dir)
+##      ensures dir is a directory, or complains on stderr
+##      and causes the program to exit.
 test_verify_dir_yes() {
   ./tests/lib/verify_directory "tests"
   assertEquals $? 0
@@ -18,6 +25,11 @@ test_verify_dir_yes() {
   ./tests/lib/verify_directory "tests/does_not_exist"
   assertNotEquals $? 0
 }
+
+## verify_md5sum(file,sum)
+##      calculates the md5sum of file and compares it to sum.
+##      if the sum doesn't match, complains on stderr and causes the program
+##      to exit.
 test_md5sum_yes() {
   ./tests/lib/verify_md5sum "tests/testfile" "5d41402abc4b2a76b9719d911017c592"
   assertEquals $? 0
@@ -26,6 +38,10 @@ test_md5sum_no() {
   ./tests/lib/verify_md5sum "tests/testfile" "incorrect"
   assertNotEquals $? 0
 } 
+
+## die(string,retcode)
+##      end the program, complaining with string on stderr
+##      and returning retcode if supplied, 2 if not.
 test_die() {
   # XXX: capture stderr and ensure it matches diestring
   ./tests/lib/die "diestring" 6
@@ -33,6 +49,16 @@ test_die() {
   ./tests/lib/die "diestring" 42
   assertEquals $? 42
 }
+
+## slipstream(deb,relpath,file1,file2...)
+##      insert file1,file2... into the deb, under the
+##      path 'relpath', relative to the package root, e.g.:
+##          slipstream(deb, 'usr/share/doc', 'README', 'copyright')
+##              => /usr/share/doc/README
+##              => /usr/share/doc/copyright
+##      prerequisites:
+##        * $WORKDIR must be defined to a directory within which
+##          slipstream can do it's work (somewhere writeable)
 test_slipstream() {
     debsrc="./tests/empty.deb"
     wd=`mktemp -td game-data-packager.tests.XXXXXX`
@@ -48,5 +74,34 @@ test_slipstream() {
     rm "$deb"
     rmdir "$wd"
 }
+
+### procedures we are still to write tests for:
+
+## slipstream_permcheck(deb)
+##      ensures that the file deb can be written to and
+##      that the current working directory is writeable
+## slipstream_unpack(deb)
+##      unpacks the deb file into "./slipstream_unpacked"
+##      and the control data into "./DEBIAN"
+## slipstream_file(file,destpath)
+##      copies the file into "./slipstream_unpacked/$destpath",
+##      calculates the files md5sum and adds it to the md5sums
+##      file in the control area.
+##  slipstream_instsize
+##      calculates the installed size of the deb, (based on
+##      the contents of the ./slipstream_unpacked directory)
+##      and writes the result to the control file in the
+##      control area.
+## slipstream_repack(deb)
+##      writes a new debian package over deb, packing
+##      the files from ./slipstream_unpacked inside,
+##      using the control area in ./DEBIAN
+## slipstream_cleanup()
+##      removes the ./slipstream_unpacked directory.
+## install_deb(deb)
+##      uses sudo and dpkg to install the supplied .deb file
+## unravel(path)
+##      convert 'path' from relative to absolute
+##      if it does not begin with a slash.
 
 . ./tests/shunit2/shunit2
