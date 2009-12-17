@@ -8,5 +8,13 @@ test_verify_file_no() {
   ./tests/lib/verify_file "tests/does_not_exist"
   assertNotEquals $? 0
 }
+test_verify_dir_yes() {
+  ./tests/lib/verify_directory "tests"
+  assertEquals $? 0
+}
+test_verify_dir_yes() {
+  ./tests/lib/verify_directory "tests/does_not_exist"
+  assertNotEquals $? 0
+}
 
 . ./tests/shunit2/shunit2
