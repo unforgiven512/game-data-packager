@@ -24,5 +24,13 @@ test_md5sum_no() {
   ./tests/lib/verify_md5sum "tests/testfile" "incorrect"
   assertNotEquals $? 0
 } 
+test_die() {
+  # XXX: capture stderr and ensure it matches diestring
+  ./tests/lib/die "diestring" 6
+  assertEquals $? 6
+  ./tests/lib/die "diestring" 42
+  assertEquals $? 42
+}
+
 
 . ./tests/shunit2/shunit2
