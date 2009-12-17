@@ -1,17 +1,12 @@
 #!/bin/sh
-set -u
-set -e
 
-workdir=$(mktemp -td game-data-packager.tests.XXXXXX)
-touch "$workdir/yes"
+test_verify_file_yes() {
+  ./tests/lib/verify_file "tests/verify_file"
+  assertEquals $? 0
+}
+test_verify_file_no() {
+  ./tests/lib/verify_file "tests/does_not_exist"
+  assertNotEquals $? 0
+}
 
-printf "verify_file: "
-if   ./tests/lib/verify_file "$workdir/yes" &&
-   ! ./tests/lib/verify_file "$workdir/no "; then
-    echo pass
-else
-    echo fail
-fi
-
-rm "$workdir/yes"
-rmdir "$workdir"
+. ./tests/shunit2/shunit2
