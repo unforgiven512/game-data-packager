@@ -1,7 +1,7 @@
 #!/bin/sh
 
 test_verify_file_yes() {
-  ./tests/lib/verify_file "tests/verify_file"
+  ./tests/lib/verify_file "tests/runtests"
   assertEquals $? 0
 }
 test_verify_file_no() {
@@ -16,5 +16,13 @@ test_verify_dir_yes() {
   ./tests/lib/verify_directory "tests/does_not_exist"
   assertNotEquals $? 0
 }
+test_md5sum_yes() {
+  ./tests/lib/verify_md5sum "tests/testfile" "5d41402abc4b2a76b9719d911017c592"
+  assertEquals $? 0
+} 
+test_md5sum_no() {
+  ./tests/lib/verify_md5sum "tests/testfile" "incorrect"
+  assertNotEquals $? 0
+} 
 
 . ./tests/shunit2/shunit2
