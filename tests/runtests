@@ -37,12 +37,13 @@ test_slipstream() {
     debsrc="./tests/empty.deb"
     wd=`mktemp -td game-data-packager.tests.XXXXXX`
     deb="$wd/empty.deb"
-    file="tests/testfile"
+    file="`readlink -f tests/testfile`"
 
     cp -p "$debsrc" "$deb"
-    slipstream "$deb" "foo/bar" "$file"
-    echo "$deb"
-    exit 1
+    WORKDIR="$wd"
+    slipstream "$deb" "foo/bar/baz" "$file"
+    dpkg-deb -c "$deb" | grep "/foo/bar/baz$" >/dev/null
+    assertEquals $? 0
 
     rm "$deb"
     rmdir "$wd"
