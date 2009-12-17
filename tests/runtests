@@ -1,0 +1,51 @@
+#!/bin/sh
+
+. ./lib/game-data-packager-shared
+
+test_verify_file_yes() {
+  ./tests/lib/verify_file "tests/runtests"
+  assertEquals $? 0
+}
+test_verify_file_no() {
+  ./tests/lib/verify_file "tests/does_not_exist"
+  assertNotEquals $? 0
+}
+test_verify_dir_yes() {
+  ./tests/lib/verify_directory "tests"
+  assertEquals $? 0
+}
+test_verify_dir_yes() {
+  ./tests/lib/verify_directory "tests/does_not_exist"
+  assertNotEquals $? 0
+}
+test_md5sum_yes() {
+  ./tests/lib/verify_md5sum "tests/testfile" "5d41402abc4b2a76b9719d911017c592"
+  assertEquals $? 0
+} 
+test_md5sum_no() {
+  ./tests/lib/verify_md5sum "tests/testfile" "incorrect"
+  assertNotEquals $? 0
+} 
+test_die() {
+  # XXX: capture stderr and ensure it matches diestring
+  ./tests/lib/die "diestring" 6
+  assertEquals $? 6
+  ./tests/lib/die "diestring" 42
+  assertEquals $? 42
+}
+test_slipstream() {
+    debsrc="./tests/empty.deb"
+    wd=`mktemp -td game-data-packager.tests.XXXXXX`
+    deb="$wd/empty.deb"
+    file="tests/testfile"
+
+    cp -p "$debsrc" "$deb"
+    slipstream "$deb" "foo/bar" "$file"
+    echo "$deb"
+    exit 1
+
+    rm "$deb"
+    rmdir "$wd"
+}
+
+. ./tests/shunit2/shunit2
