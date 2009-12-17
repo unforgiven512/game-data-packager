@@ -11,3 +11,7 @@ This package is distributed under the terms of version 2 of the GNU
 general public licence (GPL). On Debian systems the GNU General Public
 License (GPL) version 2 is located on the filesystem at
 /usr/share/common-licenses/GPL-2.
+
+The contents of tests/shunit2 are (c) 2008 Kate Ward <kate.ward@forestent.com>
+and released under the GNU lesser public license (LGPL). A copy of this
+license is available at /usr/share/common-licenses/LGPL.
