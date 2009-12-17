@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. ./lib/game-data-packager-shared
+
 test_verify_file_yes() {
   ./tests/lib/verify_file "tests/runtests"
   assertEquals $? 0
@@ -31,6 +33,19 @@ test_die() {
   ./tests/lib/die "diestring" 42
   assertEquals $? 42
 }
+test_slipstream() {
+    debsrc="./tests/empty.deb"
+    wd=`mktemp -td game-data-packager.tests.XXXXXX`
+    deb="$wd/empty.deb"
+    file="tests/testfile"
 
+    cp -p "$debsrc" "$deb"
+    slipstream "$deb" "foo/bar" "$file"
+    echo "$deb"
+    exit 1
+
+    rm "$deb"
+    rmdir "$wd"
+}
 
 . ./tests/shunit2/shunit2
