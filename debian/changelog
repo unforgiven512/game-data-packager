@@ -1,8 +1,9 @@
 game-data-packager (23) UNRELEASED; urgency=low
 
   * Update VCS control fields to reflect moving the packaging to git.
+  * bump standards version.
 
- -- Jon Dowland <jmtd@debian.org>  Fri, 18 Sep 2009 19:16:27 +0100
+ -- Jon Dowland <jmtd@debian.org>  Wed, 16 Dec 2009 16:53:53 +0000
 
 game-data-packager (22) unstable; urgency=low
 
