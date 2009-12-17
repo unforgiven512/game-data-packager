@@ -95,10 +95,13 @@ die() {
 
 ## slipstream(deb,relpath,file1,file2...)
 ##      insert file1,file2... into the deb, under the
-##      relative path 'relpath', e.g.
-##          slipstream(deb, '/usr/share/doc', 'README', 'copyright')
+##      path 'relpath', relative to the package root, e.g.:
+##          slipstream(deb, 'usr/share/doc', 'README', 'copyright')
 ##              => /usr/share/doc/README
 ##              => /usr/share/doc/copyright
+##      prerequisites:
+##        * $WORKDIR must be defined to a directory within which
+##          slipstream can do it's work (somewhere writeable)
 # TODO: this assumes every file is going to go in the same RELPATH. hmm.
 slipstream() {
 	DEB="$1"     # the .deb file we are going to mangle
