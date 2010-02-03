@@ -3,5 +3,4 @@ TODO:
 	* do away with ./Makefile and build entirely from debian/rules
 		* reconsider: why do this?
 	* re-add quake3 support (currently in a branch)
-	* default to su -c (sudo might not be configured)
-		* provide configurable methods for elevating privs
+	* provide configurable methods for elevating privs
