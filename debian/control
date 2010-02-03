@@ -9,8 +9,7 @@ Standards-Version: 3.8.3
 Vcs-Git: git://git.debian.org/git/pkg-games/game-data-packager
 Vcs-Browser: http://git.debian.org/?p=pkg-games/game-data-packager.git
 
-Package: game-data-packager
-Depends: fakeroot, sudo, unzip | p7zip-full, ${misc:Depends}
+Depends: fakeroot, unzip | p7zip-full, ${misc:Depends}
 Conflicts: doom-package
 Replaces: doom-package
 Provides: doom-package
