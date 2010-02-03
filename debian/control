@@ -10,7 +10,7 @@ Vcs-Git: git://git.debian.org/git/pkg-games/game-data-packager
 Vcs-Browser: http://git.debian.org/?p=pkg-games/game-data-packager.git
 
 Package: game-data-packager
-Depends: fakeroot, sudo, ${misc:Depends}
+Depends: fakeroot, ${misc:Depends}
 Conflicts: doom-package
 Replaces: doom-package
 Provides: doom-package
