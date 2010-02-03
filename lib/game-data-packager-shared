@@ -186,3 +186,15 @@ else
     GAME_PACKAGE_VERSION=`dpkg-query --showformat='${Version}\n' \
         --show game-data-packager`
 fi
+
+gdp_unzip() {
+    zipfile="$1"
+    shift
+    if which 7z >/dev/null; then
+        debug "using 7z"
+        7z e -y "$zipfile" "$@" >/dev/null
+    else
+        debug "using unzip"
+        unzip -qqo "$zipfile" "$@"
+    fi
+}

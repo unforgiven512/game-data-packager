@@ -56,8 +56,8 @@ go() {
 	oldpwd=`pwd`
 	cd "$WORKDIR"
 
-	unzip -qqo "$ZIPFILE" ROTTSW13.SHR
-	unzip -qqo "ROTTSW13.SHR"
+    gdp_unzip "$ZIPFILE" ROTTSW13.SHR
+	gdp_unzip ROTTSW13.SHR
 	rm ROTTSW13.SHR
 
     # list of files from within the ZIP-inside-ZIP required for play
