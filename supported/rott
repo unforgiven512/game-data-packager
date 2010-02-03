@@ -5,16 +5,42 @@ ZIPSUM=0fafd6b629eab80278fc726e31f9cf41
 
 rott_usage() {
 	echo "${SHORTNAME} arguments:"  >&2
-	printf "\tzipfile - path to 1rott13.zip\n" >&2
+	printf "\tzipfile - optional path to 1rott13.zip\n\
+\tgame-data-packager will attempt to download the file from\n\
+\tInternet mirror sites if a local copy is not provided.\n" >&2
 }
 
 verify_args() {
-	if [ $# -ne 1 ]; then
-		echo "error: no zipfile specified" >&2
-		usage >&2
-		rott_usage >&2
-		exit 1
-	fi
+    case $# in
+        0)
+            downloadzip
+            ;;
+        1)
+            downloaded=false
+            rottzip="$1"
+            ;;
+        *)
+            usage >&2
+            rott_usage >&2
+            exit 1
+            ;;
+    esac
+}
+
+if [ -f ./lib/rott-mirrors ]; then
+    rottmirrors=./lib/rott-mirrors
+else
+    # XXX: move the if/else behaviour up a level to define LIBDIR
+    LIBDIR=/usr/lib/game-data-packager/game-data-packager-shared/
+	rottmirrors=$LIBDIR/rott-mirrors
+fi
+
+downloadzip() {
+    dest="$WORKDIR/1rott13.zip"
+    mirror=$(grep -v ^# "$rottmirrors" | sort -R | head -n1)
+    wget --progress=dot --directory-prefix "$WORKDIR" -c "$mirror"
+    rottzip="$dest"
+    downloaded=true
 }
 
 checksum() {
@@ -38,7 +64,7 @@ fi
 
 go() {
 	verify_args "$@"
-	ZIPFILE=`unravel "$1"`
+	ZIPFILE=`unravel "$rottzip"`
     [ -f "$ZIPFILE" ] || die "ERROR: '$ZIPFILE' does not exist."
 	checksum "$ZIPFILE"
 	if [ "$CHECKSUM" != "$ZIPSUM" ]; then
@@ -84,6 +110,9 @@ go() {
     slipstream_cleanup
 
 	rm $files
+    if [ "$downloaded" = "true" ]; then
+        rm "$ZIPFILE"
+    fi
 
 	cd "$oldpwd"
 }
