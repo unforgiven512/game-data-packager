@@ -38,9 +38,15 @@ fi
 downloadzip() {
     dest="$WORKDIR/1rott13.zip"
     mirror=$(grep -v ^# "$rottmirrors" | sort -R | head -n1)
-    wget --progress=dot --directory-prefix "$WORKDIR" -c "$mirror"
-    rottzip="$dest"
-    downloaded=true
+    for try in $mirror; do
+        if wget --progress=dot --directory-prefix "$WORKDIR" -c "$try"
+        then
+            rottzip="$dest"
+            downloaded=true
+            return
+        fi
+    done
+    die "error: could not find 1rott13.zip at our chosen mirror"
 }
 
 checksum() {
