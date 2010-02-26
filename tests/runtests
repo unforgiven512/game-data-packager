@@ -2,6 +2,11 @@
 
 . ./lib/game-data-packager-shared
 
+if [ ! -f /usr/share/shunit2/shunit2 ]; then
+    echo "you need to install shunit2 to run tests" >&2
+    exit 1
+fi
+
 ## verify_file(file)
 ##      ensures file is a file, or complains on stderr
 ##      and causes the program to exit.
@@ -104,4 +109,4 @@ test_slipstream() {
 ##      convert 'path' from relative to absolute
 ##      if it does not begin with a slash.
 
-. ./tests/shunit2/shunit2
+. /usr/share/shunit2/shunit2
