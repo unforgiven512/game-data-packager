@@ -12,7 +12,7 @@ supported() {
 }
 options() {
 	echo "game-data-packager arguments:"
-	echo "        -n            not do not install the generated package (requires -d)"
+	echo "        -n            do not install the generated package (requires -d)"
 	echo "        -d OUTDIR     write the generated .deb(s) to OUTDIR"
 }
 
