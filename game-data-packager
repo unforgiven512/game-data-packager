@@ -44,6 +44,9 @@ while [ $# -gt 1 ]; do
 			fi
 			OUTDIR="$1"
 			;;
+		'-i')
+			INSTALL="yes"
+			;;
 		'--')
 			shift
 			break;
