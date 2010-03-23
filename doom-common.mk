@@ -22,11 +22,7 @@ DIRS := \
 	$(IWAD)-wad
 
 $($(IWAD)DEB): $($(IWAD)TARGETS) fixperms 
-	if [ `id -u` -eq 0 ]; then \
-		dpkg-deb -b build/$(IWAD)-wad $@ ; \
-	else \
-		fakeroot dpkg-deb -b build/$(IWAD)-wad $@; \
-	fi
+	fakeroot dpkg-deb -b $(IWAD)-wad $@
 
 build/$(IWAD)DIRS:
 	mkdir -p $(addprefix "build/", $(DIRS))
