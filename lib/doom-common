@@ -18,14 +18,8 @@ checksum() {
 	debug "checksum = $CHECKSUM"
 }
 
-DATADIR="/usr/share/games/game-data-packager"
 WADDIR="/usr/share/games/doom"
-
-if [ -f "$PWD/$DEBBASE" ]; then
-	DEB="$PWD/$DEBBASE"
-else
-	DEB="$DATADIR/$DEBBASE"
-fi
+DEB="$DATADIR/$DEBBASE"
 
 go() {
 	verify_args "$@"
@@ -38,7 +32,7 @@ go() {
 	DEST=`echo $WADDIR | sed 's,^/,,'`/$SHORTNAME.wad
 
 	if [ "" = "$OUTDIR" ]; then
-		OUTFILE="$WORKDIR/out.deb"
+		OUTFILE="$WORKDIR/$DEBBASE"
 	else
 		OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
 	fi

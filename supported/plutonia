@@ -13,8 +13,4 @@ check_for_v19() {
 
 }
 
-if [ -f ./lib/game-data-packager-shared ]; then
-	. ./lib/doom-common
-else
-	. /usr/lib/game-data-packager/doom-common
-fi
+. $LIBDIR/doom-common
