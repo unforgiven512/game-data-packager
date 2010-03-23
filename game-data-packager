@@ -6,9 +6,11 @@ set -u
 if [ "$0" = "./game-data-packager" ]; then
 	SUPPORTED=./supported
 	. ./lib/game-data-packager-shared
+	DATADIR="."
 else
 	SUPPORTED=/usr/share/games/game-data-packager/supported
 	. /usr/lib/game-data-packager/game-data-packager-shared
+	DATADIR="/usr/share/games/game-data-packager"
 fi
 
 if [ $# -lt 1 ]; then
