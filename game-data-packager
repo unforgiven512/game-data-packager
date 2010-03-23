@@ -2,33 +2,29 @@
 set -e
 set -u
 
-if [ -d ./supported ]; then
+# defaults
+INSTALL="no"
+PRESERVE="yes"
+
+# test to see whether we are running in 'development mode'
+if [ "$0" = "./game-data-packager" ]; then
 	SUPPORTED=./supported
+	LIBDIR=./lib
+	DATADIR="./out"
+	. "./etc/game-data-packager.conf"
 else
 	SUPPORTED=/usr/share/games/game-data-packager/supported
+	LIBDIR=/usr/lib/game-data-packager
+	DATADIR="/usr/share/games/game-data-packager"
+	. "/etc/game-data-packager.conf"
 fi
-
-if [ -f ./lib/game-data-packager-shared ]; then
-	. ./lib/game-data-packager-shared
-else
-	. /usr/lib/game-data-packager/game-data-packager-shared
-fi
+. $LIBDIR/game-data-packager-shared
 
 if [ $# -lt 1 ]; then
 	usage >&2
 	exit 1
 fi
 
-# defaults
-INSTALL="no"
-PRESERVE="yes"
-
-# package default settings
-if [ -f "./etc/game-data-packager.conf" ]; then
-	. "./etc/game-data-packager.conf"
-else
-	. "/etc/game-data-packager.conf"
-fi
 OUTDIR=""
 OUTFILE=""
 
