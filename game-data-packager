@@ -2,15 +2,12 @@
 set -e
 set -u
 
-if [ -d ./supported ]; then
+# test to see whether we are running in 'development mode'
+if [ "$0" = "./game-data-packager" ]; then
 	SUPPORTED=./supported
-else
-	SUPPORTED=/usr/share/games/game-data-packager/supported
-fi
-
-if [ -f ./lib/game-data-packager-shared ]; then
 	. ./lib/game-data-packager-shared
 else
+	SUPPORTED=/usr/share/games/game-data-packager/supported
 	. /usr/lib/game-data-packager/game-data-packager-shared
 fi
 
