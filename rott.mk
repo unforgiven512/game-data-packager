@@ -1,3 +1,7 @@
+BASICFILES = usr/share/doc/rott-data/README.Debian \
+usr/share/doc/rott-data/copyright
+DESTFILES = $(addprefix build/rott-data/, $(BASICFILES))
+
 # VERSION is defined by the parent make
 out/rott-data_$(VERSION)_all.deb: build/rott-data/DEBIAN/control $(DESTFILES)
 		fakeroot dpkg-deb -b build/rott-data $@
@@ -7,11 +11,9 @@ build/rott-data/DEBIAN \
 build/rott-data/usr \
 build/rott-data/usr/share \
 build/rott-data/usr/share/games \
-build/rott-data/usr/share/games/rott
-
-BASICFILES = usr/share/doc/rott-data/README.Debian \
-usr/share/doc/rott-data/copyright
-DESTFILES = $(addprefix build/rott-data/, $(BASICFILES))
+build/rott-data/usr/share/games/rott \
+build/rott-data/usr/share/doc \
+build/rott-data/usr/share/doc/rott-data
 
 $(DIRS):
 	mkdir $@
