@@ -22,11 +22,7 @@ DIRS := \
 	$(IWAD)-wad
 
 $($(IWAD)DEB): $($(IWAD)TARGETS) fixperms 
-	if [ `id -u` -eq 0 ]; then \
-		dpkg-deb -b $(IWAD)-wad $@ ; \
-	else \
-		fakeroot dpkg-deb -b $(IWAD)-wad $@; \
-	fi
+	fakeroot dpkg-deb -b $(IWAD)-wad $@
 
 $(IWAD)DIRS:
 	mkdir -p $(DIRS)
