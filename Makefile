@@ -1,5 +1,5 @@
 VERSION := $(shell dpkg-parsechangelog | grep ^Version | cut -d' ' -f2-)
-DIRS := ./out
+DIRS := ./out ./build
 
 default: $(DIRS)
 	make -f doom-common.mk IWAD=doom  LONG="Doom"   VERSION=$(VERSION)
