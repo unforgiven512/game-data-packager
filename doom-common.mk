@@ -4,7 +4,7 @@
 # or
 #   IWAD=doom, VERSION=22, LONG="Ultimate Doom"
 
-$(IWAD)DEB=$(IWAD)-wad_$(VERSION)_all.deb
+$(IWAD)DEB=out/$(IWAD)-wad_$(VERSION)_all.deb
 
 $(IWAD)TARGETS := $(IWAD)DIRS $(IWAD)-wad/DEBIAN/control $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/changelog.gz $(IWAD)-wad/usr/share/pixmaps/$(IWAD).xpm $(IWAD)-wad/DEBIAN/preinst $(IWAD)-wad/usr/share/applications/$(IWAD)-wad.desktop $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/README.Debian $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/copyright $(IWAD)-wad/DEBIAN/md5sums
 
