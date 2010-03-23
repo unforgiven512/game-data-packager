@@ -9,15 +9,16 @@ PRESERVE="yes"
 # test to see whether we are running in 'development mode'
 if [ "$0" = "./game-data-packager" ]; then
 	SUPPORTED=./supported
-	. ./lib/game-data-packager-shared
+	LIBDIR=./lib
 	DATADIR="./out"
 	. "./etc/game-data-packager.conf"
 else
 	SUPPORTED=/usr/share/games/game-data-packager/supported
-	. /usr/lib/game-data-packager/game-data-packager-shared
+	LIBDIR=/usr/lib/game-data-packager
 	DATADIR="/usr/share/games/game-data-packager"
 	. "/etc/game-data-packager.conf"
 fi
+. $LIBDIR/game-data-packager-shared
 
 if [ $# -lt 1 ]; then
 	usage >&2
