@@ -63,6 +63,9 @@ fi
 debug "INSTALL=$INSTALL"
 debug "PRESERVE=$PRESERVE"
 
+# ensure we can write to OUTDIR
+[ -w "$OUTDIR" ] || die "cannot write generated file to '$OUTDIR'"
+
 GAME="$1"
 shift
 
