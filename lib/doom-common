@@ -32,7 +32,7 @@ go() {
 	DEST=`echo $WADDIR | sed 's,^/,,'`/$SHORTNAME.wad
 
 	if [ "" = "$OUTDIR" ]; then
-		OUTFILE="$WORKDIR/out.deb"
+		OUTFILE="$WORKDIR/$DEBBASE"
 	else
 		OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
 	fi
