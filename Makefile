@@ -21,6 +21,6 @@ clean:
 		LONG="Final Doom: TNT: Evilution" VERSION=$(VERSION) clean
 	make -f doom-common.mk IWAD=plutonia \
 		LONG="Final Doom: The Plutonia Experiment" VERSION=$(VERSION) clean
-	rmdir $(DIRS)
+	for d in $(DIRS); do [ ! -d "$$d" ]  || rmdir "$$d"; done
 
 .PHONY: default clean
