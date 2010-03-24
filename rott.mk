@@ -1,21 +1,32 @@
+BASICFILES = usr/share/doc/rott-data/README.Debian \
+usr/share/doc/rott-data/copyright
+DESTFILES = $(addprefix build/rott-data/, $(BASICFILES))
+
 # VERSION is defined by the parent make
-rott-data_$(VERSION)_all.deb: rott-data/DEBIAN/control dirs
-	if [ `id -u` -eq 0 ]; then \
-		dpkg-deb -b rott-data $@ ; \
-	else \
-		fakeroot dpkg-deb -b rott-data $@; \
-	fi
+out/rott-data_$(VERSION)_all.deb: build/rott-data/DEBIAN/control $(DESTFILES)
+		fakeroot dpkg-deb -b build/rott-data $@
 
-dirs:
-	mkdir rott-data/usr/share/games
-	mkdir rott-data/usr/share/games/rott
+DIRS = build/rott-data \
+build/rott-data/DEBIAN \
+build/rott-data/usr \
+build/rott-data/usr/share \
+build/rott-data/usr/share/games \
+build/rott-data/usr/share/games/rott \
+build/rott-data/usr/share/doc \
+build/rott-data/usr/share/doc/rott-data
 
-rott-data/DEBIAN/control: rott-data/DEBIAN/control.in
+$(DIRS):
+	mkdir $@
+
+$(DESTFILES): $(DIRS)
+	cp -p rott-data/`basename "$@"` $@
+
+build/rott-data/DEBIAN/control: rott-data/control.in $(DIRS)
 	m4 -DPACKAGE=rott-data -DVERSION=$(VERSION) $< > $@ 
 
 clean:
-	rm -f rott-data/DEBIAN/control rott-data_$(VERSION)_all.deb
-	[ ! -d rott-data/usr/share/games/rott ] || rmdir rott-data/usr/share/games/rott
-	[ ! -d rott-data/usr/share/games ] || rmdir rott-data/usr/share/games
+	rm -f build/rott-data/DEBIAN/control out/rott-data_$(VERSION)_all.deb
+	for d in $(DIRS); do echo "$$d"; done | sort -r | while read d; do \
+		[ ! -d "$$d" ] || rmdir "$$d"; done
 
-.PHONY: clean
+.PHONY: clean $(DESTFILES)
