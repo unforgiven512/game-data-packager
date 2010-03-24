@@ -27,13 +27,7 @@ verify_args() {
     esac
 }
 
-if [ -f ./lib/rott-mirrors ]; then
-    rottmirrors=./lib/rott-mirrors
-else
-    # XXX: move the if/else behaviour up a level to define LIBDIR
-    LIBDIR=/usr/lib/game-data-packager/game-data-packager-shared/
-	rottmirrors=$LIBDIR/rott-mirrors
-fi
+rottmirrors=$LIBDIR/rott-mirrors
 
 downloadzip() {
     dest="$WORKDIR/1rott13.zip"
