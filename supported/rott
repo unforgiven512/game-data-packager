@@ -61,6 +61,10 @@ go() {
 	fi
 
 	# XXX: this para copied from lib/doom-common. Should be generalised.
+	# can OUTDIR ever be ''? there should be a 'is OUTDIR writeable' test that
+	# aborts before this point. Left this in for now in case we introduce a path
+	# that can reach here when we add support for installing an on-the-fly deb and
+	# not saving a copy
 	if [ "" = "$OUTDIR" ]; then
 		OUTFILE="$WORKDIR/$DEBBASE"
 	else
