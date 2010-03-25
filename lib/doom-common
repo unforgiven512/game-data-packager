@@ -31,15 +31,7 @@ go() {
 
 	DEST=`echo $WADDIR | sed 's,^/,,'`/$SHORTNAME.wad
 
-	# can OUTDIR ever be ''? there should be a 'is OUTDIR writeable' test that
-	# aborts before this point. Left this in for now in case we introduce a path
-	# that can reach here when we add support for installing an on-the-fly deb and
-	# not saving a copy
-	if [ "" = "$OUTDIR" ]; then
-		OUTFILE="$WORKDIR/$DEBBASE"
-	else
-		OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
-	fi
+	OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
 	cp -p "$DEB" "$OUTFILE"
 	slipstream "$OUTFILE" "$DEST" "$WADFILE"
 }
