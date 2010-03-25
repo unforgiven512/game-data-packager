@@ -62,7 +62,7 @@ go() {
 
 	# XXX: this para copied from lib/doom-common. Should be generalised.
 	if [ "" = "$OUTDIR" ]; then
-		OUTFILE="$WORKDIR/out.deb"
+		OUTFILE="$WORKDIR/$DEBBASE"
 	else
 		OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
 	fi
