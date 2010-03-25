@@ -48,7 +48,7 @@ checksum() {
 	debug "checksum = $CHECKSUM"
 }
 
-DEBBASE="rott-data_${GAME_PACKAGE_VERSION}_all.deb"
+DEBBASE="rott-data-shareware_${GAME_PACKAGE_VERSION}_all.deb"
 DEB="$DATADIR/$DEBBASE"
 
 go() {
@@ -97,7 +97,7 @@ go() {
         # of g-d-p's operation) and specify full paths
         slipstream_file "$file" "usr/share/games/rott/$file"
     done
-    slipstream_file "VENDOR.DOC" "usr/share/doc/rott-data/VENDOR.DOC"
+    slipstream_file "VENDOR.DOC" "usr/share/doc/rott-data-shareware/VENDOR.DOC"
     slipstream_instsize
     slipstream_repack "$OUTFILE"
     slipstream_cleanup
