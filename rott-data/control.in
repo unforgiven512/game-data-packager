@@ -1,10 +1,11 @@
-Package: rott-data
+Package: rott-data-shareware
 Section: non-free/games
 Priority: optional
 Architecture: all
 Recommends: rott
 Installed-Size: 56
 Version: VERSION
+Provides: rott-data
 Conflicts: rott (<= 1.1.1-4)
 Replaces: rott (<= 1.1.1-4)
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
