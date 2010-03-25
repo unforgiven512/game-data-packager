@@ -6,8 +6,8 @@ ZIPSUM=0fafd6b629eab80278fc726e31f9cf41
 rott_usage() {
 	echo "game-data-packager ${SHORTNAME} arguments:"
 	printf "\tgame-data-packager ${SHORTNAME} [ -f path ] | [ -w ]
-\t\t-f path - path to your existing copy of 1rott13.zip\n\
-\t\t-w - fetch 1rott13.zip from the World Wide Web\n"
+\t\t-f path\t\tpath to your existing copy of 1rott13.zip\n\
+\t\t-w\t\tfetch 1rott13.zip from the World Wide Web\n"
 }
 
 verify_args() {
