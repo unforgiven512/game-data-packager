@@ -34,7 +34,6 @@ binary-indep: build install
 	dh_testdir
 	dh_testroot
 	dh_installdocs -XTODO
-	dh_installmenu
 	dh_installman game-data-packager.6
 	dh_installchangelogs
 	dh_install

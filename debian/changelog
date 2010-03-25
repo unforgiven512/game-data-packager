@@ -1,7 +1,11 @@
 game-data-packager (23) UNRELEASED; urgency=low
 
+  [ Jon Dowland ]
   * Update VCS control fields to reflect moving the packaging to git.
   * bump standards version.
+
+  [ Paul Wise ]
+  * Drop empty menu file (Closes: #573458)
 
  -- Jon Dowland <jmtd@debian.org>  Wed, 16 Dec 2009 16:53:53 +0000
 
