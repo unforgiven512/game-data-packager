@@ -49,18 +49,7 @@ checksum() {
 }
 
 DEBBASE="rott-data_${GAME_PACKAGE_VERSION}_all.deb"
-
-# XXX: should be in lib/game-data-package-shared
-DATADIR="/usr/share/games/game-data-packager"
-
-SHAREDIR="usr/share/games/rott"
-
-if [ -f "$PWD/$DEBBASE" ]; then
-	DEB="$PWD/$DEBBASE"
-else
-	DEB="$DATADIR/$DEBBASE"
-fi
-
+DEB="$DATADIR/$DEBBASE"
 
 go() {
 	verify_args "$@"
@@ -102,7 +91,7 @@ go() {
         # unpacking straight into it. Might be nicer to tidy away the
         # unpack into a subdir (no risk of stamping over another part
         # of g-d-p's operation) and specify full paths
-        slipstream_file "$file" "$SHAREDIR/$file"
+        slipstream_file "$file" "$DATADIR/$file"
     done
     slipstream_file "VENDOR.DOC" "usr/share/doc/rott-data/VENDOR.DOC"
     slipstream_instsize
