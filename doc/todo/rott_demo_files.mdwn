@@ -1,1 +1,0 @@
-IF we install the demo files, do the demos play? If so, we should.
