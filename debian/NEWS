@@ -1,0 +1,15 @@
+game-data-packager (23) UNRELEASED; urgency=low
+
+  * game-data-packager up to version 22 has used sudo(1)
+    in order to obtain the necessary privileges to install
+    the generated .deb file.  This scheme works only if the
+    user has configured their sudoers file appropriately.
+    Therefore, from version 23 onwards, game-data-packager will
+    use su(1) instead. Consequently, a user must supply the root
+    password to install the generated .deb, not their own.
+    .
+    We plan to make game-data-packager more flexible by supporting
+    either method of privilege escalation (or other means of
+    installing the generated package) in the future.
+
+ -- Jon Dowland <jon+bts@alcopop.org>  Wed, 03 Feb 2010 15:11:22 +0000

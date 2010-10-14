@@ -3,5 +3,11 @@ TODO:
 	* do away with ./Makefile and build entirely from debian/rules
 		* reconsider: why do this?
 	* re-add quake3 support (currently in a branch)
-	* default to su -c (sudo might not be configured)
-		* provide configurable methods for elevating privs
+	* provide configurable methods for elevating privs
+
+	nicer -i behaviour
+		support (somehow) installing a generated .deb and throwing
+		it away (current behaviour is now, generate and store in	
+		$(pwd) if otherwise unspecified; impossible not to preserve
+		generated file)
+

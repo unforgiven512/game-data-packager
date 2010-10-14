@@ -27,6 +27,9 @@ game\-data\-packager \- build a .deb of game data
 .SH SYNOPSIS
 .B game\-data\-packager
 [
+.I -i
+]
+[
 .I -d
 out-directory [
 .I -n
@@ -41,13 +44,14 @@ incompatibly with the Debian Free Software Guidelines.
 .B game\-data\-packager
 is a tool designed to help you locally assemble Debian packages containing
 such game data from CD-ROMs, the Internet or elsewhere.
-.B game\-data\-packager
-uses 
-.B dpkg
-via
-.B sudo
-to install the generated Debian package(s) (unless you tell it not to).
 .SH OPTIONS
+.TP
+.B \-i
+attempt to install the generated Debian package via
+.B dpkg(1)
+and 
+.B su(1)
+\.
 .TP
 .B \-d out-directory
 writes the generated Debian package to the specified directory.
@@ -65,9 +69,9 @@ without arguments will display a list of valid games. Running
 with just the game and no further arguments will display a list
 of valid options for that game.
 .SH SEE ALSO
-\fIdpkg\fP(1)
+\fIdpkg\fP(1), \fIsu\fP(1)
 .SH AUTHOR
-Copyright \(co 2008 Jon Dowland \fI<jon@alcopop.org>\fP.
+Copyright \(co 2010 Jon Dowland \fI<jmtd@debian.org>\fP
 .br
 Thanks to Branden Robinson for his \(oqWrite the Fine Manual\(cq presentation,
 once found at

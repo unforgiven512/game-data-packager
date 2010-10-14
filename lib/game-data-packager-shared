@@ -12,7 +12,8 @@ supported() {
 }
 options() {
 	echo "game-data-packager arguments:"
-	echo "        -n            not do not install the generated package (requires -d)"
+	echo "        -i            install the generated package"
+	echo "        -n            do not install the generated package (requires -d, default)"
 	echo "        -d OUTDIR     write the generated .deb(s) to OUTDIR"
 }
 
@@ -171,7 +172,8 @@ slipstream_cleanup() {
 
 install_deb() {
 	DEB="$1"
-	sudo dpkg -i "$DEB"
+    echo "using su(1) to obtain root privileges and install the package"
+	su -c "dpkg -i \"$DEB\""
 }
 
 unravel() {
