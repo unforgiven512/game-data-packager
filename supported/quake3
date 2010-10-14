@@ -7,7 +7,7 @@ POINTFILE=linuxq3apoint-1.32b-3.x86.run
 
 quake3_usage() {
 echo "quake3 game arguments:"
-printf "\tmountpoint - Quake III Arena CD-ROM mount-point or pak0.pk3 filename\n"
+printf "\tmountpoint - Quake III Arena CD mount-point or baseq3/pak0.pk3 filename\n"
 printf "\t[ point release ] - ${POINTFILE} (optional)\n"
 }
 
