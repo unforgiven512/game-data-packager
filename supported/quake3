@@ -16,7 +16,6 @@ parse_args() {
     elif [ $# -eq 2 ]; then
         CDROM="$1"
         POINT="$2"
-        NOPOINT="false"
     else
 		usage >&2
         quake3_usage >&2
