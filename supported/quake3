@@ -1,11 +1,11 @@
 SHORTNAME=quake3
-LONGNAME="Quake 3: Arena"
+LONGNAME="Quake III Arena"
 
 POINTFILE=linuxq3apoint-1.32b-3.x86.run
 
 quake3_usage() {
 echo "quake3 game arguments:"
-printf "\tmountpoint - quake 3 CD-ROM mount-point or pak0.pk3 filename\n"
+printf "\tmountpoint - Quake III Arena CD-ROM mount-point or pak0.pk3 filename\n"
 printf "\t[ point release ] - ${POINTFILE} (optional)\n"
 }
 

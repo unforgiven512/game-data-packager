@@ -4,7 +4,7 @@ game-data-packager (23~q3) UNRELEASED; urgency=low
   * Update VCS control fields to reflect moving the packaging to git.
 
   [ Simon McVittie ]
-  * Finish Jon's implementation of support for collecting Quake 3: Arena pk3
+  * Finish Jon's implementation of support for collecting Quake III Arena pk3
     files into quake3-data_*_all.deb
 
  -- Jon Dowland <jmtd@debian.org>  Fri, 18 Sep 2009 19:16:27 +0100
