@@ -1,3 +1,5 @@
+# vim:set ft=sh:
+
 SHORTNAME=quake3
 LONGNAME="Quake III Arena"
 
@@ -95,17 +97,7 @@ unpack_point() {
 DEBBASE="${SHORTNAME}-data_${GAME_PACKAGE_VERSION}_all.deb"
 BASEQ3=/usr/share/games/quake3/baseq3
 
-# smcv FIXME: copied from lib/doom-common
-DATADIR="/usr/share/games/game-data-packager"
-
-if [ -f "$(pwd)/build/$DEBBASE" ]; then
-    echo "using local $DEBBASE" >&2
-    DEB="$(pwd)/build/$DEBBASE"
-else
-    echo "$(pwd)/$DEBBASE not found" >&2
-    DEB="$DATADIR/$DEBBASE"
-fi
-# smcv FIXME: end
+DEB="$DATADIR/$DEBBASE"
 
 go() {
 	parse_args $*
