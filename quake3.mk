@@ -2,8 +2,9 @@
 
 srcdir = $(CURDIR)
 builddir = $(CURDIR)/build
+outdir = $(CURDIR)/out
 
-QUAKE3DEB = quake3-data_$(VERSION)_all.deb
+QUAKE3DEB = $(outdir)/quake3-data_$(VERSION)_all.deb
 
 $(QUAKE3DEB): \
 	$(builddir)/quake3-data/DEBIAN/md5sums \

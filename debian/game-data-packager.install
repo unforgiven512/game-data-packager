@@ -12,4 +12,4 @@ doom-wad_*_all.deb            usr/share/games/game-data-packager
 doom2-wad_*_all.deb           usr/share/games/game-data-packager
 tnt-wad_*_all.deb             usr/share/games/game-data-packager
 plutonia-wad_*_all.deb        usr/share/games/game-data-packager
-build/quake3-data_*_all.deb   usr/share/games/game-data-packager
+out/quake3-data_*_all.deb     usr/share/games/game-data-packager
