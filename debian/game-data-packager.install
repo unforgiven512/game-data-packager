@@ -7,7 +7,6 @@ supported/quake3              usr/share/games/game-data-packager/supported
 supported/tnt                 usr/share/games/game-data-packager/supported
 supported/plutonia            usr/share/games/game-data-packager/supported
 etc/game-data-packager.conf   etc
-etc/quake3-mirrors            etc/game-data-packager
 out/quake3-data_*_all.deb     usr/share/games/game-data-packager
 out/doom-wad_*_all.deb        usr/share/games/game-data-packager
 out/doom2-wad_*_all.deb       usr/share/games/game-data-packager

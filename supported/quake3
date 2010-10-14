@@ -4,6 +4,11 @@ SHORTNAME=quake3
 LONGNAME="Quake III Arena"
 
 POINTFILE=linuxq3apoint-1.32b-3.x86.run
+MIRRORFILE=/etc/game-data-packager/quake3-mirrors
+
+if [ -f ./etc/quake3-mirrors ]; then
+    MIRRORFILE=./etc/quake3-mirrors
+fi
 
 quake3_usage() {
 echo "quake3 game arguments:"
@@ -12,7 +17,7 @@ printf "\t[ point release ] - ${POINTFILE} (optional)\n"
 }
 
 parse_args() {
-    if   [ $# -eq 1 ]; then
+    if   [ $# -eq 1 ] && [ -f ${MIRRORFILE} ]; then
         CDROM="$1"
         POINT="false"
     elif [ $# -eq 2 ]; then
@@ -25,8 +30,6 @@ parse_args() {
     fi
 }
 
-MIRRORFILE=/etc/game-data-packager/quake3-mirrors
-
 fetch_point_release() {
 
     if [ "x$POINT" != xfalse ]; then
@@ -34,9 +37,11 @@ fetch_point_release() {
 	return
     fi
 
-    if [ -f ./etc/quake3-mirrors ]; then
-        MIRRORFILE=./etc/quake3-mirrors
+    if [ ! -s ${MIRRORFILE} ]; then
+        echo "${POINTFILE} or a download mirror is required" >&2
+        exit 1
     fi
+
     # XXX: take the bottom mirror. In future, have some generic
     # mirror-handling code in game-package, and pick a random one
     # (or offer up a choice)
