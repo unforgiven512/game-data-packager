@@ -10,6 +10,7 @@ game-data-packager (23~q3) UNRELEASED; urgency=low
   [ Simon McVittie ]
   * Finish Jon's implementation of support for collecting Quake III Arena pk3
     files into quake3-data_*_all.deb
+  * Add myself to Uploaders
 
  -- Jon Dowland <jmtd@debian.org>  Wed, 16 Dec 2009 16:53:53 +0000
 
