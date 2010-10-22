@@ -13,7 +13,7 @@ fi
 quake3_usage() {
 echo "quake3 game arguments:"
 printf "\tmountpoint - Quake III Arena CD mount-point or baseq3/pak0.pk3 filename\n"
-printf "\t[ point release ] - ${POINTFILE} (optional)\n"
+printf "\tpoint release - ${POINTFILE}\n"
 }
 
 parse_args() {
