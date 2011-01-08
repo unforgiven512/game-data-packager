@@ -11,3 +11,5 @@ TODO:
 		it away (current behaviour is now, generate and store in	
 		$(pwd) if otherwise unspecified; impossible not to preserve
 		generated file)
+
+See also: <http://wiki.debian.org/Games/Development/DataLoader>
