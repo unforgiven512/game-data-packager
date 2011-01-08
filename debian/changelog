@@ -1,4 +1,4 @@
-game-data-packager (23) UNRELEASED; urgency=low
+game-data-packager (23) experimental; urgency=low
 
   [ Jon Dowland ]
   * Update VCS control fields to reflect moving the packaging to git.
@@ -7,7 +7,12 @@ game-data-packager (23) UNRELEASED; urgency=low
   [ Paul Wise ]
   * Drop empty menu file (Closes: #573458)
 
- -- Jon Dowland <jmtd@debian.org>  Wed, 16 Dec 2009 16:53:53 +0000
+  [ Simon McVittie ]
+  * Merge support for collecting Quake III Arena pk3 files into
+    quake3-data_*_all.deb, based on Jon's earlier code
+  * Add myself to Uploaders
+
+ -- Simon McVittie <smcv@debian.org>  Fri, 22 Oct 2010 20:57:40 +0100
 
 game-data-packager (22) unstable; urgency=low
 

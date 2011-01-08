@@ -94,7 +94,14 @@ slipstream() {
 	slipstream_unpack "$DEB"
 
 	while [ "$#" -gt 0 ]; do
-		slipstream_file "$1" "$RELPATH"
+		file="$1"
+		destpath="$RELPATH"
+		if [ "x${RELPATH%/}" != "x${RELPATH}" ]; then
+			# RELPATH ends with /; append the basename of the
+			# file (e.g. pak0.pk3)
+			destpath="${RELPATH}${file##*/}"
+		fi
+		slipstream_file "$file" "$destpath"
 		shift
 	done
 

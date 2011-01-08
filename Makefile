@@ -9,6 +9,7 @@ default: $(DIRS)
 		LONG="Final Doom: TNT: Evilution" VERSION=$(VERSION)
 	make -f doom-common.mk IWAD=plutonia \
 		LONG="Final Doom: The Plutonia Experiment" VERSION=$(VERSION)
+	make -f quake3.mk LONG="Quake III Arena" VERSION=$(VERSION)
 	make -f rott.mk VERSION=$(VERSION)
 
 $(DIRS):
@@ -22,6 +23,7 @@ clean:
 		LONG="Final Doom: TNT: Evilution" VERSION=$(VERSION) clean
 	make -f doom-common.mk IWAD=plutonia \
 		LONG="Final Doom: The Plutonia Experiment" VERSION=$(VERSION) clean
+	make -f quake3.mk LONG="Quake III Arena" VERSION=$(VERSION) clean
 	make -f rott.mk VERSION=$(VERSION) clean
 	for d in $(DIRS); do [ ! -d "$$d" ]  || rmdir "$$d"; done
 

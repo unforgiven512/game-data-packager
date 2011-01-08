@@ -4,3 +4,10 @@ TODO:
 		* reconsider: why do this?
 	* re-add quake3 support (currently in a branch)
     * provide configurable methods for elevating privs
+	* provide configurable methods for elevating privs
+
+	nicer -i behaviour
+		support (somehow) installing a generated .deb and throwing
+		it away (current behaviour is now, generate and store in	
+		$(pwd) if otherwise unspecified; impossible not to preserve
+		generated file)

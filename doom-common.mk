@@ -22,7 +22,7 @@ DIRS := \
 	$(IWAD)-wad
 
 $($(IWAD)DEB): $($(IWAD)TARGETS) fixperms 
-	fakeroot dpkg-deb -b $(IWAD)-wad $@
+	cd build/ && fakeroot dpkg-deb -b $(IWAD)-wad ../$@
 
 build/$(IWAD)DIRS:
 	mkdir -p $(addprefix "build/", $(DIRS))
