@@ -8,6 +8,7 @@ DM-Upload-Allowed: yes
 Standards-Version: 3.9.1
 Vcs-Git: git://git.debian.org/git/pkg-games/game-data-packager
 Vcs-Browser: http://git.debian.org/?p=pkg-games/game-data-packager.git
+Homepage: http://wiki.debian.org/Games/GameDataPackager
 
 Package: game-data-packager
 Depends: fakeroot, unzip | p7zip-full, ${misc:Depends}
