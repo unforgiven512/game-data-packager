@@ -1,0 +1,8 @@
+# TODO: there's a whole bunch of FreeBSD mirrors we can use, too
+# and gentoo ones
+# presumably we could 
+ftp://ftp.idsoftware.com/idstuff/quake3/linux
+ftp://ftp.padua.org/pub/msdos/mirrors/ftp.idsoftware.com/quake3/linux/
+ftp://ftp.fh-niederrhein.de/pub/win9x/gamesup/q3/
+http://gentoo.virginmedia.com/distfiles/
+http://www.staff.ncl.ac.uk/jon.dowland/tmp/
