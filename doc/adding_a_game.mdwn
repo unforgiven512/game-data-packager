@@ -156,3 +156,12 @@ sourced.  These are documented within the file.  A brief overview:
 Future patches to gdp will add more common routines for handling the
 downloading of files from the Internet,  including handling mirror lists,
 verification, resuming, etc.
+
+### Step 3: installing the new files into the package
+
+The final step is quite small and easy :-)
+
+Add the files which you need to distribute in the gdp binary package to the
+`debian/game-data-packager.install` file.  At a minimum, this will be your
+"supported" file, but also most likely a template debian package and possibly
+other supporting files.
