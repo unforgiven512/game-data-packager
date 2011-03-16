@@ -1,3 +1,13 @@
+game-data-packager (25) unstable; urgency=low
+
+  [ Jon Dowland ]
+  * Improve documentation
+
+  [ Simon McVittie ]
+  * Upload to unstable/contrib, so we can put quake3 there too
+
+ -- Simon McVittie <smcv@debian.org>  Wed, 16 Mar 2011 15:50:36 +0000
+
 game-data-packager (24) experimental; urgency=low
 
   * add Homepage: to control file
