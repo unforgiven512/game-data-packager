@@ -3,7 +3,7 @@ Section: contrib/games
 Priority: optional
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
 Uploaders: Jon Dowland <jmtd@debian.org>, Simon McVittie <smcv@debian.org>
-Build-Depends: debhelper (>> 7.0.0), fakeroot, m4
+Build-Depends: debhelper (>> 7.0.0), fakeroot, m4, libdynamite-dev
 DM-Upload-Allowed: yes
 Standards-Version: 3.9.1
 Vcs-Git: git://git.debian.org/git/pkg-games/game-data-packager
@@ -11,7 +11,7 @@ Vcs-Browser: http://git.debian.org/?p=pkg-games/game-data-packager.git
 Homepage: http://wiki.debian.org/Games/GameDataPackager
 
 Package: game-data-packager
-Depends: fakeroot, unzip | p7zip-full, ${misc:Depends}
+Depends: fakeroot, unzip | p7zip-full, ${misc:Depends}, ${shlib:Depends}
 Conflicts: doom-package
 Replaces: doom-package
 Provides: doom-package

@@ -15,3 +15,4 @@ out/doom2-wad_*_all.deb       usr/share/games/game-data-packager
 out/tnt-wad_*_all.deb         usr/share/games/game-data-packager
 out/plutonia-wad_*_all.deb    usr/share/games/game-data-packager
 out/rott-data_*_all.deb       usr/share/games/game-data-packager
+wolf/extract                  usr/lib/game-data-packager/wolf
