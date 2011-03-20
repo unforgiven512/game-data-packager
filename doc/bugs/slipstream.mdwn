@@ -1,0 +1,28 @@
+slipstream documentation is as follows
+
+    slipstream(deb,relpath,file1,file2...)
+         insert file1,file2... into the deb, under the
+         path 'relpath', relative to the package root, e.g.:
+             slipstream(deb, 'usr/share/doc', 'README', 'copyright')
+                 => /usr/share/doc/README
+                 => /usr/share/doc/copyright
+
+However, the relpath argument is passed through to `slipstream_file`,
+which names it locally `destpath`, copies the file to that location
+and invokes md5sum on it.
+
+Thus, if relpath is a directory, md5sum will be called for it and will
+fail.
+
+It is actually used by the doom code as relative file path, i.e.
+
+    slipstream(deb,src,file1,file2...)
+         insert file1,file2... into the deb, as filename
+         'src', relative to the package root, e.g.:
+             slipstream(deb, 'usr/share/doc/file', 'README', 'copyright')
+                 => /usr/share/doc/file
+
+The file contents will be that of the last argument, 'copyright'.
+
+Both quake3 and rott need to insert multiple files. Each branch has solved
+this bug in a different way.
