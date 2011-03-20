@@ -11,6 +11,9 @@ default: $(DIRS)
 		LONG="Final Doom: The Plutonia Experiment" VERSION=$(VERSION)
 	make -f quake3.mk LONG="Quake III Arena" VERSION=$(VERSION)
 	make -f rott.mk VERSION=$(VERSION)
+	make -f doom-common.mk IWAD=heretic VERSION=$(VERSION) \
+		CONTROLIN=heretic/DEBIAN/control.in \
+		LONG="Heretic: Shadow of the Serpent Riders" GAME=heretic
 
 $(DIRS):
 	mkdir -p $@
@@ -25,6 +28,9 @@ clean:
 		LONG="Final Doom: The Plutonia Experiment" VERSION=$(VERSION) clean
 	make -f quake3.mk LONG="Quake III Arena" VERSION=$(VERSION) clean
 	make -f rott.mk VERSION=$(VERSION) clean
+	make -f doom-common.mk IWAD=heretic VERSION=$(VERSION) \
+		CONTROLIN=heretic/DEBIAN/control.in \
+		LONG="Heretic: Shadow of the Serpent Riders" GAME=heretic clean
 	for d in $(DIRS); do [ ! -d "$$d" ]  || rmdir "$$d"; done
 
 .PHONY: default clean

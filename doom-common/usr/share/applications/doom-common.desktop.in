@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=LONG
 GenericName=First Person Shooter Game
-TryExec=doom
-Exec=doom -iwad /usr/share/games/doom/GAME.wad
+TryExec=ENGINE
+Exec=ENGINE -iwad /usr/share/games/ENGINE/GAME.wad
 Icon=GAME.xpm
 Terminal=false
 Type=Application
