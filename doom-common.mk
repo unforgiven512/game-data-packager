@@ -4,9 +4,9 @@
 # or
 #   IWAD=doom, VERSION=22, LONG="Ultimate Doom"
 
-$(IWAD)DEB=$(IWAD)-wad_$(VERSION)_all.deb
+$(IWAD)DEB=out/$(IWAD)-wad_$(VERSION)_all.deb
 
-$(IWAD)TARGETS := $(IWAD)DIRS $(IWAD)-wad/DEBIAN/control $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/changelog.gz $(IWAD)-wad/usr/share/pixmaps/$(IWAD).xpm $(IWAD)-wad/DEBIAN/preinst $(IWAD)-wad/usr/share/applications/$(IWAD)-wad.desktop $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/README.Debian $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/copyright $(IWAD)-wad/DEBIAN/md5sums
+$(IWAD)TARGETS := $(addprefix build/, $(IWAD)DIRS $(IWAD)-wad/DEBIAN/control $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/changelog.gz $(IWAD)-wad/usr/share/pixmaps/$(IWAD).xpm $(IWAD)-wad/DEBIAN/preinst $(IWAD)-wad/usr/share/applications/$(IWAD)-wad.desktop $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/README.Debian $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/copyright $(IWAD)-wad/DEBIAN/md5sums)
 
 DIRS := \
 	$(IWAD)-wad/DEBIAN \
@@ -22,55 +22,52 @@ DIRS := \
 	$(IWAD)-wad
 
 $($(IWAD)DEB): $($(IWAD)TARGETS) fixperms 
-	if [ `id -u` -eq 0 ]; then \
-		dpkg-deb -b $(IWAD)-wad $@ ; \
-	else \
-		fakeroot dpkg-deb -b $(IWAD)-wad $@; \
-	fi
+	cd build/ && fakeroot dpkg-deb -b $(IWAD)-wad ../$@
 
-$(IWAD)DIRS:
-	mkdir -p $(DIRS)
+build/$(IWAD)DIRS:
+	mkdir -p $(addprefix "build/", $(DIRS))
 
-$(IWAD)-wad/usr/share/doc/$(IWAD)-wad/copyright:
+build/$(IWAD)-wad/usr/share/doc/$(IWAD)-wad/copyright:
 	m4 -DPACKAGE=$(IWAD)-wad -DIWAD=$(IWAD).wad \
 		doom-common/usr/share/doc/doom-common/copyright.in \
-		> $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/copyright
+		> $@
 
-$(IWAD)-wad/usr/share/doc/$(IWAD)-wad/README.Debian:
+build/$(IWAD)-wad/usr/share/doc/$(IWAD)-wad/README.Debian:
 	m4 -DPACKAGE=$(IWAD)-wad -DGAME="$(LONG)" \
 		doom-common/usr/share/doc/doom-common/README.Debian.in \
-		> $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/README.Debian
+		> $@
 
-$(IWAD)-wad/usr/share/applications/$(IWAD)-wad.desktop:
+build/$(IWAD)-wad/usr/share/applications/$(IWAD)-wad.desktop:
 	m4 -DGAME=$(IWAD) -DLONG="$(LONG)" \
 		doom-common/usr/share/applications/doom-common.desktop.in \
-	> $(IWAD)-wad/usr/share/applications/$(IWAD)-wad.desktop
+	> $@
 
-$(IWAD)-wad/DEBIAN/preinst:
+build/$(IWAD)-wad/DEBIAN/preinst:
 	m4 -DIWAD=$(IWAD).wad \
-		doom-common/DEBIAN/preinst.in > $(IWAD)-wad/DEBIAN/preinst
+		doom-common/DEBIAN/preinst.in > $@
 
-$(IWAD)-wad/DEBIAN/control: doom-common/DEBIAN/control.in
+build/$(IWAD)-wad/DEBIAN/control: doom-common/DEBIAN/control.in
 	m4 -DPACKAGE=$(IWAD)-wad -DGAME=$(IWAD) -DVERSION=$(VERSION) \
-		doom-common/DEBIAN/control.in > $(IWAD)-wad/DEBIAN/control
+		doom-common/DEBIAN/control.in > $@
 
-$(IWAD)-wad/usr/share/doc/$(IWAD)-wad/changelog.gz:
-	gzip -c9 debian/changelog > $(IWAD)-wad/usr/share/doc/$(IWAD)-wad/changelog.gz
+build/$(IWAD)-wad/usr/share/doc/$(IWAD)-wad/changelog.gz:
+	gzip -c9 debian/changelog > $@
 
-$(IWAD)-wad/usr/share/pixmaps/$(IWAD).xpm:
-	cp -p doom-common/doom2.xpm $(IWAD)-wad/usr/share/pixmaps/$(IWAD).xpm
+build/$(IWAD)-wad/usr/share/pixmaps/$(IWAD).xpm:
+	cp -p doom-common/doom2.xpm $@
 
-$(IWAD)-wad/DEBIAN/md5sums:
-	cd $(IWAD)-wad && find usr/ -type f -print0 |\
+build/$(IWAD)-wad/DEBIAN/md5sums:
+	cd build/$(IWAD)-wad && find usr/ -type f -print0 |\
 		xargs -r0 md5sum >DEBIAN/md5sums
 
 fixperms:
-	find $(IWAD)-wad -type f -print0 | xargs -r0 chmod 644
-	find $(IWAD)-wad -type d -print0 | xargs -r0 chmod 755
-	chmod 755 $(IWAD)-wad/DEBIAN/preinst
+	find build/$(IWAD)-wad -type f -print0 | xargs -r0 chmod 644
+	find build/$(IWAD)-wad -type d -print0 | xargs -r0 chmod 755
+	chmod 755 build/$(IWAD)-wad/DEBIAN/preinst
 
 clean:
 	rm -f $($(IWAD)DEB) $($(IWAD)TARGETS)
-	-for dir in $(DIRS); do [ -d $$dir ] && rmdir $$dir; done
+	-for dir in $(addprefix "build/", $(DIRS)); do \
+		[ -d $$dir ] && rmdir $$dir; done
 
 PHONY: fixperms clean

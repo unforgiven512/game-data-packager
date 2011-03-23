@@ -1,0 +1,118 @@
+SHORTNAME=rott
+LONGNAME="Rise of the Triad"
+
+ZIPSUM=0fafd6b629eab80278fc726e31f9cf41
+
+rott_usage() {
+	echo "game-data-packager ${SHORTNAME} arguments:"
+	printf "\tgame-data-packager ${SHORTNAME} [ -f path ] | [ -w ]
+\t\t-f path\t\tpath to your existing copy of 1rott13.zip\n\
+\t\t-w\t\tfetch 1rott13.zip from the World Wide Web\n"
+}
+
+verify_args() {
+    case $# in
+        0)
+            rott_usage
+            exit 0
+            ;;
+        1)
+            if [ "$1" != "-w" ]; then
+                    usage >&2
+                    rott_usage >&2
+                    exit 1
+            fi
+            downloadzip
+            ;;
+        2)
+            if [ "$1" != "-f" ]; then
+                usage >&2
+                rott_usage >&2
+                exit 1
+            fi
+            downloaded=false
+            rottzip="$2"
+            ;;
+        *)
+            usage >&2
+            rott_usage >&2
+            exit 1
+            ;;
+    esac
+}
+
+rottmirrors=$LIBDIR/rott-mirrors
+
+downloadzip() {
+    dest="$WORKDIR/1rott13.zip"
+    mirror=$(grep -v ^# "$rottmirrors" | sort -R | head -n1)
+    for try in $mirror; do
+        if wget --progress=dot --directory-prefix "$WORKDIR" -c "$try"
+        then
+            rottzip="$dest"
+            downloaded=true
+            return
+        fi
+    done
+    die "error: could not find 1rott13.zip at our chosen mirror"
+}
+
+checksum() {
+	CHECKSUM=`md5sum "$1" | cut -d' ' -f1`
+	debug "checksum = $CHECKSUM"
+}
+
+DEBBASE="rott-data_${GAME_PACKAGE_VERSION}_all.deb"
+DEB="$DATADIR/$DEBBASE"
+
+go() {
+	verify_args "$@"
+	ZIPFILE=`unravel "$rottzip"`
+    [ -e "$ZIPFILE" ] || die "ERROR: '$ZIPFILE' does not exist."
+    [ -f "$ZIPFILE" ] || die "ERROR: '$ZIPFILE' is not a file."
+    [ -r "$ZIPFILE" ] || die "ERROR: '$ZIPFILE' cannot be read."
+	checksum "$ZIPFILE"
+	if [ "$CHECKSUM" != "$ZIPSUM" ]; then
+		echo "warning: checksum is not what we expected" >&2
+	fi
+
+    OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
+	cp -p "$DEB" "$OUTFILE"
+
+	oldpwd=`pwd`
+	cd "$WORKDIR"
+
+    # list of files from within the ZIP-inside-ZIP required for play
+    files="HUNTBGIN.RTC HUNTBGIN.RTL HUNTBGIN.WAD REMOTE1.RTS
+    DEMO1_3.DMO  DEMO2_3.DMO   DEMO3_3.DMO DEMO4_3.DMO VENDOR.DOC"
+	otherfiles="MODEM.PCK  ORDER.FRM     README.EXE   SETUP.EXE
+                ROTT.EXE   ROTTHELP.EXE  ROTTIPX.EXE  ROTTSER.EXE
+                SNDSETUP.EXE"
+
+    gdp_unzip "$ZIPFILE" ROTTSW13.SHR
+	gdp_unzip ROTTSW13.SHR $files
+	rm ROTTSW13.SHR
+
+    # XXX: we have to re-implement most of slipstream() here, due
+    # to the way we use it
+    slipstream_permcheck "$OUTFILE"
+    slipstream_unpack "$OUTFILE"
+    for file in $files; do
+        # XXX: files are treated as being relative to $WORKDIR, hence
+        # unpacking straight into it. Might be nicer to tidy away the
+        # unpack into a subdir (no risk of stamping over another part
+        # of g-d-p's operation) and specify full paths
+        slipstream_file "$file" "usr/share/games/rott/$file"
+    done
+    slipstream_file "VENDOR.DOC" "usr/share/doc/rott-data/VENDOR.DOC"
+    slipstream_instsize
+    slipstream_repack "$OUTFILE"
+    slipstream_cleanup
+
+	rm $files
+    if [ "$downloaded" = "true" ]; then
+        rm "$ZIPFILE"
+    fi
+
+	cd "$oldpwd"
+}

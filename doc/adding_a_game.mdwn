@@ -1,0 +1,167 @@
+## Adding a game to `game-data-packager`
+
+### Step 1: the template `.deb` file
+
+#### overview
+
+`game-data-packager` works by injecting user-supplied files into a
+template debian package.  The first step towards adding support for
+a new game is to prepare the files for the template debian package.
+
+The template packages that are distributed within gdp are built using the
+`Makefile` in the root of the source package.  You need to add commands
+necessary to build your package to the `default` target, and any clean up
+instructions to the `clean` target.
+
+In practice, most supported games delegate the work required for building
+and cleaning up the template packages to a second makefile, and call
+make from within the master makefile.
+
+The files for the template package are generated and assembled within the
+subdirectory `build/`.  The final template package is saved into the
+subdirectory `out/`.   These packages are invariably built using `dpkg-deb`
+and the `-b` argument.
+
+#### things to include in the template package
+
+Debian policy requires the following to be present within the metadata
+section of a binary package
+
+ * the control file
+ * a copyright file, in `/usr/share/doc/package/copyright`
+
+Policy dictates the following fields within the control file:
+
+ * `Version` field.  We recommend
+   using the version of gdp which generated the template package.
+ * `Maintainer`.  We recommend using the same maintainer as for gdp,
+   which is the Debian Games Team.
+ * `Description`. Both the single line synopsis and the extended
+   description that follows.
+ * Any required dependencies.  For game data packages, we use
+   `Recommends` to recommend a corresponding engine package, where
+   appropriate.
+
+We also suggest including the following
+
+ * `md5sums` file, so that the user can check whether a package's installed
+   files have been modified if they so desire.
+ * a `changelog`.  We suggest copying the gdp `changelog` into the
+   template package.
+ * a `README.Debian` file, explaining that the package was auto-generated
+   by gdp.
+
+Finally, it might be worth considering the following
+
+ * do you need to register any alternatives?  For example, the open source
+   `freedoom` package provides a Doom 2 IWAD file, and registers an
+   alternative for the name `doom2.wad`.  Therefore, the generated `doom2-wad`
+   package does the same.
+ * Should the data package register any menus, or carry a `.desktop` file?
+   In some cases, it makes sense to do this from the data package, rather
+   than from the engine package.
+   * you may also wish to provide an icon file, but bear in mind that if
+     you distribute the icon file inside gdp's source, it needs to meet
+     the DFSG.  gdp could generate the icon file at run-time in some
+     cases.
+
+#### simple example
+
+The simplest template package for a supported game is currently 
+quake3.  The source files for the quake 3 template package are in the
+`quake3-data` directory.  They are:
+
+    quake3-data/copyright.in
+    quake3-data/DEBIAN/control
+
+The default target in the quake3 makefile, `quake3.mk`, uses the `m4`
+pre-processor tool to substitute in some values to these files.
+
+The `copyright` file from gdp's own source is also copied into the
+package build directory. The makefile also generates an `md5sums` file
+for the package.
+
+#### complex example
+
+A more complex example is for the suite of doom engine games.  There
+are currently four supported doom engine games: Doom, Doom 2 and the
+two Final Dooms.  Rather than maintain separate makefiles and template
+files, a common makefile (`doom-common.mk`) and common template files
+(`doom-common`) are used.   Where the resulting templates differ,
+makefile variables are used.  For example, the commands in the master
+`Makefile` for Doom and Doom 2 are
+
+        make -f doom-common.mk IWAD=doom  LONG="Doom"   VERSION=$(VERSION)
+        make -f doom-common.mk IWAD=doom2 \
+                LONG="Doom 2: Hell on Earth" VERSION=$(VERSION)
+
+The exact same sub-makefiles are used in both cases, with different
+variables substituted in.
+
+### Step 2: the gdp "supported" file
+
+Once you have a template package file, you then need to write a gdp "supported"
+file.  This is a shell script that gdp calls into when the user invokes gdp
+with your game as an argument.
+
+#### minimum requirements for a "supported" file
+
+A "supported" file must define the following variables:
+
+ * `SHORTNAME`: this is the name which a user must provide as an argument
+   to gdp in order to invoke your code.
+ * `LONGNAME`: this is used by gdp when printing a usage message.  It can be
+   used to disambiguate or expand upon the short name, which might not be
+   enough to explain what it is.
+
+You must define a `go` shell subroutine.  This is the main routine which gdp
+will invoke from your code.  This routine is explained in the next section.
+
+#### the `go` subroutine
+
+You must define a `go` shell subroutine.  This is the main routine which gdp
+will invoke from your code.  You can rely on the following to have happened
+when `go` is called:
+
+ * gdp will have sanity-checked any command-line arguments supplied to
+   it and set variables accordingly (more on these later)
+ * gdp will have created a temporary working directory and stored its
+   name in the `WORKDIR` variable
+ * gdp will have been invoked with your `SHORTNAME` as an argument
+ * gdp will have sourced the shared library of routines
+   `game-data-package-shared`
+
+Your `go` routine is expected to perform the following work:
+
+ * inspect any remaining command line arguments (passed in the `$@` variable)
+   and verify that they are correct
+ * write a complete template package into the file `$WORKDIR/out.deb`,
+   or into the directory `$OUTDIR`, if `$OUTDIR` is defined, to a filename
+   of your choice
+   * (this is sub-optimal.  a future patch to gdp should tidy this up)
+
+In order to achieve this work, your `go` routine can call on the functions
+defined in `lib/game-data-package-shared`, which will already have been
+sourced.  These are documented within the file.  A brief overview:
+
+ * a selection of perl-esque helper routines for argument verification, 
+   noisy reporting and quitting: `debug`, `warn`, `die`, 
+ * some verify/assertion routines: `verify_md5sum`, `verify_directory`,
+   etc.
+ * a family of `slipstream` routines, which insert new files into an existing
+   `.deb` file 
+ * routines for unpacking files (abstracting the exact backend used to do so):
+   `gdp_unzip`
+
+Future patches to gdp will add more common routines for handling the
+downloading of files from the Internet,  including handling mirror lists,
+verification, resuming, etc.
+
+### Step 3: installing the new files into the package
+
+The final step is quite small and easy :-)
+
+Add the files which you need to distribute in the gdp binary package to the
+`debian/game-data-packager.install` file.  At a minimum, this will be your
+"supported" file, but also most likely a template debian package and possibly
+other supporting files.

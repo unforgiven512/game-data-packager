@@ -12,7 +12,8 @@ supported() {
 }
 options() {
 	echo "game-data-packager arguments:"
-	echo "        -n            not do not install the generated package (requires -d)"
+	echo "        -i            install the generated package"
+	echo "        -n            do not install the generated package (requires -d, default)"
 	echo "        -d OUTDIR     write the generated .deb(s) to OUTDIR"
 }
 
@@ -115,7 +116,14 @@ slipstream() {
 	slipstream_unpack "$DEB"
 
 	while [ "$#" -gt 0 ]; do
-		slipstream_file "$1" "$RELPATH"
+		file="$1"
+		destpath="$RELPATH"
+		if [ "x${RELPATH%/}" != "x${RELPATH}" ]; then
+			# RELPATH ends with /; append the basename of the
+			# file (e.g. pak0.pk3)
+			destpath="${RELPATH}${file##*/}"
+		fi
+		slipstream_file "$file" "$destpath"
 		shift
 	done
 
@@ -238,3 +246,19 @@ else
     GAME_PACKAGE_VERSION=`dpkg-query --showformat='${Version}\n' \
         --show game-data-packager`
 fi
+
+gdp_unzip() {
+    zipfile="$1"
+    shift
+    if which 7za >/dev/null; then
+        debug "using 7za"
+        7za e -y "$zipfile" "$@" >/dev/null
+    fi
+    if which 7z >/dev/null; then
+        debug "using 7z"
+        7z e -y "$zipfile" "$@" >/dev/null
+    else
+        debug "using unzip"
+        unzip -qqo "$zipfile" "$@"
+    fi
+}
