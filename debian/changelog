@@ -1,3 +1,9 @@
+game-data-packager (26) experimental; urgency=low
+
+  * initial wolf3d support. Limited to shareware data.
+
+ -- Jon Dowland <jmtd@debian.org>  Thu, 24 Mar 2011 12:37:21 +0000
+
 game-data-packager (25) unstable; urgency=low
 
   [ Jon Dowland ]
