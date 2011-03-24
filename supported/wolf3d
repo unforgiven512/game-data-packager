@@ -84,6 +84,8 @@ go() {
 
     gdp_unzip "$ZIPFILE" W3DSW14.SHR
     /home/jon/wd/web/debian/games/game-data-packager/wolf/extract W3DSW14.SHR
+    rm "order.frm  w3dhelp.exe  W3DSW14.SHR  wolf3d.exe"
+
 	wlfiles="
 		audiohed.wl1:58aa1b9892d5adfa725fab343d9446f8
 		audiot.wl1:4b6109e957b584e4ad7f376961f3887e
@@ -112,6 +114,7 @@ go() {
         slipstream_file "$file" "usr/share/games/wolf3d/$file"
 		rm "$file"
     done
+    slipstream_file vendor.doc "usr/share/doc/wolf3d/vendor.doc"
     slipstream_instsize
     slipstream_repack "$OUTFILE"
     slipstream_cleanup
