@@ -1,4 +1,4 @@
-game-data-packager (26) experimental; urgency=low
+game-data-packager (26) UNRELEASED; urgency=low
 
   * initial wolf3d support. Limited to shareware data.
 

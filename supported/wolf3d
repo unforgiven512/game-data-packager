@@ -83,7 +83,7 @@ go() {
 	cd "$WORKDIR"
 
     gdp_unzip "$ZIPFILE" W3DSW14.SHR
-    /home/jon/wd/web/debian/games/game-data-packager/wolf/extract W3DSW14.SHR >/dev/null
+    /usr/lib/game-data-packager/wolf/extract W3DSW14.SHR >/dev/null
     rm order.frm  w3dhelp.exe  W3DSW14.SHR  wolf3d.exe
 
 	wlfiles="
