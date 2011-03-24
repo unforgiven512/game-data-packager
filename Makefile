@@ -12,6 +12,7 @@ default: $(DIRS) wolf/extract
 		LONG="Final Doom: The Plutonia Experiment" VERSION=$(VERSION)
 	make -f quake3.mk LONG="Quake III Arena" VERSION=$(VERSION)
 	make -f rott.mk VERSION=$(VERSION)
+	make -f wolf3d.mk VERSION=$(VERSION)
 
 wolf/extract: wolf/extract.c
 
@@ -28,6 +29,7 @@ clean:
 		LONG="Final Doom: The Plutonia Experiment" VERSION=$(VERSION) clean
 	make -f quake3.mk LONG="Quake III Arena" VERSION=$(VERSION) clean
 	make -f rott.mk VERSION=$(VERSION) clean
+	make -f wolf3d.mk VERSION=$(VERSION) clean
 	for d in $(DIRS); do [ ! -d "$$d" ]  || rmdir "$$d"; done
 	rm -f wolf/extract
 

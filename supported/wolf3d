@@ -1,0 +1,124 @@
+SHORTNAME=wolf3d
+LONGNAME="Wolfenstein 3D"
+
+ZIPSUM=a29432cd4a5184d552d8e5da8f80a531
+
+wolf3d_usage() {
+	echo "game-data-packager ${SHORTNAME} arguments:"
+	printf "\tgame-data-packager ${SHORTNAME} [ -f path ] | [ -w ]
+\t\t-f path\t\tpath to your existing copy of 1wolf14.zip\n\
+\t\t-w\t\tfetch 1wolf14.zip from the World Wide Web\n"
+}
+
+verify_args() {
+    case $# in
+        0)
+            wolf3d_usage
+            exit 0
+            ;;
+        1)
+            if [ "$1" != "-w" ]; then
+                    usage >&2
+                    wolf3d_usage >&2
+                    exit 1
+            fi
+            downloadzip
+            ;;
+        2)
+            if [ "$1" != "-f" ]; then
+                usage >&2
+                wolf3d_usage >&2
+                exit 1
+            fi
+            downloaded=false
+            wolf3dzip="$2"
+            ;;
+        *)
+            usage >&2
+            wolf3d_usage >&2
+            exit 1
+            ;;
+    esac
+}
+
+wolf3dmirrors=$LIBDIR/wolf3d-mirrors
+
+downloadzip() {
+    dest="$WORKDIR/1wolf14.zip"
+    mirror=$(grep -v ^# "$wolf3dmirrors" | sort -R | head -n1)
+    for try in $mirror; do
+        if wget --progress=dot --directory-prefix "$WORKDIR" -c "$try"
+        then
+            wolf3dzip="$dest"
+            downloaded=true
+            return
+        fi
+    done
+    die "error: could not find 1wolf14.zip at our chosen mirror"
+}
+
+checksum() {
+	CHECKSUM=`md5sum "$1" | cut -d' ' -f1`
+	debug "checksum = $CHECKSUM"
+}
+
+DEBBASE="wolf3d-data_${GAME_PACKAGE_VERSION}_all.deb"
+DEB="$DATADIR/$DEBBASE"
+
+go() {
+	verify_args "$@"
+	ZIPFILE=`unravel "$wolf3dzip"`
+    [ -e "$ZIPFILE" ] || die "ERROR: '$ZIPFILE' does not exist."
+    [ -f "$ZIPFILE" ] || die "ERROR: '$ZIPFILE' is not a file."
+    [ -r "$ZIPFILE" ] || die "ERROR: '$ZIPFILE' cannot be read."
+	checksum "$ZIPFILE"
+	if [ "$CHECKSUM" != "$ZIPSUM" ]; then
+		echo "warning: checksum is not what we expected" >&2
+	fi
+
+    OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
+	cp -p "$DEB" "$OUTFILE"
+
+	oldpwd=`pwd`
+	cd "$WORKDIR"
+
+    gdp_unzip "$ZIPFILE" W3DSW14.SHR
+    /home/jon/wd/web/debian/games/game-data-packager/wolf/extract W3DSW14.SHR
+	wlfiles="
+		audiohed.wl1:58aa1b9892d5adfa725fab343d9446f8
+		audiot.wl1:4b6109e957b584e4ad7f376961f3887e
+		gamemaps.wl1:30fecd7cce6bc70402651ec922d2da3d
+		maphead.wl1:7b6dd4e55c33c33a41d1600be5df3228
+		vgadict.wl1:76a6128f3c0dd9b77939ce8313992746
+		vgagraph.wl1:74decb641b1a4faed173e10ab744bff0
+		vgahead.wl1:61bf1616e78367853c91f2c04e2c1cb7
+		vswap.wl1:6efa079414b817c97db779cecfb081c9
+	"
+
+    # XXX: we have to re-implement most of slipstream() here, due
+    # to the way we use it
+    slipstream_permcheck "$OUTFILE"
+    slipstream_unpack "$OUTFILE"
+    for fc in $wlfiles; do
+        # XXX: files are treated as being relative to $WORKDIR, hence
+        # unpacking straight into it. Might be nicer to tidy away the
+        # unpack into a subdir (no risk of stamping over another part
+        # of g-d-p's operation) and specify full paths
+		file=$(echo "$fc" | cut -d: -f1)
+		checksum "$file"
+		if [ "$CHECKSUM" != $(echo "$fc" | cut -d: -f2) ]; then
+				echo "warning: checksum is not what we expected for $file" >&2
+		fi
+        slipstream_file "$file" "usr/share/games/wolf3d/$file"
+		rm "$file"
+    done
+    slipstream_instsize
+    slipstream_repack "$OUTFILE"
+    slipstream_cleanup
+
+    if [ "$downloaded" = "true" ]; then
+        rm "$ZIPFILE"
+    fi
+
+	cd "$oldpwd"
+}
