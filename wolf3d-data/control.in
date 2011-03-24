@@ -1,5 +1,4 @@
-Package: wolf3d-data-shareware
-Provides: wolf3d-data
+Package: wolf3d-data
 Section: non-free/games
 Priority: optional
 Architecture: all
