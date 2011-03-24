@@ -2,7 +2,7 @@ The wolf3d-data package was generated using game-data-packager.
 Copyright (C) 2008,2009 Jon Dowland <jmtd@debian.org>
 
 The files within "/usr/share/games/wolf3d" are subject to the copyright
-described in XXXX!
+described in /usr/share/doc/wolf3d-data/vendor.doc.
 
 The remainder of this package is covered by the following
 Licence:

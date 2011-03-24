@@ -83,8 +83,8 @@ go() {
 	cd "$WORKDIR"
 
     gdp_unzip "$ZIPFILE" W3DSW14.SHR
-    /home/jon/wd/web/debian/games/game-data-packager/wolf/extract W3DSW14.SHR
-    rm "order.frm  w3dhelp.exe  W3DSW14.SHR  wolf3d.exe"
+    /home/jon/wd/web/debian/games/game-data-packager/wolf/extract W3DSW14.SHR >/dev/null
+    rm order.frm  w3dhelp.exe  W3DSW14.SHR  wolf3d.exe
 
 	wlfiles="
 		audiohed.wl1:58aa1b9892d5adfa725fab343d9446f8
@@ -95,6 +95,8 @@ go() {
 		vgagraph.wl1:74decb641b1a4faed173e10ab744bff0
 		vgahead.wl1:61bf1616e78367853c91f2c04e2c1cb7
 		vswap.wl1:6efa079414b817c97db779cecfb081c9
+		vendor.doc:eccc7fc421f3d1f00e6eabd6848637f6
+
 	"
 
     # XXX: we have to re-implement most of slipstream() here, due
@@ -114,7 +116,6 @@ go() {
         slipstream_file "$file" "usr/share/games/wolf3d/$file"
 		rm "$file"
     done
-    slipstream_file vendor.doc "usr/share/doc/wolf3d/vendor.doc"
     slipstream_instsize
     slipstream_repack "$OUTFILE"
     slipstream_cleanup
