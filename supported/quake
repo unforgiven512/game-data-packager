@@ -64,13 +64,8 @@ cdrom_method() {
     bit1sum=752f49131bb3ba832346e873c1bcfdc6
     bit2sum=9ed67b39020575771e29645d977c9216
     
-    if [ ! -f "$mountpoint/q101_int.1" ]; then
-    	die "CD-ROM missing required file q101_int.1"
-    fi
-    if [ ! -f "$mountpoint/q101_int.2" ]; then
-    	die "CD-ROM missing required file q101_int.2"
-    fi
-    
+    verify_file "$mountpoint/q101_int.1"
+    verify_file "$mountpoint/q101_int.2"
     verify_md5sum "$mountpoint/q101_int.1" "$bit1sum"
     verify_md5sum "$mountpoint/q101_int.2" "$bit2sum"
     
