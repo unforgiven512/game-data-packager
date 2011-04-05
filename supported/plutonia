@@ -1,4 +1,3 @@
-SHORTNAME=plutonia
 LONGNAME="Final Doom: The Plutonia Experiment"
 
 check_for_v19() {

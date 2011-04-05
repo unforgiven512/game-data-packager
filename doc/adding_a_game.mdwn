@@ -108,8 +108,6 @@ with your game as an argument.
 
 A "supported" file must define the following variables:
 
- * `SHORTNAME`: this is the name which a user must provide as an argument
-   to gdp in order to invoke your code.
  * `LONGNAME`: this is used by gdp when printing a usage message.  It can be
    used to disambiguate or expand upon the short name, which might not be
    enough to explain what it is.
@@ -127,7 +125,7 @@ when `go` is called:
    it and set variables accordingly (more on these later)
  * gdp will have created a temporary working directory and stored its
    name in the `WORKDIR` variable
- * gdp will have been invoked with your `SHORTNAME` as an argument
+ * gdp will have been invoked with your supported filename as an argument
  * gdp will have sourced the shared library of routines
    `game-data-package-shared`
 

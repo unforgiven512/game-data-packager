@@ -1,5 +1,4 @@
 
-SHORTNAME=doom2
 LONGNAME="Doom 2"
 
 check_for_v19() {

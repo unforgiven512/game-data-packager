@@ -1,8 +1,8 @@
-DEBBASE="${SHORTNAME}-wad_${GAME_PACKAGE_VERSION}_all.deb"
+DEBBASE="${GAME}-wad_${GAME_PACKAGE_VERSION}_all.deb"
 
 doom_usage() {
-	echo "${SHORTNAME} arguments:"  >&2
-	printf "\twadfile - path to a ${SHORTNAME}.wad\n" >&2
+	echo "${GAME} arguments:"  >&2
+	printf "\twadfile - path to a ${GAME}.wad\n" >&2
 }
 
 verify_args() {
@@ -29,7 +29,7 @@ go() {
 	debug "WADFILE=$WADFILE"
 	check_for_v19
 
-	DEST=`echo $WADDIR | sed 's,^/,,'`/$SHORTNAME.wad
+	DEST=`echo $WADDIR | sed 's,^/,,'`/$GAME.wad
 
 	OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
 	cp -p "$DEB" "$OUTFILE"

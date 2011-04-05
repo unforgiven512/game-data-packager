@@ -1,6 +1,5 @@
 # vim:set ft=sh:
 
-SHORTNAME=quake3
 LONGNAME="Quake III Arena"
 
 POINTFILE=linuxq3apoint-1.32b-3.x86.run
@@ -99,7 +98,7 @@ unpack_point() {
     # now interested in $WORKDIR/unpacked/baseq3/pak[1-8].pk3
 }
 
-DEBBASE="${SHORTNAME}-data_${GAME_PACKAGE_VERSION}_all.deb"
+DEBBASE="${GAME}-data_${GAME_PACKAGE_VERSION}_all.deb"
 BASEQ3=/usr/share/games/quake3/baseq3
 
 DEB="$DATADIR/$DEBBASE"

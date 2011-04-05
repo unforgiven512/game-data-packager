@@ -1,5 +1,4 @@
 
-SHORTNAME=doom
 LONGNAME="Doom (including Ultimate Doom)"
 
 check_for_v19() {

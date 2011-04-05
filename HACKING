@@ -24,13 +24,11 @@ Add a shellscript to ./supported with the shortname for your new addition
 (e.g. doom, rott) as the filename. Within this, as a minimum, you must
 provide
 
-	a definition of SHORTNAME (e.g. rott)
 	a definition of LONGNAME (e.g. Rise Of the Triad)
 	a definition of go()
 
 A simple example:
 
-	SHORTNAME=rott
 	LONGNAME="Rise of the Triad"
 	go() {
 		echo "not implemented yet" >&2

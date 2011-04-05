@@ -7,7 +7,7 @@ supported() {
 	find $SUPPORTED -type f | grep -v '\.svn' | grep -v 'swp$' | sort |
 	while read file; do
 		. $file
-		printf "\t%8s\t%s\n" "$SHORTNAME" "$LONGNAME"
+		printf "\t%8s\t%s\n" "$file" "$LONGNAME"
 	done
 }
 options() {

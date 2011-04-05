@@ -1,4 +1,3 @@
-SHORTNAME=heretic
 LONGNAME="Heretic: Shadow of the Serpent Riders"
 
 check_for_v19() {

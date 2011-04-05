@@ -80,7 +80,6 @@ if [ ! -f "$SUPPORTED/$GAME" ]; then
 fi
 . "$SUPPORTED/$GAME"
 
-debug "short: $SHORTNAME"
 debug "long: $LONGNAME"
 
 # setup a working directory

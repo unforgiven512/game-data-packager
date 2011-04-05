@@ -1,5 +1,4 @@
 
-SHORTNAME=tnt
 LONGNAME="Final Doom: TNT: Evilution"
 
 check_for_v19() {
