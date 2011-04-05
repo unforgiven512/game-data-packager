@@ -6,10 +6,13 @@ LONGNAME=Quake
 quake_usage() {
        echo "game-data-packager ${SHORTNAME} arguments:"
         printf "\tgame-data-packager ${SHORTNAME} path
-\t\tpath\t\tpath to your mounted Quake CD-ROM\n"
+\t\tpath\t\tpath to a mounted Quake CD-ROM or unpacked Quake directory\n\
+\t\t-m path\t\tpath to a mounted Quake CD-ROM\n\
+\t\t-d path\t\tpath to an unpacked Quake directory\n"
 }
 
 mountpoint=""
+method="guess"
 verify_args() {
     case $# in
         0)
@@ -18,6 +21,18 @@ verify_args() {
             ;;
         1)
             mountpoint="$1"
+            ;;
+        2)
+            mountpoint="$2"
+            if [ "$1" = "-m" ]; then
+                method="cdrom"
+            elif [ "$1" = "-d" ]; then
+                method="dir"
+            else
+                usage >&2
+                quake_usage >&2
+                exit 1
+            fi
             ;;
         *)
             usage >&2
@@ -29,7 +44,23 @@ verify_args() {
 
 go() {
     
-    verify_args
+    verify_args "$@"
+    case "$method" in
+        "guess")
+            ;;
+        "cdrom")
+            cdrom_method
+            ;;
+        "dir")
+            dir_method
+            ;;
+        *)
+            die "internal error"
+            ;;
+     esac
+}
+
+cdrom_method() {
     bit1sum=752f49131bb3ba832346e873c1bcfdc6
     bit2sum=9ed67b39020575771e29645d977c9216
     
