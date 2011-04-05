@@ -71,10 +71,7 @@ go() {
     [ -e "$ZIPFILE" ] || die "ERROR: '$ZIPFILE' does not exist."
     [ -f "$ZIPFILE" ] || die "ERROR: '$ZIPFILE' is not a file."
     [ -r "$ZIPFILE" ] || die "ERROR: '$ZIPFILE' cannot be read."
-    checksum "$ZIPFILE"
-    if [ "$CHECKSUM" != "$ZIPSUM" ]; then
-        echo "warning: checksum is not what we expected" >&2
-    fi
+    verify_md5sum "$ZIPFILE" "$ZIPSUM"
 
     OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
     cp -p "$DEB" "$OUTFILE"
