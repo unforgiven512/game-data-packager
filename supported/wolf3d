@@ -96,18 +96,13 @@ go() {
 		vgahead.wl1:61bf1616e78367853c91f2c04e2c1cb7
 		vswap.wl1:6efa079414b817c97db779cecfb081c9
 		vendor.doc:eccc7fc421f3d1f00e6eabd6848637f6
-
 	"
-
-    slipstream "$OUTFILE" "usr/share/games/wolf3d/" $(echo "$wlfiles"|cut -d: -f1)
+    files=$(echo "$wlfiles"|cut -d: -f1)
     for fc in $wlfiles; do
-		file=$(echo "$fc" | cut -d: -f1)
-		checksum "$file"
-		if [ "$CHECKSUM" != $(echo "$fc" | cut -d: -f2) ]; then
-				echo "warning: checksum is not what we expected for $file" >&2
-		fi
-		rm "$file"
+        verify_md5sum $(echo "$fc" | tr : ' ')
     done
+    slipstream "$OUTFILE" "usr/share/games/wolf3d/" $files
+    rm $files
 
     if [ "$downloaded" = "true" ]; then
         rm "$ZIPFILE"
