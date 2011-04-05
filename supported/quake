@@ -115,11 +115,5 @@ common_method() {
     OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
     cp -p "$DEB" "$OUTFILE"
 
-    slipstream_permcheck "$OUTFILE"
-    slipstream_unpack "$OUTFILE"
-    slipstream_file "$pak0" "usr/share/games/quake/id1/pak0.pak"
-    slipstream_file "$pak1" "usr/share/games/quake/id1/pak1.pak"
-    slipstream_instsize
-    slipstream_repack "$OUTFILE"
-    slipstream_cleanup
+    slipstream "$OUTFILE" "usr/share/games/quake/id1/" "$pak0" "$pak1"
 }
