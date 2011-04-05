@@ -78,6 +78,9 @@ verify_file() {
 	if [ ! -f "$FILE" ]; then
 		echo "error: $FILE is not a file. Quitting." >&2
 		exit 1
+	elif [ ! -e "$FILE" ]; then
+		echo "error: $FILE is not readable. Quitting." >&2
+		exit 1
 	fi
 }
 

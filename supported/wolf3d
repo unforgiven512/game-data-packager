@@ -68,9 +68,7 @@ DEB="$DATADIR/$DEBBASE"
 go() {
     verify_args "$@"
     ZIPFILE=`unravel "$wolf3dzip"`
-    [ -e "$ZIPFILE" ] || die "ERROR: '$ZIPFILE' does not exist."
-    [ -f "$ZIPFILE" ] || die "ERROR: '$ZIPFILE' is not a file."
-    [ -r "$ZIPFILE" ] || die "ERROR: '$ZIPFILE' cannot be read."
+    verify_file "$ZIPFILE"
     verify_md5sum "$ZIPFILE" "$ZIPSUM"
 
     OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
