@@ -3,15 +3,6 @@
 SHORTNAME=quake
 LONGNAME=Quake
 
-checksum() {
-	infile="$1"
-	cmpto="$2"
-	cmpfrom=$(md5sum < "$infile")
-	if [ "$cmpfrom" != "$cmpto  -" ]; then
-		warn "$infile does not match our expectations"
-	fi
-}
-
 quake_usage() {
        echo "game-data-packager ${SHORTNAME} arguments:"
         printf "\tgame-data-packager ${SHORTNAME} path
@@ -49,8 +40,8 @@ go() {
     	die "CD-ROM missing required file q101_int.2"
     fi
     
-    checksum "$mountpoint/q101_int.1" "$bit1sum"
-    checksum "$mountpoint/q101_int.2" "$bit2sum"
+    verify_md5sum "$mountpoint/q101_int.1" "$bit1sum"
+    verify_md5sum "$mountpoint/q101_int.2" "$bit2sum"
     
     cat "$mountpoint/q101_int.1" "$mountpoint/q101_int.2" > "$WORKDIR/unpackme.exe"
     (
@@ -59,11 +50,22 @@ go() {
       rm unpackme.exe
     )
     
+    pak0="$WORKDIR/id1/pak0.pak"
+    pak1="$WORKDIR/id1/pak1.pak"
+    common_method
+}
+
+dir_method() {
+    # XXX: do clever things with case etc. here
+    pak0="$mountpoint/id1/pak0.pak"
+    pak1="$mountpoint/id1/pak1.pak"
+    common_method
+}
+
+common_method() {
     pak0sum=85fc9cee2035b66290da1e33be2ac86b
     pak1sum=d76b3e5678f0b64ac74ce5e340e6a685
-    checksum "$WORKDIR/id1/pak0.pak" "$pak0sum"
-    checksum "$WORKDIR/id1/pak1.pak" "$pak1sum"
-
+    verify_md5sum "$pak0" "$pak0sum"
+    verify_md5sum "$pak1" "$pak1sum"
     die "remainder not implemented yet"
-    
 }
