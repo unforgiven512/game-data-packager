@@ -99,23 +99,15 @@ go() {
 
 	"
 
-    # XXX: we have to re-implement most of slipstream() here, due
-    # to the way we use it
-    slipstream_begin "$OUTFILE"
+    slipstream "$OUTFILE" "usr/share/games/wolf3d/" $(echo "$wlfiles"|cut -d: -f1)
     for fc in $wlfiles; do
-        # XXX: files are treated as being relative to $WORKDIR, hence
-        # unpacking straight into it. Might be nicer to tidy away the
-        # unpack into a subdir (no risk of stamping over another part
-        # of g-d-p's operation) and specify full paths
 		file=$(echo "$fc" | cut -d: -f1)
 		checksum "$file"
 		if [ "$CHECKSUM" != $(echo "$fc" | cut -d: -f2) ]; then
 				echo "warning: checksum is not what we expected for $file" >&2
 		fi
-        slipstream_file "$file" "usr/share/games/wolf3d/$file"
 		rm "$file"
     done
-    slipstream_end "$OUTFILE"
 
     if [ "$downloaded" = "true" ]; then
         rm "$ZIPFILE"

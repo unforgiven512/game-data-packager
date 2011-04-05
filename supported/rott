@@ -93,18 +93,8 @@ go() {
 	gdp_unzip ROTTSW13.SHR $files
 	rm ROTTSW13.SHR
 
-    # XXX: we have to re-implement most of slipstream() here, due
-    # to the way we use it
-    slipstream_begin "$OUTFILE"
-    for file in $files; do
-        # XXX: files are treated as being relative to $WORKDIR, hence
-        # unpacking straight into it. Might be nicer to tidy away the
-        # unpack into a subdir (no risk of stamping over another part
-        # of g-d-p's operation) and specify full paths
-        slipstream_file "$file" "usr/share/games/rott/$file"
-    done
-    slipstream_file "VENDOR.DOC" "usr/share/doc/rott-data/VENDOR.DOC"
-    slipstream_end "$OUTFILE"
+    slipstream "$OUTFILE" "usr/share/doc/rott-data/" "VENDOR.DOC"
+    slipstream "$OUTFILE" "usr/share/games/rott/" $files
 
 	rm $files
     if [ "$downloaded" = "true" ]; then
