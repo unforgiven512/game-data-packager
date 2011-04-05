@@ -212,6 +212,21 @@ slipstream_cleanup() {
 	rm -rf ./slipstream.unpacked
 }
 
+## slipstream_begin()
+##      convenience function that bundles permcheck,unpack
+slipstream_begin() {
+    slipstream_permcheck "$OUTFILE"
+    slipstream_unpack "$OUTFILE"
+}
+
+## slipstream_end()
+##      convenience function that bundles instsize,repack,cleanup
+slipstream_end() {
+    slipstream_instsize
+    slipstream_repack "$OUTFILE"
+    slipstream_cleanup
+}
+
 # stuff relating to installing the generated packages ########################
 
 ## install_deb(deb)

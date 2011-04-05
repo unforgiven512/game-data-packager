@@ -95,8 +95,7 @@ go() {
 
     # XXX: we have to re-implement most of slipstream() here, due
     # to the way we use it
-    slipstream_permcheck "$OUTFILE"
-    slipstream_unpack "$OUTFILE"
+    slipstream_begin "$OUTFILE"
     for file in $files; do
         # XXX: files are treated as being relative to $WORKDIR, hence
         # unpacking straight into it. Might be nicer to tidy away the
@@ -105,9 +104,7 @@ go() {
         slipstream_file "$file" "usr/share/games/rott/$file"
     done
     slipstream_file "VENDOR.DOC" "usr/share/doc/rott-data/VENDOR.DOC"
-    slipstream_instsize
-    slipstream_repack "$OUTFILE"
-    slipstream_cleanup
+    slipstream_end "$OUTFILE"
 
 	rm $files
     if [ "$downloaded" = "true" ]; then
