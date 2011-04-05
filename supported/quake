@@ -90,10 +90,23 @@ dir_method() {
     common_method
 }
 
+DEBBASE="quake-data_${GAME_PACKAGE_VERSION}_all.deb"
+DEB="$DATADIR/$DEBBASE"
+
 common_method() {
     pak0sum=85fc9cee2035b66290da1e33be2ac86b
     pak1sum=d76b3e5678f0b64ac74ce5e340e6a685
     verify_md5sum "$pak0" "$pak0sum"
     verify_md5sum "$pak1" "$pak1sum"
-    die "remainder not implemented yet"
+
+    OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
+    cp -p "$DEB" "$OUTFILE"
+
+    slipstream_permcheck "$OUTFILE"
+    slipstream_unpack "$OUTFILE"
+    slipstream_file "$pak0" "usr/share/games/quake/id1/pak0.pak"
+    slipstream_file "$pak1" "usr/share/games/quake/id1/pak1.pak"
+    slipstream_instsize
+    slipstream_repack "$OUTFILE"
+    slipstream_cleanup
 }
