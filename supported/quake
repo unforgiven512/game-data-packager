@@ -61,15 +61,17 @@ go() {
 }
 
 cdrom_method() {
+    bit1="$mountpoint/q101_int.1"
+    bit2="$mountpoint/q101_int.2"
     bit1sum=752f49131bb3ba832346e873c1bcfdc6
     bit2sum=9ed67b39020575771e29645d977c9216
     
-    verify_file "$mountpoint/q101_int.1"
-    verify_file "$mountpoint/q101_int.2"
-    verify_md5sum "$mountpoint/q101_int.1" "$bit1sum"
-    verify_md5sum "$mountpoint/q101_int.2" "$bit2sum"
+    verify_file "$bit1"
+    verify_file "$bit2"
+    verify_md5sum "$bit1" "$bit1sum"
+    verify_md5sum "$bit2" "$bit2sum"
     
-    cat "$mountpoint/q101_int.1" "$mountpoint/q101_int.2" > "$WORKDIR/unpackme.exe"
+    cat "$bit1" "$bit2" > "$WORKDIR/unpackme.exe"
     (
       cd "$WORKDIR"
       lha xq unpackme.exe
