@@ -1,0 +1,163 @@
+# vim:set ft=sh:
+
+SHORTNAME=quake
+LONGNAME=Quake
+
+quake_usage() {
+       echo "game-data-packager ${SHORTNAME} arguments:"
+        printf "\tgame-data-packager ${SHORTNAME} path
+\t\t-m path\t\tpath to a mounted Quake CD-ROM\n\
+\t\t-d path\t\tpath to an unpacked Quake directory\n\
+\t\t-s path\t\tpath to a Quake shareware ZIP\n\
+\t\tpath\t\tpath to any of the above (game-data-packager will guess)\n"
+}
+
+mountpoint=""
+method="guess"
+verify_args() {
+    case $# in
+        0)
+            quake_usage
+            exit 0
+            ;;
+        1)
+            mountpoint="$1"
+            ;;
+        2)
+            mountpoint="$2"
+            if [ "$1" = "-m" ]; then
+                method="cdrom"
+            elif [ "$1" = "-d" ]; then
+                method="dir"
+            elif [ "$1" = "-s" ]; then
+                method="swzip"
+            else
+                usage >&2
+                quake_usage >&2
+                exit 1
+            fi
+            ;;
+        *)
+            usage >&2
+            quake_usage >&2
+            exit 1
+            ;;
+    esac
+}
+
+go() {
+    
+    verify_args "$@"
+    case "$method" in
+        "guess")
+            guess_method
+            ;;
+        "cdrom")
+            cdrom_method
+            ;;
+        "dir")
+            dir_method
+            ;;
+        "swzip")
+            swzip_method
+            ;;
+        *)
+            die "internal error"
+            ;;
+     esac
+}
+
+guess_method() {
+    if [ -f "$mountpoint/id1/pak0.pak" ]; then
+        debug "treating $mountpoint like an installed directory"
+        method="dir"
+        dir_method
+    elif [ -f "$mountpoint/q101_int.1" ]; then
+        debug "treating $mountpoint like a CD-ROM"
+        method="cdrom"
+        cdrom_method
+    elif [ -f "$mountpoint" ]; then
+        debug "treating $mountpoint like a shareware ZIP"
+        method="swzip"
+        swzip_method
+    else
+        die "couldn't figure out what method to use for mountpoint $mountpoint"
+    fi
+}
+
+require_lha() {
+    which lha >/dev/null|| die "package 'lha' is required for this installation method."
+}
+
+cdrom_method() {
+    bit1="$mountpoint/q101_int.1"
+    bit2="$mountpoint/q101_int.2"
+    bit1sum=752f49131bb3ba832346e873c1bcfdc6
+    bit2sum=9ed67b39020575771e29645d977c9216
+    
+    require_lha
+    verify_file "$bit1"
+    verify_file "$bit2"
+    verify_md5sum "$bit1" "$bit1sum"
+    verify_md5sum "$bit2" "$bit2sum"
+    
+    cat "$bit1" "$bit2" > "$WORKDIR/unpackme.exe"
+    (
+      cd "$WORKDIR"
+      lha xq unpackme.exe
+      rm unpackme.exe
+    )
+    
+    pak0="$WORKDIR/id1/pak0.pak"
+    pak1="$WORKDIR/id1/pak1.pak"
+    common_method
+}
+
+dir_method() {
+    # XXX: do clever things with case etc. here
+    pak0="$mountpoint/id1/pak0.pak"
+    pak1="$mountpoint/id1/pak1.pak"
+    common_method
+}
+
+swzip_method() {
+    require_lha
+    zipfile=$(unravel "$mountpoint")
+    (
+        cd "$WORKDIR"
+        gdp_unzip "$zipfile" resource.1
+        mv resource.1 resource.exe
+        lha xq resource.exe id1/pak0.pak
+        rm resource.exe
+    )
+    pak0="$WORKDIR/id1/pak0.pak"
+    pak1=""
+    # XXX: concerned that the pak0 in SW has a different sum
+    verify_file   "$pak0"
+    verify_md5sum "$pak0" 5906e5998fc3d896ddaf5e6a62e03abb
+    common_method
+}
+
+
+common_method() {
+    pak0sum=85fc9cee2035b66290da1e33be2ac86b
+    pak1sum=d76b3e5678f0b64ac74ce5e340e6a685
+    # XXX: can't verify sw pak0 with this sum, see above
+    [ "$method" = "swzip" ] || verify_md5sum "$pak0" "$pak0sum"
+    [ "$method" = "swzip" ] || verify_md5sum "$pak1" "$pak1sum"
+
+    DEBBASE="quake-registered_${GAME_PACKAGE_VERSION}_all.deb"
+    [ "$method" != "swzip" ] || \
+        DEBBASE="quake-shareware_${GAME_PACKAGE_VERSION}_all.deb"
+    OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
+    cp -p "$DATADIR/$DEBBASE" "$OUTFILE"
+
+    if [ "$method" = "swzip" ]; then
+        slipstream "$OUTFILE" "usr/share/games/quake/id1/" "$pak0"
+        rm "$pak0"
+    else
+        slipstream "$OUTFILE" "usr/share/games/quake/id1/" "$pak0" "$pak1"
+        rm "$pak0" "$pak1"
+    fi
+    rmdir "$WORKDIR/id1"
+}
