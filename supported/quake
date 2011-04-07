@@ -82,12 +82,17 @@ guess_method() {
     fi
 }
 
+require_lha() {
+    which lha >/dev/null|| die "package 'lha' is required for this installation method."
+}
+
 cdrom_method() {
     bit1="$mountpoint/q101_int.1"
     bit2="$mountpoint/q101_int.2"
     bit1sum=752f49131bb3ba832346e873c1bcfdc6
     bit2sum=9ed67b39020575771e29645d977c9216
     
+    require_lha
     verify_file "$bit1"
     verify_file "$bit2"
     verify_md5sum "$bit1" "$bit1sum"
@@ -113,6 +118,7 @@ dir_method() {
 }
 
 swzip_method() {
+    require_lha
     zipfile=$(unravel "$mountpoint")
     (
         cd "$WORKDIR"
