@@ -9,9 +9,4 @@ supported/tnt                 usr/share/games/game-data-packager/supported
 supported/plutonia            usr/share/games/game-data-packager/supported
 supported/rott                usr/share/games/game-data-packager/supported
 etc/game-data-packager.conf   etc
-out/quake3-data_*_all.deb     usr/share/games/game-data-packager
-out/doom-wad_*_all.deb        usr/share/games/game-data-packager
-out/doom2-wad_*_all.deb       usr/share/games/game-data-packager
-out/tnt-wad_*_all.deb         usr/share/games/game-data-packager
-out/plutonia-wad_*_all.deb    usr/share/games/game-data-packager
-out/rott-data_*_all.deb       usr/share/games/game-data-packager
+out/*.deb                     usr/share/games/game-data-packager
