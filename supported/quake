@@ -6,9 +6,10 @@ LONGNAME=Quake
 quake_usage() {
        echo "game-data-packager ${SHORTNAME} arguments:"
         printf "\tgame-data-packager ${SHORTNAME} path
-\t\tpath\t\tpath to a mounted Quake CD-ROM or unpacked Quake directory\n\
 \t\t-m path\t\tpath to a mounted Quake CD-ROM\n\
-\t\t-d path\t\tpath to an unpacked Quake directory\n"
+\t\t-d path\t\tpath to an unpacked Quake directory\n\
+\t\t-s path\t\tpath to a Quake shareware ZIP\n\
+\t\tpath\t\tpath to any of the above (game-data-packager will guess)\n"
 }
 
 mountpoint=""
@@ -28,6 +29,8 @@ verify_args() {
                 method="cdrom"
             elif [ "$1" = "-d" ]; then
                 method="dir"
+            elif [ "$1" = "-s" ]; then
+                method="swzip"
             else
                 usage >&2
                 quake_usage >&2
@@ -55,6 +58,9 @@ go() {
         "dir")
             dir_method
             ;;
+        "swzip")
+            swzip_method
+            ;;
         *)
             die "internal error"
             ;;
@@ -68,6 +74,9 @@ guess_method() {
     elif [ -f "$mountpoint/q101_int.1" ]; then
         debug "treating $mountpoint like a CD-ROM"
         cdrom_method
+    elif [ -f "$mountpoint" ]; then
+        debug "treating $mountpoint like a shareware ZIP"
+        swzip_method
     else
         die "couldn't figure out what method to use for mountpoint $mountpoint"
     fi
@@ -103,17 +112,42 @@ dir_method() {
     common_method
 }
 
+swzip_method() {
+    zipfile=$(unravel "$mountpoint")
+    (
+        cd "$WORKDIR"
+        gdp_unzip "$zipfile" resource.1
+        mv resource.1 resource.exe
+        lha xq resource.exe id1/pak0.pak
+        rm resource.exe
+    )
+    pak0="$WORKDIR/id1/pak0.pak"
+    pak1=""
+    # XXX: concerned that the pak0 in SW has a different sum
+    verify_file   "$pak0"
+    verify_md5sum "$pak0" 5906e5998fc3d896ddaf5e6a62e03abb
+    common_method
+}
+
 DEBBASE="quake-data_${GAME_PACKAGE_VERSION}_all.deb"
 DEB="$DATADIR/$DEBBASE"
 
 common_method() {
     pak0sum=85fc9cee2035b66290da1e33be2ac86b
     pak1sum=d76b3e5678f0b64ac74ce5e340e6a685
-    verify_md5sum "$pak0" "$pak0sum"
-    verify_md5sum "$pak1" "$pak1sum"
+    # XXX: can't verify sw pak0 with this sum, see above
+    [ "$method" = "swzip" ] || verify_md5sum "$pak0" "$pak0sum"
+    [ "$method" = "swzip" ] || verify_md5sum "$pak1" "$pak1sum"
 
     OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
     cp -p "$DEB" "$OUTFILE"
 
-    slipstream "$OUTFILE" "usr/share/games/quake/id1/" "$pak0" "$pak1"
+    if [ "$method" = "swzip" ]; then
+        slipstream "$OUTFILE" "usr/share/games/quake/id1/" "$pak0"
+        rm "$pak0"
+    else
+        slipstream "$OUTFILE" "usr/share/games/quake/id1/" "$pak0" "$pak1"
+        rm "$pak0" "$pak1"
+    fi
+    rmdir "$WORKDIR/id1"
 }
