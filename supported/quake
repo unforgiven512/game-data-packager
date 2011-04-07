@@ -135,8 +135,6 @@ swzip_method() {
     common_method
 }
 
-DEBBASE="quake-data_${GAME_PACKAGE_VERSION}_all.deb"
-DEB="$DATADIR/$DEBBASE"
 
 common_method() {
     pak0sum=85fc9cee2035b66290da1e33be2ac86b
@@ -145,8 +143,11 @@ common_method() {
     [ "$method" = "swzip" ] || verify_md5sum "$pak0" "$pak0sum"
     [ "$method" = "swzip" ] || verify_md5sum "$pak1" "$pak1sum"
 
+    DEBBASE="quake-data_${GAME_PACKAGE_VERSION}_all.deb"
+    [ "$method" != "swzip" ] || \
+        DEBBASE="quake-shareware_${GAME_PACKAGE_VERSION}_all.deb"
     OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
-    cp -p "$DEB" "$OUTFILE"
+    cp -p "$DATADIR/$DEBBASE" "$OUTFILE"
 
     if [ "$method" = "swzip" ]; then
         slipstream "$OUTFILE" "usr/share/games/quake/id1/" "$pak0"

@@ -8,9 +8,9 @@ Installed-Size: 500000
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
 Description: Quake commercial data files
  Quake requires an engine and game data to play. This package contains
- the commercial data from id Software's game "Quake", and was generated
- using the "game-data-packager" program from the Debian package of
- the same name.
+ the commercial data from id Software's game "LONG",
+ and was generated using the "game-data-packager" program from the Debian
+ package of the same name.
  .
  To play Quake using this data, install a package providing the
  "quake-engine" virtual package.

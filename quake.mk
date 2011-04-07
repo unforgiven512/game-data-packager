@@ -1,4 +1,4 @@
-# VERSION and PACKAGE must be supplied by caller
+# VERSION, PACKAGE and LONG must be supplied by caller
 
 srcdir = $(CURDIR)
 builddir = $(CURDIR)/build
@@ -35,7 +35,8 @@ $(builddir)/$(PACKAGE)/usr/share/doc/$(PACKAGE)/copyright: quake-common/copyrigh
 
 $(builddir)/$(PACKAGE)/DEBIAN/control: quake-common/DEBIAN/control.in
 	install -d `dirname $@`
-	m4 -DVERSION=$(VERSION) < quake-common/DEBIAN/control.in > $@
+	m4 -DVERSION=$(VERSION) -DPACKAGE=$(PACKAGE) -DLONG="$(LONG)" \
+	     < quake-common/DEBIAN/control.in > $@
 
 fixperms:
 	find $(builddir)/$(PACKAGE) -type f -print0 | xargs -0 chmod 644
