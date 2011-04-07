@@ -1,8 +1,9 @@
-game-data-packager (26) unstable; urgency=low
+game-data-packager (26) experimental; urgency=low
 
   * Add Heretic support.
+  * Add Quake support.
 
- -- Jon Dowland <jmtd@debian.org>  Sun, 20 Mar 2011 18:24:03 +0000
+ -- Jon Dowland <jmtd@debian.org>  Thu, 07 Apr 2011 22:32:22 +0100
 
 game-data-packager (25) unstable; urgency=low
 
