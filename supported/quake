@@ -70,12 +70,15 @@ go() {
 guess_method() {
     if [ -f "$mountpoint/id1/pak0.pak" ]; then
         debug "treating $mountpoint like an installed directory"
+        method="dir"
         dir_method
     elif [ -f "$mountpoint/q101_int.1" ]; then
         debug "treating $mountpoint like a CD-ROM"
+        method="cdrom"
         cdrom_method
     elif [ -f "$mountpoint" ]; then
         debug "treating $mountpoint like a shareware ZIP"
+        method="swzip"
         swzip_method
     else
         die "couldn't figure out what method to use for mountpoint $mountpoint"
