@@ -37,6 +37,12 @@ $(builddir)/$(PACKAGE)/DEBIAN/control: quake-common/DEBIAN/control.in
 	install -d `dirname $@`
 	m4 -DVERSION=$(VERSION) -DPACKAGE=$(PACKAGE) -DLONG="$(LONG)" \
 	     < quake-common/DEBIAN/control.in > $@
+	if [ "$(PACKAGE)" = "quake-registered" ]; then \
+	  echo Conflicts: quake-shareware >> $@; \
+	  echo Replaces: quake-shareware >> $@; \
+	else \
+	  echo Conflicts: quake-registered >> $@; \
+	fi
 
 fixperms:
 	find $(builddir)/$(PACKAGE) -type f -print0 | xargs -0 chmod 644

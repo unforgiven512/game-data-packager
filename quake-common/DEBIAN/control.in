@@ -1,4 +1,5 @@
 Package: PACKAGE
+Provides: quake-data
 Version: VERSION
 Section: non-free/games
 Priority: optional
