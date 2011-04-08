@@ -12,7 +12,7 @@ Homepage: http://wiki.debian.org/Games/GameDataPackager
 
 Package: game-data-packager
 Depends: fakeroot, unzip | p7zip-full, ${misc:Depends}
-Suggests: lha
+Suggests: jlha-utils | lha
 Conflicts: doom-package
 Replaces: doom-package
 Provides: doom-package
