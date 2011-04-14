@@ -1,3 +1,10 @@
+game-data-packager (27) experimental; urgency=low
+
+  * Add support for Quake mission packs (Scourge of Armagon and
+    Dissolution of Eternity).
+
+ -- Stephen Kitt <steve@sk2.org>  Thu, 14 Apr 2011 00:51:16 +0200
+
 game-data-packager (26) experimental; urgency=low
 
   * Add Heretic support.

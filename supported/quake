@@ -9,6 +9,10 @@ quake_usage() {
 \t\t-m path\t\tpath to a mounted Quake CD-ROM\n\
 \t\t-d path\t\tpath to an unpacked Quake directory\n\
 \t\t-s path\t\tpath to a Quake shareware ZIP\n\
+\t\t-mp1 path\t\tpath to an unpacked Scourge of Armagon directory\n\
+\t\t\t\tor a mounted Scourge of Armagon CD\n\
+\t\t-mp2 path\t\tpath to an unpacked Dissolution of Eternity directory\n\
+\t\t\t\tor a mounted Dissolution of Eternity CD\n\
 \t\tpath\t\tpath to any of the above (game-data-packager will guess)\n"
 }
 
@@ -31,6 +35,10 @@ verify_args() {
                 method="dir"
             elif [ "$1" = "-s" ]; then
                 method="swzip"
+            elif [ "$1" = "-mp1" ]; then
+                method="mp1"
+            elif [ "$1" = "-mp2" ]; then
+                method="mp2"
             else
                 usage >&2
                 quake_usage >&2
@@ -61,6 +69,12 @@ go() {
         "swzip")
             swzip_method
             ;;
+        "mp1")
+            mp1_method
+            ;;
+        "mp2")
+            mp2_method
+            ;;
         *)
             die "internal error"
             ;;
@@ -80,6 +94,14 @@ guess_method() {
         debug "treating $mountpoint like a shareware ZIP"
         method="swzip"
         swzip_method
+    elif [ -f "$mountpoint/hipnotic/pak0.pak" ]; then
+        debug "treating $mountpoint like a Scourge of Armagon directory or CD"
+        method="mp1"
+        mp1_method
+    elif [ -f "$mountpoint/rogue/pak0.pak" ]; then
+        debug "treating $mountpoint like a Dissolution of Eternity directory or CD"
+        method="mp2"
+        mp2_method
     else
         die "couldn't figure out what method to use for mountpoint $mountpoint"
     fi
@@ -138,6 +160,29 @@ swzip_method() {
     common_method
 }
 
+mp1_method() {
+    pak0="$mountpoint/hipnotic/pak0.pak"
+    pak0sum=f05b7452ae725e060fb3d14f7731fb00
+    verify_md5sum "$pak0" "$pak0sum"
+
+    DEBBASE="quake-armagon_${GAME_PACKAGE_VERSION}_all.deb"
+    OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
+    cp -p "$DATADIR/$DEBBASE" "$OUTFILE"
+
+    slipstream "$OUTFILE" "usr/share/games/quake/hipnotic/" "$pak0"
+}
+
+mp2_method() {
+    pak0="$mountpoint/rogue/pak0.pak"
+    pak0sum=f8898a483b131de21581656c94f3c1a4
+    verify_md5sum "$pak0" "$pak0sum"
+
+    DEBBASE="quake-dissolution_${GAME_PACKAGE_VERSION}_all.deb"
+    OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
+    cp -p "$DATADIR/$DEBBASE" "$OUTFILE"
+
+    slipstream "$OUTFILE" "usr/share/games/quake/rogue/" "$pak0"
+}
 
 common_method() {
     pak0sum=85fc9cee2035b66290da1e33be2ac86b

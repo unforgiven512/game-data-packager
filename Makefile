@@ -10,8 +10,14 @@ default: $(DIRS)
 	make -f doom-common.mk IWAD=plutonia \
 		LONG="Final Doom: The Plutonia Experiment" VERSION=$(VERSION)
 	make -f quake3.mk LONG="Quake III Arena" VERSION=$(VERSION)
-	make -f quake.mk LONG="Quake" VERSION=$(VERSION) PACKAGE=quake-registered
-	make -f quake.mk LONG="Quake shareware" VERSION=$(VERSION) PACKAGE=quake-shareware
+	make -f quake.mk LONG="Quake" VERSION=$(VERSION) PACKAGE=quake-registered \
+		FOLDER=id1
+	make -f quake.mk LONG="Quake shareware" VERSION=$(VERSION) \
+		PACKAGE=quake-shareware FOLDER=id1
+	make -f quake.mk LONG="Quake mission pack 1: Scourge of Armagon" \
+		VERSION=$(VERSION) PACKAGE=quake-armagon FOLDER=hipnotic
+	make -f quake.mk LONG="Quake mission pack 2: Dissolution of Eternity" \
+		VERSION=$(VERSION) PACKAGE=quake-dissolution FOLDER=rogue
 	make -f rott.mk VERSION=$(VERSION)
 	make -f doom-common.mk IWAD=heretic VERSION=$(VERSION) \
 		CONTROLIN=heretic/DEBIAN/control.in \
@@ -29,8 +35,14 @@ clean:
 	make -f doom-common.mk IWAD=plutonia \
 		LONG="Final Doom: The Plutonia Experiment" VERSION=$(VERSION) clean
 	make -f quake3.mk LONG="Quake III Arena" VERSION=$(VERSION) clean
-	make -f quake.mk LONG="Quake" VERSION=$(VERSION) clean PACKAGE=quake-registered
-	make -f quake.mk LONG="Quake shareware" VERSION=$(VERSION) PACKAGE=quake-shareware clean
+	make -f quake.mk LONG="Quake" VERSION=$(VERSION) PACKAGE=quake-registered \
+		FOLDER=id1 clean
+	make -f quake.mk LONG="Quake shareware" VERSION=$(VERSION) \
+		PACKAGE=quake-shareware FOLDER=id1 clean
+	make -f quake.mk LONG="Quake mission pack 1: Scourge of Armagon" \
+		VERSION=$(VERSION) PACKAGE=quake-armagon FOLDER=hipnotic clean
+	make -f quake.mk LONG="Quake mission pack 2: Dissolution of Eternity" \
+		VERSION=$(VERSION) PACKAGE=quake-dissolution FOLDER=rogue clean
 	make -f rott.mk VERSION=$(VERSION) clean
 	make -f doom-common.mk IWAD=heretic VERSION=$(VERSION) \
 		CONTROLIN=heretic/DEBIAN/control.in \
