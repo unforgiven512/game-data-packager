@@ -267,6 +267,6 @@ common_method() {
             "$WORKDIR/pak0.pak" "$WORKDIR/pak1.pak"
     fi
     [ -d "$WORKDIR/${folder}" ] && rm -rf "$WORKDIR/${folder}"
-    [ ! -f "$WORKDIR/pak1.pak" ] || "$WORKDIR/pak1.pak"
+    [ ! -f "$WORKDIR/pak1.pak" ] || rm "$WORKDIR/pak1.pak"
     rm "$WORKDIR/pak0.pak"
 }
