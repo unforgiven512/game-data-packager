@@ -188,6 +188,8 @@ mp1_method() {
 mp2_method() {
     pak0="$mountpoint/rogue/pak0.pak"
     pak0sum=f8898a483b131de21581656c94f3c1a4
+# MD5 sum for Steam-supplied version
+#   pak0sum=f71428763229bdb373f00a547296efe3
     pak1=""
     suffix=dissolution
     folder=rogue
