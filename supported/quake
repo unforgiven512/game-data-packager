@@ -40,7 +40,7 @@ verify_args() {
                 method="mp1"
             elif [ "$1" = "-mp2" ]; then
                 method="mp2"
-            elif [ "$1" = "all"]; then
+            elif [ "$1" = "all" ]; then
                 method="all"
             else
                 usage >&2
