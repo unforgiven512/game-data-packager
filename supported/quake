@@ -13,7 +13,7 @@ quake_usage() {
 \t\t\t\tor a mounted Scourge of Armagon CD\n\
 \t\t-mp2 path\t\tpath to an unpacked Dissolution of Eternity directory\n\
 \t\t\t\tor a mounted Dissolution of Eternity CD\n\
-\t\all path\t\tALL OF THE ABOVE!!!11\n\
+\t\tall path\t\tALL OF THE ABOVE!!!11\n\
 \t\tpath\t\tpath to any of the above (game-data-packager will guess)\n"
 }
 
