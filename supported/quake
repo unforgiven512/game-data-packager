@@ -213,7 +213,7 @@ common_method() {
 
     # force lower case for our copy of the files
     ln -s "$pak0" "$WORKDIR/pak0.pak"
-    ln -s "$pak1" "$WORKDIR/pak1.pak"
+    [ "$pak1" = "" ] || ln -s "$pak1" "$WORKDIR/pak1.pak"
 
     if [ "$pak1" = "" ]; then
         slipstream "$OUTFILE" "usr/share/games/quake/${folder}/" \
@@ -223,5 +223,6 @@ common_method() {
             "$WORKDIR/pak0.pak" "$WORKDIR/pak1.pak"
     fi
     [ -d "$WORKDIR/${folder}" ] && rm -rf "$WORKDIR/${folder}"
-    rm "$WORKDIR/pak0.pak" "$WORKDIR/pak1.pak"
+    [ ! -f "$WORKDIR/pak1.pak" ] || "$WORKDIR/pak1.pak"
+    rm "$WORKDIR/pak0.pak"
 }
