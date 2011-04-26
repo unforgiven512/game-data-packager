@@ -82,7 +82,7 @@ go() {
 }
 
 guess_method() {
-    if [ -f "$mountpoint/id1/pak0.pak" ]; then
+    if ifind "$mountpoint" "id1/pak0.pak" >/dev/null; then
         debug "treating $mountpoint like an installed directory"
         method="dir"
         dir_method
@@ -141,9 +141,8 @@ cdrom_method() {
 }
 
 dir_method() {
-    # XXX: do clever things with case etc. here
-    pak0="$mountpoint/id1/pak0.pak"
-    pak1="$mountpoint/id1/pak1.pak"
+    pak0=$(ifind "$mountpoint" "id1/pak0.pak" | head -1)
+    pak1=$(ifind "$mountpoint" "id1/pak1.pak" | head -1)
     # Presume the directory contains version 1.06
     pak0sum=5906e5998fc3d896ddaf5e6a62e03abb
     pak1sum=d76b3e5678f0b64ac74ce5e340e6a685
@@ -212,10 +211,17 @@ common_method() {
     OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
     cp -p "$DATADIR/$DEBBASE" "$OUTFILE"
 
+    # force lower case for our copy of the files
+    ln -s "$pak0" "$WORKDIR/pak0.pak"
+    ln -s "$pak1" "$WORKDIR/pak1.pak"
+
     if [ "$pak1" = "" ]; then
-        slipstream "$OUTFILE" "usr/share/games/quake/${folder}/" "$pak0"
+        slipstream "$OUTFILE" "usr/share/games/quake/${folder}/" \
+            "$WORKDIR/pak0.pak"
     else
-        slipstream "$OUTFILE" "usr/share/games/quake/${folder}/" "$pak0" "$pak1"
+        slipstream "$OUTFILE" "usr/share/games/quake/${folder}/" \
+            "$WORKDIR/pak0.pak" "$WORKDIR/pak1.pak"
     fi
     [ -d "$WORKDIR/${folder}" ] && rm -rf "$WORKDIR/${folder}"
+    rm "$WORKDIR/pak0.pak" "$WORKDIR/pak1.pak"
 }
