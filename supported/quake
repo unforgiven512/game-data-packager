@@ -13,7 +13,6 @@ quake_usage() {
 \t\t\t\tor a mounted Scourge of Armagon CD\n\
 \t\t-mp2 path\t\tpath to an unpacked Dissolution of Eternity directory\n\
 \t\t\t\tor a mounted Dissolution of Eternity CD\n\
-\t\tall path\t\tALL OF THE ABOVE!!!11\n\
 \t\tpath\t\tpath to any of the above (game-data-packager will guess)\n"
 }
 
@@ -40,8 +39,6 @@ verify_args() {
                 method="mp1"
             elif [ "$1" = "-mp2" ]; then
                 method="mp2"
-            elif [ "$1" = "all" ]; then
-                method="all"
             else
                 usage >&2
                 quake_usage >&2
@@ -88,33 +85,6 @@ go() {
 }
 
 guess_method() {
-    if ifind "$mountpoint" "id1/pak0.pak" >/dev/null; then
-        debug "treating $mountpoint like an installed directory"
-        method="dir"
-        dir_method
-    elif [ -f "$mountpoint/q101_int.1" ]; then
-        debug "treating $mountpoint like a CD-ROM"
-        method="cdrom"
-        cdrom_method
-    elif [ -f "$mountpoint" ]; then
-        debug "treating $mountpoint like a shareware ZIP"
-        method="swzip"
-        swzip_method
-    elif [ -f "$mountpoint/hipnotic/pak0.pak" ]; then
-        debug "treating $mountpoint like a Scourge of Armagon directory or CD"
-        method="mp1"
-        mp1_method
-    elif [ -f "$mountpoint/rogue/pak0.pak" ]; then
-        debug "treating $mountpoint like a Dissolution of Eternity directory or CD"
-        method="mp2"
-        mp2_method
-    else
-        die "couldn't figure out what method to use for mountpoint $mountpoint"
-    fi
-}
-
-# XXX: CRAzy insANE ALL MethOD
-all_method() {
     any=""
     if ifind "$mountpoint" "id1/pak0.pak" >/dev/null; then
         debug "treating $mountpoint like an installed directory"
