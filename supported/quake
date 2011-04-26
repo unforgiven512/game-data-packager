@@ -75,9 +75,6 @@ go() {
         "mp2")
             mp2_method
             ;;
-        "all")
-            all_method
-            ;;
         *)
             die "internal error"
             ;;
