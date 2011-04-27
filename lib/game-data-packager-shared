@@ -253,8 +253,7 @@ gdp_unzip() {
     if which 7za >/dev/null; then
         debug "using 7za"
         7za e -y "$zipfile" "$@" >/dev/null
-    fi
-    if which 7z >/dev/null; then
+    elif which 7z >/dev/null; then
         debug "using 7z"
         7z e -y "$zipfile" "$@" >/dev/null
     else
