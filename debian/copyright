@@ -11,7 +11,3 @@ This package is distributed under the terms of version 2 of the GNU
 general public licence (GPL). On Debian systems the GNU General Public
 License (GPL) version 2 is located on the filesystem at
 /usr/share/common-licenses/GPL-2.
-
-The file wolf/extract.c is copyright © 2007 Hans de Goede
-<j.w.r.degoede@hhs.nl> and is distributed under the terms of version 2 of the
-GNU general public licence (GPL), or (at your option) any later version.
