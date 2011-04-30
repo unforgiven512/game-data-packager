@@ -62,7 +62,8 @@ checksum() {
 	debug "checksum = $CHECKSUM"
 }
 
-DEBBASE="wolf3d-data_${GAME_PACKAGE_VERSION}_all.deb"
+SUFFIX=wl1
+DEBBASE="wolf3d-data-${SUFFIX}_${GAME_PACKAGE_VERSION}_all.deb"
 DEB="$DATADIR/$DEBBASE"
 
 go() {

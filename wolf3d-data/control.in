@@ -1,4 +1,5 @@
-Package: wolf3d-data
+Package: wolf3d-data-SUFFIX
+Provides: wolf3d-data
 Section: non-free/games
 Priority: optional
 Architecture: all
