@@ -9,6 +9,10 @@ quake_usage() {
 \t\t-m path\t\tpath to a mounted Quake CD-ROM\n\
 \t\t-d path\t\tpath to an unpacked Quake directory\n\
 \t\t-s path\t\tpath to a Quake shareware ZIP\n\
+\t\t-mp1 path\t\tpath to an unpacked Scourge of Armagon directory\n\
+\t\t\t\tor a mounted Scourge of Armagon CD\n\
+\t\t-mp2 path\t\tpath to an unpacked Dissolution of Eternity directory\n\
+\t\t\t\tor a mounted Dissolution of Eternity CD\n\
 \t\tpath\t\tpath to any of the above (game-data-packager will guess)\n"
 }
 
@@ -31,6 +35,10 @@ verify_args() {
                 method="dir"
             elif [ "$1" = "-s" ]; then
                 method="swzip"
+            elif [ "$1" = "-mp1" ]; then
+                method="mp1"
+            elif [ "$1" = "-mp2" ]; then
+                method="mp2"
             else
                 usage >&2
                 quake_usage >&2
@@ -61,6 +69,12 @@ go() {
         "swzip")
             swzip_method
             ;;
+        "mp1")
+            mp1_method
+            ;;
+        "mp2")
+            mp2_method
+            ;;
         *)
             die "internal error"
             ;;
@@ -68,7 +82,7 @@ go() {
 }
 
 guess_method() {
-    if [ -f "$mountpoint/id1/pak0.pak" ]; then
+    if ifind "$mountpoint" "id1/pak0.pak" >/dev/null; then
         debug "treating $mountpoint like an installed directory"
         method="dir"
         dir_method
@@ -80,6 +94,14 @@ guess_method() {
         debug "treating $mountpoint like a shareware ZIP"
         method="swzip"
         swzip_method
+    elif [ -f "$mountpoint/hipnotic/pak0.pak" ]; then
+        debug "treating $mountpoint like a Scourge of Armagon directory or CD"
+        method="mp1"
+        mp1_method
+    elif [ -f "$mountpoint/rogue/pak0.pak" ]; then
+        debug "treating $mountpoint like a Dissolution of Eternity directory or CD"
+        method="mp2"
+        mp2_method
     else
         die "couldn't figure out what method to use for mountpoint $mountpoint"
     fi
@@ -110,13 +132,22 @@ cdrom_method() {
     
     pak0="$WORKDIR/id1/pak0.pak"
     pak1="$WORKDIR/id1/pak1.pak"
+    # This CD contains version 1.01
+    pak0sum=85fc9cee2035b66290da1e33be2ac86b
+    pak1sum=d76b3e5678f0b64ac74ce5e340e6a685
+    suffix=registered
+    folder=id1
     common_method
 }
 
 dir_method() {
-    # XXX: do clever things with case etc. here
-    pak0="$mountpoint/id1/pak0.pak"
-    pak1="$mountpoint/id1/pak1.pak"
+    pak0=$(ifind "$mountpoint" "id1/pak0.pak" | head -1)
+    pak1=$(ifind "$mountpoint" "id1/pak1.pak" | head -1)
+    # Presume the directory contains version 1.06
+    pak0sum=5906e5998fc3d896ddaf5e6a62e03abb
+    pak1sum=d76b3e5678f0b64ac74ce5e340e6a685
+    suffix=registered
+    folder=id1
     common_method
 }
 
@@ -132,32 +163,68 @@ swzip_method() {
     )
     pak0="$WORKDIR/id1/pak0.pak"
     pak1=""
-    # XXX: concerned that the pak0 in SW has a different sum
-    verify_file   "$pak0"
-    verify_md5sum "$pak0" 5906e5998fc3d896ddaf5e6a62e03abb
+
+    # Presume the shareware version is 1.06
+    pak0sum=5906e5998fc3d896ddaf5e6a62e03abb
+    suffix=shareware
+    folder=id1
     common_method
 }
 
+mp1_method() {
+    pak0="$mountpoint/hipnotic/pak0.pak"
+# MD5 sum for original CD version
+    pak0sum=0ab83681aaf841c4320269e02941a14a
+# MD5 sum for glQuake-compatible version (see
+# http://speeddemosarchive.com/quake/qdq/movies/sds.html for more
+# info)
+#    pak0sum=f05b7452ae725e060fb3d14f7731fb00
+    pak1=""
+    suffix=armagon
+    folder=hipnotic
+    common_method
+}
 
+mp2_method() {
+    pak0="$mountpoint/rogue/pak0.pak"
+    pak0sum=f8898a483b131de21581656c94f3c1a4
+# MD5 sum for Steam-supplied version
+#   pak0sum=f71428763229bdb373f00a547296efe3
+    pak1=""
+    suffix=dissolution
+    folder=rogue
+    common_method
+}
+
+# Requires the following variables on entry:
+# pak0 - full path of the pak0.pak file to include
+# pak0sum - expected MD5 sum
+# pak1 - full path of the pak1.pak file to include (optional)
+# pak1sum - expected MD5 sum
+# suffix - package suffix to use
+# folder - base folder for the PAK files
 common_method() {
-    pak0sum=85fc9cee2035b66290da1e33be2ac86b
-    pak1sum=d76b3e5678f0b64ac74ce5e340e6a685
-    # XXX: can't verify sw pak0 with this sum, see above
-    [ "$method" = "swzip" ] || verify_md5sum "$pak0" "$pak0sum"
-    [ "$method" = "swzip" ] || verify_md5sum "$pak1" "$pak1sum"
+    verify_file "$pak0"
+    verify_md5sum "$pak0" "$pak0sum"
+    [ "$pak1" = "" ] || verify_file "$pak1"
+    [ "$pak1" = "" ] || verify_md5sum "$pak1" "$pak1sum"
 
-    DEBBASE="quake-registered_${GAME_PACKAGE_VERSION}_all.deb"
-    [ "$method" != "swzip" ] || \
-        DEBBASE="quake-shareware_${GAME_PACKAGE_VERSION}_all.deb"
+    DEBBASE="quake-${suffix}_${GAME_PACKAGE_VERSION}_all.deb"
     OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
     cp -p "$DATADIR/$DEBBASE" "$OUTFILE"
 
-    if [ "$method" = "swzip" ]; then
-        slipstream "$OUTFILE" "usr/share/games/quake/id1/" "$pak0"
-        rm "$pak0"
+    # force lower case for our copy of the files
+    ln -s "$pak0" "$WORKDIR/pak0.pak"
+    [ "$pak1" = "" ] || ln -s "$pak1" "$WORKDIR/pak1.pak"
+
+    if [ "$pak1" = "" ]; then
+        slipstream "$OUTFILE" "usr/share/games/quake/${folder}/" \
+            "$WORKDIR/pak0.pak"
     else
-        slipstream "$OUTFILE" "usr/share/games/quake/id1/" "$pak0" "$pak1"
-        rm "$pak0" "$pak1"
+        slipstream "$OUTFILE" "usr/share/games/quake/${folder}/" \
+            "$WORKDIR/pak0.pak" "$WORKDIR/pak1.pak"
     fi
-    rmdir "$WORKDIR/id1"
+    [ -d "$WORKDIR/${folder}" ] && rm -rf "$WORKDIR/${folder}"
+    [ ! -f "$WORKDIR/pak1.pak" ] || rm "$WORKDIR/pak1.pak"
+    rm "$WORKDIR/pak0.pak"
 }

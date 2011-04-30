@@ -1,4 +1,4 @@
-# VERSION, PACKAGE and LONG must be supplied by caller
+# FOLDER, VERSION, PACKAGE and LONG must be supplied by caller
 
 srcdir = $(CURDIR)
 builddir = $(CURDIR)/build
@@ -10,7 +10,7 @@ $(QUAKEDEB): \
 	$(builddir)/$(PACKAGE)/DEBIAN/md5sums \
 	$(builddir)/$(PACKAGE)/DEBIAN/control \
 	fixperms
-	install -d $(builddir)/$(PACKAGE)/usr/share/games/quake/id1
+	install -d $(builddir)/$(PACKAGE)/usr/share/games/quake/$(FOLDER)
 	cd $(builddir) && \
 	if [ `id -u` -eq 0 ]; then \
 		dpkg-deb -b $(PACKAGE) $@ ; \
@@ -40,6 +40,8 @@ $(builddir)/$(PACKAGE)/DEBIAN/control: quake-common/DEBIAN/control.in
 	if [ "$(PACKAGE)" = "quake-registered" ]; then \
 	  echo Conflicts: quake-shareware >> $@; \
 	  echo Replaces: quake-shareware >> $@; \
+	elif [ "$(PACKAGE)" != "quake-shareware" ]; then \
+	  echo Depends: quake-registered >> $@; \
 	else \
 	  echo Conflicts: quake-registered >> $@; \
 	fi

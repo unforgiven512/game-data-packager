@@ -3,7 +3,7 @@ Copyright © 2008-2011 Jon Dowland <jmtd@debian.org>.
 
 The pak files under "/usr/share/games/quake" are user-supplied
 files that are not covered by the copyright or licence of this 
-package; they are copyright (c) 1996 by id Software, all rights
+package; they are Copyright © 1996-1997 by id Software, all rights
 reserved.
 
 The remainder of this package is covered by the following

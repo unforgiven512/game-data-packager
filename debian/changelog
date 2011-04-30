@@ -1,10 +1,15 @@
-game-data-packager (26) UNRELEASED; urgency=low
+game-data-packager (26) unstable; urgency=low
 
+  [ Jon Dowland ]
   * Add Heretic support.
   * Add Quake support.
   * Add wolf3d support, Limited to shareware data.
 
- -- Jon Dowland <jmtd@debian.org>  Thu, 07 Apr 2011 22:32:22 +0100
+  [ Steven Kitt ]
+  * Add support for Quake mission packs (Scourge of Armagon and
+    Dissolution of Eternity).
+
+ -- Jon Dowland <jmtd@debian.org>  Sat, 30 Apr 2011 19:34:03 +0100
 
 game-data-packager (25) unstable; urgency=low
 

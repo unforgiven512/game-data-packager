@@ -250,3 +250,11 @@ gdp_unzip() {
         unzip -qqo "$zipfile" "$@"
     fi
 }
+
+## ifind(base,file)
+##      case-insensitive search for file in base
+ifind() {
+  base="$1"
+  file="$2"
+  find "$base" -iwholename "$base/$file"
+}
