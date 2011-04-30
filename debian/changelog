@@ -1,6 +1,12 @@
+game-data-packager (28) unstable; urgency=low
+
+  * correct spelling of "Stephen" in the changelog. Sorry, Stephen!
+
+ -- Jon Dowland <jmtd@debian.org>  Sat, 30 Apr 2011 20:04:10 +0100
+
 game-data-packager (27) unstable; urgency=low
 
-  [ Steven Kitt ]
+  [ Stephen Kitt ]
   * Add support for Quake mission packs (Scourge of Armagon and
     Dissolution of Eternity).
 
