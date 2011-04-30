@@ -2,13 +2,12 @@ Package: PACKAGE
 Section: non-free/games
 Priority: optional
 Architecture: all
-Recommends: doom-engine
-Provides: doom-wad
+Recommends: heretic-engine
+Provides: heretic-wad
 Installed-Size: 56
-Conflicts: freedoom (<< 0.6.4-4), freedm (<< 0.6.4-4)
 Version: VERSION
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
-Description: IWAD from ID Software's $(LONG) computer game
- Doom requires both a doom-engine and a doom-wad to play. This package
+Description: IWAD from Raven Software's heretic computer game
+ Heretic requires both a heretic-engine and a heretic-wad to play. This package
  contains the IWAD from ID Software's game "GAME"
  and was generated using the "game-data-packager" program.

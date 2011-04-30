@@ -1,8 +1,10 @@
 game-data-packager (26) UNRELEASED; urgency=low
 
-  * initial wolf3d support. Limited to shareware data.
+  * Add Heretic support.
+  * Add Quake support.
+  * Add wolf3d support, Limited to shareware data.
 
- -- Jon Dowland <jmtd@debian.org>  Thu, 24 Mar 2011 12:37:21 +0000
+ -- Jon Dowland <jmtd@debian.org>  Thu, 07 Apr 2011 22:32:22 +0100
 
 game-data-packager (25) unstable; urgency=low
 

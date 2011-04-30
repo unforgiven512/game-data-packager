@@ -13,6 +13,7 @@ Homepage: http://wiki.debian.org/Games/GameDataPackager
 Package: game-data-packager
 Depends: fakeroot, unzip | p7zip-full, ${misc:Depends}, ${shlib:Depends},
  dynamite (>= 0.1.1-2)
+Suggests: jlha-utils | lha
 Conflicts: doom-package
 Replaces: doom-package
 Provides: doom-package
@@ -28,4 +29,5 @@ Description: Installer for game data files
  commercial game data).
  .
  At the moment, game-data-packager has support for building debs
- for Doom games (Doom, Doom 2 and Final Doom), and Quake III Arena.
+ for Doom games (Doom, Doom 2 and Final Doom); Quake;
+ Quake III Arena; Heretic and Rise of the Triad.

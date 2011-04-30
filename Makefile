@@ -10,6 +10,11 @@ default: $(DIRS)
 		LONG="Final Doom: TNT: Evilution" VERSION=$(VERSION)
 	make -f doom-common.mk IWAD=plutonia \
 		LONG="Final Doom: The Plutonia Experiment" VERSION=$(VERSION)
+	make -f doom-common.mk IWAD=heretic VERSION=$(VERSION) \
+		CONTROLIN=heretic/DEBIAN/control.in \
+		LONG="Heretic: Shadow of the Serpent Riders" GAME=heretic
+	make -f quake.mk LONG="Quake" VERSION=$(VERSION) PACKAGE=quake-registered
+	make -f quake.mk LONG="Quake shareware" VERSION=$(VERSION) PACKAGE=quake-shareware
 	make -f quake3.mk LONG="Quake III Arena" VERSION=$(VERSION)
 	make -f rott.mk VERSION=$(VERSION)
 	make -f wolf3d.mk VERSION=$(VERSION)
@@ -25,6 +30,11 @@ clean:
 		LONG="Final Doom: TNT: Evilution" VERSION=$(VERSION) clean
 	make -f doom-common.mk IWAD=plutonia \
 		LONG="Final Doom: The Plutonia Experiment" VERSION=$(VERSION) clean
+	make -f doom-common.mk IWAD=heretic VERSION=$(VERSION) \
+		CONTROLIN=heretic/DEBIAN/control.in \
+		LONG="Heretic: Shadow of the Serpent Riders" GAME=heretic clean
+	make -f quake.mk LONG="Quake" VERSION=$(VERSION) clean PACKAGE=quake-registered
+	make -f quake.mk LONG="Quake shareware" VERSION=$(VERSION) PACKAGE=quake-shareware clean
 	make -f quake3.mk LONG="Quake III Arena" VERSION=$(VERSION) clean
 	make -f rott.mk VERSION=$(VERSION) clean
 	make -f wolf3d.mk VERSION=$(VERSION) clean
