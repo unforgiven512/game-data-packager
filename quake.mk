@@ -11,6 +11,11 @@ $(QUAKEDEB): \
 	$(builddir)/$(PACKAGE)/DEBIAN/control \
 	fixperms
 	install -d $(builddir)/$(PACKAGE)/usr/share/games/quake/$(FOLDER)
+	if [ "$(FOLDER)" = hipnotic ] || [ "$(FOLDER)" = rogue ]; then \
+		printf '#!/bin/sh\nexit 0\n' > $(builddir)/$(PACKAGE)/usr/share/games/quake/$(FOLDER)-tryexec.sh; \
+		chmod 0755 $(builddir)/$(PACKAGE)/usr/share/games/quake/$(FOLDER)-tryexec.sh; \
+	fi
+
 	cd $(builddir) && \
 	if [ `id -u` -eq 0 ]; then \
 		dpkg-deb -b $(PACKAGE) $@ ; \

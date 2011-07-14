@@ -4,6 +4,9 @@ game-data-packager (29) UNRELEASED; urgency=low
     - add new function verify_md5sum_alternatives, and a regression test
   * Allow Quake 1.01 CDs' LHA archives to contain upper-case filenames
     (jlha seems to produce upper-case from my CD)
+  * Add a dummy shell script to each of quake-armagon and quake-dissolution,
+    which the corresponding .desktop files can use as their TryExec field
+    to hide uninstalled mission packs
 
  -- Simon McVittie <smcv@debian.org>  Thu, 14 Jul 2011 09:07:30 +0100
 
