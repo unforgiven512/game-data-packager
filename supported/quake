@@ -179,12 +179,12 @@ swzip_method() {
 
 mp1_method() {
     pak0="$mountpoint/hipnotic/pak0.pak"
-# MD5 sum for original CD version
+    # MD5 sum for original CD version
     pak0sum=0ab83681aaf841c4320269e02941a14a
-# MD5 sum for glQuake-compatible version (see
-# http://speeddemosarchive.com/quake/qdq/movies/sds.html for more
-# info)
-#    pak0sum=f05b7452ae725e060fb3d14f7731fb00
+    # MD5 sum for glQuake-compatible version (see
+    # http://speeddemosarchive.com/quake/qdq/movies/sds.html for more
+    # info)
+    pak0sum=$pak0sum,f05b7452ae725e060fb3d14f7731fb00
     pak1=""
     suffix=armagon
     folder=hipnotic
@@ -193,9 +193,12 @@ mp1_method() {
 
 mp2_method() {
     pak0="$mountpoint/rogue/pak0.pak"
+    # MP2 CD
     pak0sum=f8898a483b131de21581656c94f3c1a4
-# MD5 sum for Steam-supplied version
-#   pak0sum=f71428763229bdb373f00a547296efe3
+    # MD5 sum for Steam-supplied version
+    pak0sum=$pak0sum,f71428763229bdb373f00a547296efe3
+    # MP2 as supplied with MP1 on a single CD
+    pak0sum=$pak0sum,c38a4e04219c317cd1b02f386bdfe11f
     pak1=""
     suffix=dissolution
     folder=rogue
@@ -204,16 +207,16 @@ mp2_method() {
 
 # Requires the following variables on entry:
 # pak0 - full path of the pak0.pak file to include
-# pak0sum - expected MD5 sum
+# pak0sum - expected MD5 sums (comma-separated)
 # pak1 - full path of the pak1.pak file to include (optional)
-# pak1sum - expected MD5 sum
+# pak1sum - expected MD5 sums (comma-separated)
 # suffix - package suffix to use
 # folder - base folder for the PAK files
 common_method() {
     verify_file "$pak0"
-    verify_md5sum "$pak0" "$pak0sum"
+    verify_md5sum_alternatives "$pak0" "$pak0sum"
     [ "$pak1" = "" ] || verify_file "$pak1"
-    [ "$pak1" = "" ] || verify_md5sum "$pak1" "$pak1sum"
+    [ "$pak1" = "" ] || verify_md5sum_alternatives "$pak1" "$pak1sum"
 
     DEBBASE="quake-${suffix}_${GAME_PACKAGE_VERSION}_all.deb"
     OUTFILE=`unravel "$OUTDIR"`"/$DEBBASE"
