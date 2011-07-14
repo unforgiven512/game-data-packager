@@ -52,4 +52,7 @@ clean:
 	make -f wolf3d.mk VERSION=$(VERSION) clean
 	for d in $(DIRS); do [ ! -d "$$d" ]  || rmdir "$$d"; done
 
-.PHONY: default clean
+check:
+	./t/verify-md5sum-alternatives.sh
+
+.PHONY: default clean check
