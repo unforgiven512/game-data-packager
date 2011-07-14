@@ -131,7 +131,13 @@ cdrom_method() {
     )
     
     pak0="$WORKDIR/id1/pak0.pak"
+    if ! test -f "$pak0"; then
+        pak0="$WORKDIR/ID1/PAK0.PAK"
+    fi
     pak1="$WORKDIR/id1/pak1.pak"
+    if ! test -f "$pak1"; then
+        pak1="$WORKDIR/ID1/PAK1.PAK"
+    fi
     # This CD contains version 1.01
     pak0sum=85fc9cee2035b66290da1e33be2ac86b
     pak1sum=d76b3e5678f0b64ac74ce5e340e6a685
