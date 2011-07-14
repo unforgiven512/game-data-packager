@@ -21,6 +21,7 @@ clean:
 	rm -f build-stamp configure-stamp
 	$(MAKE) clean VERSION=$(VERSION)
 	dh_clean
+	rm -f *.deb
 
 install: build
 	dh_testdir
