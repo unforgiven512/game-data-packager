@@ -1,3 +1,12 @@
+game-data-packager (29) UNRELEASED; urgency=low
+
+  * Allow Quake mission packs to have any of several known md5sums
+    - add new function verify_md5sum_alternatives, and a regression test
+  * Allow Quake 1.01 CDs' LHA archives to contain upper-case filenames
+    (jlha seems to produce upper-case from my CD)
+
+ -- Simon McVittie <smcv@debian.org>  Thu, 14 Jul 2011 09:07:30 +0100
+
 game-data-packager (28) unstable; urgency=low
 
   * correct spelling of "Stephen" in the changelog. Sorry, Stephen!
