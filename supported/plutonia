@@ -4,7 +4,10 @@ LONGNAME="Final Doom: The Plutonia Experiment"
 check_for_v19() {
 	case "$CHECKSUM" in
 		"75c8cf89566741fa9d22447604053bd7")
-            debug "plutonia.wad has a known checksum"
+			debug "plutonia.wad has a known checksum"
+			;;
+		"3493be7e1e2588bc9c8b31eab2587a04")
+			debug "plutonia.wad has a known checksum (alt version)"
 			;;
 		*)
 			warn "plutonia.wad has an unknown checksum"

@@ -5,7 +5,10 @@ LONGNAME="Final Doom: TNT: Evilution"
 check_for_v19() {
 	case "$CHECKSUM" in
 		"4e158d9953c79ccf97bd0663244cc6b6")
-			debug "tnt.wad checksum is correct"
+			debug "tnt.wad has a known checksum"
+			;;
+		"1d39e405bf6ee3df69a8d2646c8d5c49")
+			debug "tnt.wad has a known checksum (alt version)"
 			;;
 		*)
 			warn "the tnt.wad file has an unknown checksum"
