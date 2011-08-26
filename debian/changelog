@@ -1,3 +1,10 @@
+game-data-packager (30) UNRELEASED; urgency=low
+
+  * Add support for ID Anthology's Final Doom (different
+    sums).  Thanks to Simon Howard.
+
+ -- Jon Dowland <jmtd@debian.org>  Fri, 26 Aug 2011 16:21:41 +0100
+
 game-data-packager (29) unstable; urgency=low
 
   [ Simon McVittie ]
