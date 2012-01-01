@@ -2,10 +2,10 @@ Source: game-data-packager
 Section: contrib/games
 Priority: optional
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
-Uploaders: Simon McVittie <smcv@debian.org>
-Build-Depends: debhelper (>> 7.0.0), fakeroot, m4, libdynamite-dev
+Uploaders: Jon Dowland <jmtd@debian.org>, Simon McVittie <smcv@debian.org>
+Build-Depends: debhelper (>= 8.0.0), fakeroot, m4, libdynamite-dev
 DM-Upload-Allowed: yes
-Standards-Version: 3.9.1
+Standards-Version: 3.9.2
 Vcs-Git: git://git.debian.org/git/pkg-games/game-data-packager
 Vcs-Browser: http://git.debian.org/?p=pkg-games/game-data-packager.git
 Homepage: http://wiki.debian.org/Games/GameDataPackager
@@ -30,4 +30,4 @@ Description: Installer for game data files
  .
  At the moment, game-data-packager has support for building debs
  for Doom games (Doom, Doom 2 and Final Doom); Quake;
- Quake III Arena; Heretic; Rise of the Triad and Wolfenstein 3D.
+ Quake III Arena; Heretic and Rise of the Triad.

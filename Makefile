@@ -7,12 +7,15 @@ default: $(DIRS)
 	make -f doom-common.mk IWAD=doom2 \
 		LONG="Doom 2: Hell on Earth" VERSION=$(VERSION)
 	make -f doom-common.mk IWAD=tnt   \
-		LONG="Final Doom: TNT: Evilution" VERSION=$(VERSION)
+		LONG="Final Doom Episode 1: TNT: Evilution" VERSION=$(VERSION)
 	make -f doom-common.mk IWAD=plutonia \
-		LONG="Final Doom: The Plutonia Experiment" VERSION=$(VERSION)
+		LONG="Final Doom Episode 2: The Plutonia Experiment" VERSION=$(VERSION)
 	make -f doom-common.mk IWAD=heretic VERSION=$(VERSION) \
 		CONTROLIN=heretic/DEBIAN/control.in \
-		LONG="Heretic: Shadow of the Serpent Riders" GAME=heretic
+		LONG="Heretic: Shadow of the Serpent Riders"
+	make -f doom-common.mk IWAD=hexen VERSION=$(VERSION) \
+		CONTROLIN=hexen/DEBIAN/control.in \
+		LONG="Hexen: Beyond Heretic"
 	make -f quake.mk LONG="Quake" VERSION=$(VERSION) PACKAGE=quake-registered \
 		FOLDER=id1
 	make -f quake.mk LONG="Quake shareware" VERSION=$(VERSION) \
@@ -50,7 +53,7 @@ clean:
 	make -f quake3.mk LONG="Quake III Arena" VERSION=$(VERSION) clean
 	make -f rott.mk VERSION=$(VERSION) clean
 	make -f wolf3d.mk VERSION=$(VERSION) clean
-	for d in $(DIRS); do [ ! -d "$$d" ]  || rmdir "$$d"; done
+	for d in $(DIRS); do [ ! -d "$$d" ]  || rm -rf "$$d"; done
 
 check:
 	./t/verify-md5sum-alternatives.sh

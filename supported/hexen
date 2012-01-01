@@ -1,0 +1,18 @@
+SHORTNAME=hexen
+LONGNAME="Hexen: Beyond Heretic"
+
+check_for_v19() {
+	case "$CHECKSUM" in
+		"abb033caf81e26f12a2103e1fa25453f")
+			debug "hexen.wad is a version 1.1 IWAD"
+			;;
+		*)
+			warn "the hexen.wad file is not version 1.1"
+			warn "(or has been modified)"
+			warn "you may have some problems playing some PWADs or demos"
+			;;
+	esac
+
+}
+
+. $LIBDIR/doom-common

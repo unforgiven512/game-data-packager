@@ -1,0 +1,13 @@
+Package: PACKAGE
+Section: non-free/games
+Priority: optional
+Architecture: all
+Recommends: hexen-engine
+Provides: hexen-wad
+Installed-Size: 56
+Version: VERSION
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Description: IWAD from Raven Software's hexen computer game
+ Hexen requires both a hexen-engine and a hexen-wad to play. This package
+ contains the IWAD from ID Software's game "GAME"
+ and was generated using the "game-data-packager" program.
