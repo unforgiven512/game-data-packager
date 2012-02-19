@@ -1,0 +1,110 @@
+# vim:set ft=sh:
+
+SHORTNAME="doom3"
+LONGNAME="Doom 3"
+
+POINTFILE="doom3-linux-1.3.1.1304.x86.run"
+MIRRORFILE="/etc/game-data-packager/doom3-mirrors"
+
+if [ -f "./etc/doom3-mirrors" ]; then
+    MIRRORFILE="./etc/doom3-mirrors"
+fi
+
+doom3_usage() {
+echo "doom3 game arguments:"
+# mount point - the path to the mount point of the CD or ISO containing
+# the doom 3 data files
+printf "\tmount point - Doom 3 CD/ISO mount point\n"
+printf "\t\tset to the path to the Doom 3 CD or ISO mount point\n"
+# RoE mount point - the path to the RoE CD/ISO mount point
+#                   set to the path if mounted separately
+#                   if included in main doom3 mount point, set to 'true'
+#                   if RoE is not desired, set to 'false'
+printf "\tRoE mount point - (optional) Resurrection of Evil mount point\n"
+printf "\t\tset to the path of Doom 3 RoE CD or ISO mount point\n"
+printf "\t\tset to \"true\" if files are combined in the main moint point\n"
+printf "\t\tset to \"false\" if you do not have or want to include RoE\n"
+# point release file - the path to the *.run file downloaded from id's ftp
+#                      omit if you wish to grab it from the 'net
+printf "\tpoint release file - (optional) path to ${POINTFILE}\n"
+printf "\t\tomit this argument if you'd like to grab it from the 'net\n"
+
+
+}
+
+## ARGUMENTS
+# As Doom 3 can be packaged with or without the Resurrection of Evil expansion
+# pack, this creates some complexity in the arguements, and we have to test for
+# multiple conditions accordingly
+#
+## Valid Conditions
+# CDROM - (REQUIRED) path to the Doom 3 data files (CD-ROM, ISO, etc)
+# ROE   - (REQUIRED) path to the Doom 3: Resurrection of Evil data files
+#                    *OR* "true" to indicate the data files are in the same path
+#                    as the main Doom 3 data files
+#                    *OR* "false" to exclude RoE from your package
+# POINT - (optional) path to the point release downloaded from ID's website
+#
+## COMBINATIONS
+# /path/to/d3
+# /path/to/d3 /path/to/roe
+# /path/to/d3 true
+# /path/to/d3 false
+# /path/to/d3 /path/to/roe /path/to/point
+# /path/to/d3 true /path/to/point
+# /path/to/d3 false /path/to/point
+
+parse_args() {
+    if   [ $# -eq 1 ] && [ -f ${MIRRORFILE} ]; then
+        CDROM="$1"
+        ROE="false"
+        POINT="false"
+    elif [ $# -eq 2 ] && [ $2 -ne "true" ] && [ $2 -ne "false" ]; then
+        CDROM="$1"
+        ROE="$2"
+        POINT="false"
+    elif [ $# -eq 2 ] && [ $2 -eq "true" ]; then
+        CDROM="$1"
+        ROE="$1"
+        POINT="false"
+    elif [ $# -eq 2 ] && [ $2 -eq "false"]; then
+        CDROM="$1"
+        ROE="false"
+        POINT="false"
+    elif [ $# -eq 3 ] && [ $2 -ne "true" ] && [ $2 -ne "false" ]; then
+        CDROM="$1"
+        ROE="$2"
+        POINT="$3"
+    elif [ $# -eq 3 ] && [ $2 -eq "true" ]; then
+        CDROM="$1"
+        ROE="$1"
+        POINT="$3"
+    elif [ $# -eq 3 ] && [ $2 -eq "false"]; then
+        CDROM="$1"
+        ROE="false"
+        POINT="$3"
+    else
+        usage >&2
+        doom3_usage >&2
+        exit 1
+    fi
+}
+
+unpack_point() {
+    mkdir "$WORKDIR/unpacked"
+    (
+        cd "$WORKDIR/unpacked"
+        # extract doom3.tar from doom3 point release (doom3-linux-1.3.1.1304.x86.run)
+        dd if=${POINTFILE} ibs=1 obs=1024 skip=8736 |
+            tar zxf -
+    )
+    # now interested in $WORKDIR/unpacked/base/*
+    #                   $WORKDIR/unpacked/bin/Linux/x86/*
+    #                   $WORKDIR/unpacked/d3xp/*
+    #                   $WORKDIR/unpacked/*
+}
+
+DEBBASE="${SHORTNAME}-base_${GAME_PACKAGE_VERSION}_all.deb"
+BASE="/usr/share/games/doom3/base"
+
+DEB="$DATADIR/$DEBBASE"
